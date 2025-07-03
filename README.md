@@ -1,2 +1,1 @@
-will i ever get this done
-probably never
+i actually think i will begin this after i get to backend intermediate

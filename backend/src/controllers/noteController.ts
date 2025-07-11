@@ -6,6 +6,10 @@ export const createNote = async (req: Request, res: Response) => {
     const { content, releaseDate } = req.body;
 
     try {
+        if (new Date(releaseDate) <= new Date()) {
+        return res.status(400).json({ error: "Release date must be in the future." });
+        }
+
         const note = await Note.create({ userId, content, releaseDate });
         res.status(201).json(note);
     } catch (err) {

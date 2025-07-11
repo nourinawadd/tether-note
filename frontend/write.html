@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" class="bg-gray-100">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Write a Note</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="flex flex-col items-center justify-center min-h-screen p-6">
+  <div class="bg-white p-6 rounded shadow-md w-full max-w-md">
+    <h1 class="text-xl font-bold mb-4">✍️ Write to Your Future Self</h1>
+
+    <textarea id="noteContent" rows="5" class="w-full border p-2 mb-4" placeholder="Type your message..."></textarea>
+
+    <label class="block mb-2">Release Date</label>
+    <input id="releaseDate" type="date" class="w-full border p-2 mb-4" min="" />
+
+    <button onclick="createNote()" class="bg-blue-500 text-white px-4 py-2 w-full">Send Note</button>
+  </div>
+
+  <script src="main.js"></script>
+</body>
+</html>

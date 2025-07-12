@@ -8,16 +8,40 @@
 </head>
 <body class="flex flex-col items-center justify-center h-screen">
 
-  <div class="bg-white p-6 rounded shadow-md w-80">
-    <h1 class="text-2xl font-bold mb-4 text-center">Tether Note</h1>
-
-    <input id="username" class="w-full border p-2 mb-2" placeholder="Username" />
-    <input id="password" type="password" class="w-full border p-2 mb-4" placeholder="Password" />
-
-    <button onclick="login()" class="bg-blue-500 text-white px-4 py-2 w-full mb-2">Login</button>
-    <button onclick="register()" class="border border-blue-500 text-blue-500 px-4 py-2 w-full">Register</button>
+ <div class="font-sans">
+    <div class="relative min-h-screen flex flex-col sm:justify-center items-center bg-gray-100 ">
+      <div class="relative sm:max-w-lg w-full">
+        <div class="card bg-blue-400 shadow-lg  w-full h-full rounded-3xl absolute  transform -rotate-6"></div>
+          <div class="card bg-red-400 shadow-lg  w-full h-full rounded-3xl absolute  transform rotate-6"></div>
+            <div class="relative w-full sm:w-[28rem] rounded-3xl px-6 py-4 bg-gray-100 shadow-md">
+              <label for="" class="block mt-3 text-sm text-gray-700 text-center font-semibold">
+                Login
+              </label>
+              <form method="#" action="#" class="mt-10">
+                <div>
+                  <input id="username" type="text" placeholder="Username" class="mt-1 block w-full border-none bg-gray-100 h-11 rounded-xl shadow-lg px-4 py-2 hover:bg-blue-100 focus:bg-blue-100 focus:ring-0">
+                </div>
+                <div class="mt-7">                
+                  <input id="password" type="password" placeholder="Password" class="mt-1 block w-full border-none bg-gray-100 h-11 rounded-xl shadow-lg px-4 py-2 hover:bg-blue-100 focus:bg-blue-100 focus:ring-0">                           
+                </div>          
+                <div class="mt-7">
+                  <button onclick="login()" class="bg-blue-500 w-full py-3 rounded-xl text-white shadow-xl hover:shadow-inner focus:outline-none transition duration-500 ease-in-out  transform hover:-translate-x hover:scale-105">
+                    Login
+                  </button>
+                </div>
+                <div class="mt-7">
+                  <button onclick="register()" class="bg-blue-500 w-full py-3 rounded-xl text-white shadow-xl hover:shadow-inner focus:outline-none transition duration-500 ease-in-out  transform hover:-translate-x hover:scale-105">
+                    Register
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>  
+      </div>
+    </div>
   </div>
-
-  <script src="main.js"></script>
+</div>
+<script src="main.js"></script>
 </body>
 </html>

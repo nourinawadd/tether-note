@@ -1,7 +1,7 @@
 # Tether Note - Send Notes to Your Future Self
 
 ## Overview
-Tether Note is a MERN stack application that allows users to send notes to their future selves. Users can log in, compose notes with scheduled delivery dates, and view upcoming notes that will be delivered soon.
+Tether Note is an application that allows users to send notes to their future selves. Users can log in, compose notes with scheduled delivery dates, and view upcoming notes that will be delivered soon.
 
 ## Features
 - User authentication (login/signup)

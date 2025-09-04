@@ -10,7 +10,7 @@ Tether Note is an application that allows users to send notes to their future se
 - Secure storage of personal notes
 - Clean, intuitive user interface
 
-## Technology Stack
+## Tech Stack
 - **MongoDB**: Database for storing users and notes
 - **Express.js**: Backend framework
 - **React.js**: Frontend library (implied by MERN, though current structure shows HTML/CSS/JS)

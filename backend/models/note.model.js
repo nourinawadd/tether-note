@@ -24,21 +24,29 @@ const noteSchema = new mongoose.Schema({
         required: [true, 'Date to unlock the note is required'],
         validate: {
             validator: function(value) {
-                return value > new Date();
+                if (!this.isNew) return true;
+                return value instanceof Date && value.getTime() > Date.now();
             },
             message: 'Date to unlock the note must be in the future'
         }
+    },
+    openedAt: {
+        type: Date,
+        default: null
     },
 
     reminderAt: {
         type: Date,
         required: false,
         default: function() {
-            return new Date(this.openAt.getTime() - 24 * 60 * 60 * 1000);
+            const reminder = new Date(this.openAt.getTime() - 24 * 60 * 60 * 1000);
+            return reminder > Date.now() ? reminder : null;
         }, // Default to 24 hours before openAt
+
         validate: {
             validator: function(value) {
-                return value < this.openAt;
+                if( !value) return true;
+                return value < this.openAt && value.getTime() > Date.now();
             },
             message: 'Reminder date must be before the open date'
         }
@@ -52,6 +60,9 @@ const noteSchema = new mongoose.Schema({
         index: true
     }
 }, { timestamps: true });
+
+noteSchema.index({ reminderAt: 1, status: 1 });
+noteSchema.index({ openAt: 1, status: 1 });
 
 const Note = mongoose.model('Note', noteSchema);
 

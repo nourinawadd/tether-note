@@ -1,11 +1,9 @@
-import mongoose from 'mongoose';
-import User from '../models/user.model.js';
 import Note from '../models/note.model.js';
 
 export const getNotes = async(req, res, next) => {
     try {
         const notes = await Note
-            .find({ user: req.user._id })
+            .find({ userId: req.user._id })
             .sort({ openAt: 1 });
 
         res.status(200).json({
@@ -23,10 +21,51 @@ export const createNote = async(req, res, next) => {
     try {
         const note = await Note.create({
             ...req.body,
-            user: req.user._id
+            userId: req.user._id
         });
 
         res.status(201).json({
+            success: true,
+            data: note
+        });
+    }
+    catch(e) {
+        next(e);
+    }
+}
+
+export const getNote = async (req, res, next) => {
+    try {
+        const note = await Note.findById(req.params.id);
+        if(!note) {
+            const error = new Error('Note not found.');
+            error.statusCode = 404;
+            throw error;
+        }
+
+        // check if the note belongs to the user
+        if(req.user._id.toString() !== note.userId.toString()) {
+            const error = new Error('Unauthorized to view this note.');
+            error.statusCode = 403;
+            throw error;
+        }
+
+        // check if note can be opened
+        if(note.openAt && note.openAt > new Date()) {
+            const error = new Error('Note not yet unlocked!');
+            error.statusCode = 403;
+            throw error;
+        }
+
+
+        // check if note is deleted
+        if(note.status === 'deleted') {
+            const error = new Error('Note not found.');
+            error.statusCode = 404;
+            throw error;
+        }
+
+        res.status(200).json({
             success: true,
             data: note
         });

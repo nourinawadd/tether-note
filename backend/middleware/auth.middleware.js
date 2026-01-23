@@ -15,8 +15,13 @@ const authorize = async (req, res, next) => {
             throw error;
         }
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        const user = await User.findById(decoded.userId).select('-passwordHash');
-        if(!user) return res.status(401).json({ success: false, message: 'Unauthorized '});
+        const user = await User.findById(decoded.user).select('-passwordHash');
+        
+        if(!user) {
+            const error = new Error('User not found, authorization denied.');
+            error.statusCode = 401;
+            throw error;
+        }
 
         req.user = user;
         next();

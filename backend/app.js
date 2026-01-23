@@ -4,6 +4,7 @@ import authRouter from './routes/auth.routes.js';
 import userRouter from './routes/user.routes.js';
 import noteRouter from './routes/note.routes.js';
 import connectToDatabase from './database/mongodb.js';
+import authorize from './middleware/auth.middleware.js';
 import { connect } from 'mongoose';
 
 const app = express();
@@ -12,8 +13,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use('/auth', authRouter);
-app.use('/user', userRouter);
-app.use('/notes', noteRouter);
+app.use('/user', authorize, userRouter);
+app.use('/notes', authorize, noteRouter);
 
 app.get('/', (req, res) => {
     res.send('WELCOME');

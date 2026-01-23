@@ -33,5 +33,30 @@ export const startReminderService = () => {
         catch(e) {
             console.error('Error in reminder service!');
         }
+    });
+
+    // check every hour for notes to be unlocked
+    cron.schedule('0 * * * *', async () => {
+        console.log('Checking for notes to unlock...');
+        const now = new Date();
+
+        try { 
+            const notesToUnlock = await Note.find({
+                status: 'pending',
+                openAt: { $lte: now }
+            });
+
+            for(const note in notesToUnlock) {
+                const user = await User.findById(note.userId);
+                if(user) {
+                    await sendNoteUnlockedEmail(user.email, user.name, note);
+                    console.log(`Note unlocked + email sent to user ${user.email}`);
+                }
+            }
+            console.log(`Unlocked and sent ${notesToUnlock.length} notes`);
+        }
+        catch(e) {
+            console.error('Error in unlocking notes service, ', e);
+        }
     })
 }

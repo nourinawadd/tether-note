@@ -73,4 +73,11 @@ export const signIn = async(req, res, next) => {
     catch(e) {
         next(e);
     }
-}
+};
+
+export const signOut = (req, res, next) => {
+    res.status(200).json({
+        success: true,
+        message: 'User signed out successfully!'
+    });
+};

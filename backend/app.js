@@ -12,7 +12,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use('/auth', authRouter);
-app.use('/user/', userRouter);
+app.use('/user', userRouter);
 app.use('/notes', noteRouter);
 
 app.get('/', (req, res) => {

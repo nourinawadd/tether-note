@@ -65,6 +65,13 @@ export const getNote = async (req, res, next) => {
             throw error;
         }
 
+        // mark as opened if it's the first time
+        if(note.status === 'pending') {
+            note.status = 'opened';
+            note.openedAt = new Date();
+            await note.save();
+        }
+
         res.status(200).json({
             success: true,
             data: note

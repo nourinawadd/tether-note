@@ -5,7 +5,7 @@ import userRouter from './routes/user.routes.js';
 import noteRouter from './routes/note.routes.js';
 import connectToDatabase from './database/mongodb.js';
 import authorize from './middleware/auth.middleware.js';
-import { connect } from 'mongoose';
+import errorMiddleware from './middleware/error.middleware.js';
 
 const app = express();
 
@@ -19,6 +19,8 @@ app.use('/notes', authorize, noteRouter);
 app.get('/', (req, res) => {
     res.send('WELCOME');
 })
+
+app.use(errorMiddleware);
 
 app.listen(process.env.PORT, async () => {
     console.log(`Server is running on port ${process.env.PORT}`);

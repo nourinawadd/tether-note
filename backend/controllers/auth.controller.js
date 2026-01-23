@@ -39,4 +39,38 @@ export const signUp = async(req, res, next) => {
         session.endSession();
         next(e);
     }
+};
+
+export const signIn = async(req, res, next) => {
+    try {
+        const { email, password } = req.body;
+        const user = await User.findOne({ email });
+
+        if (!user) {
+            const error = new Error('User does not exist, please sign up.');
+            error.status = 401;
+            throw error;
+        }
+
+        const isMatch = await user.comparePassword(password);
+        if(!isMatch) {
+            const error = new Error('Invalid credentials, please try again.');
+            error.status = 401;
+            throw error;
+        };
+
+        const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRES_IN });
+
+        res.status(200).json({
+            success: true,
+            message: 'User signed in successfully!',
+            data: {
+                token,
+                user
+            }
+        });
+    }
+    catch(e) {
+        next(e);
+    }
 }

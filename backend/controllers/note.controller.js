@@ -3,7 +3,7 @@ import Note from '../models/note.model.js';
 export const getNotes = async(req, res, next) => {
     try {
         const notes = await Note
-            .find({ userId: req.user._id })
+            .find({ userId: req.user._id, status: { $ne: 'deleted' }})
             .sort({ openAt: 1 });
 
         res.status(200).json({
@@ -68,6 +68,43 @@ export const getNote = async (req, res, next) => {
         res.status(200).json({
             success: true,
             data: note
+        });
+    }
+    catch(e) {
+        next(e);
+    }
+}
+
+export const deleteNote = async (req, res, next) => {
+    try {
+        const note = await Note.findById(req.params.id);
+
+        if(!note) {
+            const error = new Error('Note not found.');
+            error.statusCode = 404;
+            throw error;
+        }
+
+        // check if the note belongs to the user
+        if(req.user._id.toString() !== note.userId.toString()) {
+            const error = new Error('Unauthorized to delete this note.');
+            error.statusCode = 403;
+            throw error;
+        }
+
+        // check if note is already deleted
+        if(note.status === 'deleted') {
+            const error = new Error('Note already deleted!');
+            error.statusCode = 410;
+            throw error;
+        }
+
+        note.status = 'deleted';
+        await note.save();
+
+        res.status(204).json({
+            success: true,
+            message: 'Note deleted successfully.'
         });
     }
     catch(e) {

@@ -1,0 +1,20 @@
+import mongoose from 'mongoose';
+import User from '../models/user.model.js';
+import Note from '../models/note.model.js';
+
+export const getNotes = async(req, res, next) => {
+    try {
+        const notes = await Note
+            .find({ user: req.user._id })
+            .sort({ openAt: 1 });
+
+        res.status(200).json({
+            success: true,
+            count: notes.length,
+            data: notes
+        });
+    }
+    catch(e) {
+        next(e);
+    }
+}

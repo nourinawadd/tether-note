@@ -18,3 +18,20 @@ export const getNotes = async(req, res, next) => {
         next(e);
     }
 }
+
+export const createNote = async(req, res, next) => {
+    try {
+        const note = await Note.create({
+            ...req.body,
+            user: req.user._id
+        });
+
+        res.status(201).json({
+            success: true,
+            data: note
+        });
+    }
+    catch(e) {
+        next(e);
+    }
+}

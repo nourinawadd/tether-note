@@ -1,13 +1,10 @@
 import { Router } from 'express';
-import { getNotes } from '../controllers/note.controller';
+import { createNote, getNotes } from '../controllers/note.controller.js';
 
 const noteRouter = Router();
 
 noteRouter.get('/', getNotes);
-
-noteRouter.post('/', (req, res) => {
-    res.send({title: 'POST new note'});
-});
+noteRouter.post('/', createNote);
 
 noteRouter.get('/:id', (req, res) => {
     res.send({title: 'GET note'});

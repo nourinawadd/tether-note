@@ -58,6 +58,10 @@ const noteSchema = new mongoose.Schema({
         ref: 'User',
         required: true,
         index: true
+    },
+    unlockEmailSent: {
+        type: Boolean,
+        default: false
     }
 }, { timestamps: true });
 

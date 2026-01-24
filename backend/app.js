@@ -6,6 +6,7 @@ import noteRouter from './routes/note.routes.js';
 import connectToDatabase from './database/mongodb.js';
 import authorize from './middleware/auth.middleware.js';
 import errorMiddleware from './middleware/error.middleware.js';
+import { startReminderService } from './services/reminder.service.js';
 
 const app = express();
 
@@ -25,6 +26,7 @@ app.use(errorMiddleware);
 app.listen(process.env.PORT, async () => {
     console.log(`Server is running on port ${process.env.PORT}`);
     await connectToDatabase();
+    startReminderService();
 });
 
 export default app;

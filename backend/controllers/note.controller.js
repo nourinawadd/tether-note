@@ -6,10 +6,21 @@ export const getNotes = async(req, res, next) => {
             .find({ userId: req.user._id, status: { $ne: 'deleted' }})
             .sort({ openAt: 1 });
 
+        // seperate notes by states
+        const now = new Date();
+        const locked = notes.filter(note => note.status === 'pending' && note.openAt > now);
+        const unlocked = notes.filter(note => note.status === 'pending' && note.openAt <= now);
+        const opened = notes.filter(note => note.status === 'opened');
+
         res.status(200).json({
             success: true,
             count: notes.length,
-            data: notes
+            data: {
+                locked,
+                unlocked,
+                opened,
+                all: notes
+            }
         });
     }
     catch(e) {

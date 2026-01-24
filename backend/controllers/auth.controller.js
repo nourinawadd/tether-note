@@ -20,7 +20,7 @@ export const signUp = async(req, res, next) => {
 
         const newUsers = await User.create([{ name, email, passwordHash: password }], { session });
 
-        const token = jwt.sign({userId: newUsers[0]._id}, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRES_IN});
+        const token = jwt.sign({user: newUsers[0]._id}, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRES_IN});
 
         await session.commitTransaction();
         session.endSession();
@@ -59,7 +59,7 @@ export const signIn = async(req, res, next) => {
             throw error;
         };
 
-        const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRES_IN });
+        const token = jwt.sign({ user: user._id }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRES_IN });
 
         res.status(200).json({
             success: true,

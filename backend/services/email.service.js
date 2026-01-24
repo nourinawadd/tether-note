@@ -43,7 +43,7 @@ export const sendNoteUnlockedEmail = async (userEmail, userName, note) => {
             <p>Your note "<strong>${note.title}</strong>" is now unlocked and ready to read!</p>
             <p><a href="${process.env.FRONTEND_URL}/notes/${note._id}">Click here to read it</a></p>
             <br>
-            <p>Best regards,<br>Tether Note</p>
+            <p>Best regards,<br>Tether Note Inc.</p>
         `
     };
 

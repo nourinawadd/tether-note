@@ -2,7 +2,6 @@ import 'dotenv/config.js'
 import mongoose from 'mongoose';
 import User from '../models/user.model.js';
 import jwt from 'jsonwebtoken';
-import bcrypt from 'bcryptjs';
 
 export const signUp = async(req, res, next) => {
     const session = await mongoose.startSession();

@@ -17,9 +17,45 @@ app.use('/auth', authRouter);
 app.use('/user', authorize, userRouter);
 app.use('/notes', authorize, noteRouter);
 
-app.get('/', (req, res) => {
-    res.send('WELCOME');
+// health check
+app.get('/health', (req, res) => {
+    res.status(200).json({
+        success: true,
+        message: 'Server is healthy',
+        timestamp: new Date().toISOString(),
+        uptime: process.uptime(),
+        environment: process.env.NODE_ENV
+    });
 })
+
+// root endpoint - api information
+app.get('/', (req, res) => {
+    res.status(200).json({
+        success: true,
+        message: 'Welcome to Tether Note\'s API',
+        endpoints: {
+            auth: {
+                signUp: 'POST /auth/sign-up',
+                signIn: 'POST /auth/sign-in',
+                signOut: 'POST /auth/sign-out'
+            },
+            users: {
+                getUser: 'GET /user/:id (requires auth)'
+            },
+            notes: {
+                getAllNotes: 'GET /notes (requires auth)',
+                createNote: 'POST /notes (requires auth)',
+                getNote: 'GET /notes/:id (requires auth)',
+                deleteNote: 'DELETE /notes/:id (requires auth)'
+            },
+            system: {
+                health: 'GET /health'
+            }
+        }
+    })
+});
+
+
 
 app.use(errorMiddleware);
 

@@ -9,8 +9,10 @@
 
 .dashboard-container {
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
   background:
-    linear-gradient(rgba(253, 251, 247, 0.35), rgba(253, 251, 247, 0.35)),
+    linear-gradient(rgba(253, 251, 247, 0.55), rgba(253, 251, 247, 0.55)),
     url("/assets/images/nature-background.jpg");
   background-size: cover;
   background-position: center;
@@ -106,6 +108,7 @@
   flex: 1;
   display: flex;
   flex-direction: column;
+  min-height: 0;
 }
 
 .create-section {
@@ -117,6 +120,9 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1.5rem;
+  flex: 1;
+  min-height: 0;
+  align-items: stretch;
 }
 
 .notes-section {
@@ -125,7 +131,10 @@
   padding: 1.5rem;
   box-shadow: 0 8px 24px rgba(44, 44, 44, 0.08);
   border: 1px solid rgba(107, 127, 92, 0.12);
-  min-height: 500px;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 .section-header {
@@ -167,6 +176,7 @@
   text-transform: uppercase;
   color: rgba(44, 44, 44, 0.7);
   padding: 1.5rem 0 2rem;
+  margin-top: auto;
 }
 
 /* ===== RESPONSIVE ===== */

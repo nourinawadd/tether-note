@@ -86,13 +86,22 @@ function NoteCard({ note, type, onClick }) {
         {type === "locked" ? (
           <div className="envelope closed" style={{ background: envelopeColor }}>
             <div className="envelope-flap"></div>
-            <div className="lock-icon">🔒</div>
+            <div className="status-icon locked" aria-hidden="true">
+              <svg viewBox="0 0 24 24" role="img" focusable="false">
+                <path d="M17 9V7a5 5 0 0 0-10 0v2H5v11h14V9h-2Zm-8-2a3 3 0 0 1 6 0v2H9V7Zm8 11H7v-7h10v7Zm-5-2a1.5 1.5 0 1 0-1.4-2h2.8A1.5 1.5 0 0 0 12 16Z" />
+              </svg>
+            </div>
           </div>
         ) : (
           <div className="envelope open">
             <div className="envelope-body" style={{ background: envelopeColor }}></div>
             <div className="letter-peek">
               <div className="letter-lines"></div>
+            </div>
+            <div className="status-icon unlocked" aria-hidden="true">
+              <svg viewBox="0 0 24 24" role="img" focusable="false">
+                <path d="M12 3a5 5 0 0 0-5 5v2H5v11h14V10h-8V8a3 3 0 0 1 6 0h2a5 5 0 0 0-5-5Zm5 16H7v-7h10v7Zm-5-2a1.5 1.5 0 1 0-1.4-2h2.8A1.5 1.5 0 0 0 12 17Z" />
+              </svg>
             </div>
           </div>
         )}

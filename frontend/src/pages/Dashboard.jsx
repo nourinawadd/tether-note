@@ -95,7 +95,11 @@ export default function Dashboard() {
           {/* Locked Notes (Waiting) */}
           <div className="notes-section">
             <div className="section-header">
-              <div className="header-icon">⏳</div>
+              <div className="header-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" role="img" focusable="false">
+                  <path d="M6 2h12v4h-2V4H8v2H6V2Zm0 20v-4h2v2h8v-2h2v4H6Zm6-16a7 7 0 1 1 0 14a7 7 0 0 1 0-14Zm0 2a5 5 0 1 0 0 10a5 5 0 0 0 0-10Zm-.75 1.5h1.5v4.25l2.75 1.6-.75 1.3L11.25 15V9.5Z" />
+                </svg>
+              </div>
               <h2>Notes waiting...</h2>
             </div>
             <NotesList
@@ -109,7 +113,11 @@ export default function Dashboard() {
           {/* Unlocked Notes */}
           <div className="notes-section">
             <div className="section-header">
-              <div className="header-icon">🔓</div>
+              <div className="header-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" role="img" focusable="false">
+                  <path d="M12 3a5 5 0 0 0-5 5v2H5v11h14V10h-8V8a3 3 0 0 1 6 0h2a5 5 0 0 0-5-5Zm5 16H7v-7h10v7Zm-5-2a1.5 1.5 0 1 0-1.4-2h2.8A1.5 1.5 0 0 0 12 17Z" />
+                </svg>
+              </div>
               <h2>Unlocked Notes</h2>
             </div>
             <NotesList
@@ -121,6 +129,7 @@ export default function Dashboard() {
           </div>
         </section>
       </main>
+      <footer className="dashboard-footer">Tether Note™</footer>
     </div>
   );
 }

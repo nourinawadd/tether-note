@@ -134,7 +134,18 @@
 }
 
 .header-icon {
-  font-size: 2rem;
+  width: 28px;
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--deep-green);
+}
+
+.header-icon svg {
+  width: 100%;
+  height: 100%;
+  fill: currentColor;
 }
 
 .section-header h2 {
@@ -143,6 +154,15 @@
   color: var(--charcoal);
   margin: 0;
   font-weight: 600;
+}
+
+.dashboard-footer {
+  text-align: center;
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(44, 44, 44, 0.7);
+  padding: 1.5rem 0 2rem;
 }
 
 /* ===== RESPONSIVE ===== */

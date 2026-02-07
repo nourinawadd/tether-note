@@ -1,13 +1,12 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Auth from "./pages/Auth";
+import { Routes, Route, Navigate } from "react-router-dom";
+import AuthPage from "./components/auth/AuthPage";
 
 export default function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Auth />} />
-        <Route path="/dashboard" element={<div>Dashboard</div>} />
-      </Routes>
-    </BrowserRouter>
+    <Routes>
+      <Route path="/signup" element={<AuthPage defaultMode="signup" />} />
+      <Route path="/signin" element={<AuthPage defaultMode="signin" />} />
+      <Route path="/" element={<Navigate to="/signin" />} />
+    </Routes>
   );
 }

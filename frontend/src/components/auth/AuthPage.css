@@ -261,7 +261,7 @@
 
         .error-message.show {
             display: block;
-            animation: shake 0.3s ease-out;
+            /* animation: shake 0.3s ease-out; */
         }
 
         /* Animations */
@@ -339,3 +339,15 @@
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
+
+        .auth-context {
+  text-align: center;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.75);
+  margin-bottom: 0.75rem;
+  transition: opacity 0.25s ease;
+}

@@ -2,23 +2,28 @@ import { useEffect, useState } from "react";
 import "./AuthPage.css";
 import "../../styles/main.css";
 import "../../styles/auth.css";
+import { useNavigate } from "react-router-dom";
 
-const API_BASE_URL = "http://localhost:3000";
+const API_BASE_URL = "http://localhost:5500";
 
-export default function AuthPage() {
+export default function AuthPage({ defaultMode = "signup" }) {
+  
   const [animated, setAnimated] = useState(false);
-  const [activeForm, setActiveForm] = useState("signup");
+  const [activeForm, setActiveForm] = useState(defaultMode);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const navigate = useNavigate();
+
 
   // === trigger hero + auth animation ===
   useEffect(() => {
     const timer = setTimeout(() => {
       setAnimated(true);
     }, 2500);
+    setActiveForm(defaultMode);
 
     return () => clearTimeout(timer);
-  }, []);
+  }, [defaultMode]);
 
   async function handleSignup(e) {
     e.preventDefault();
@@ -94,20 +99,26 @@ export default function AuthPage() {
       {/* AUTH */}
       <div className={`auth-section ${animated ? "animated" : ""}`}>
         <div className={`auth-container ${animated ? "visible" : ""}`}>
+        <p className="auth-context">
+          {activeForm === "signup" ? "First time?" : "Welcome back!"}
+        </p>
           <div className="auth-toggle">
-            <button
-              className={`toggle-btn ${activeForm === "signup" ? "active" : ""}`}
-              onClick={() => setActiveForm("signup")}
-            >
-              Sign Up
-            </button>
-            <button
-              className={`toggle-btn ${activeForm === "signin" ? "active" : ""}`}
-              onClick={() => setActiveForm("signin")}
-            >
-              Sign In
-            </button>
-          </div>
+          <button
+            className={`toggle-btn ${activeForm === "signup" ? "active" : ""}`}
+            onClick={() => navigate("/signup")}
+            type="button"
+          >
+            Sign Up
+          </button>
+
+          <button
+            className={`toggle-btn ${activeForm === "signin" ? "active" : ""}`}
+            onClick={() => navigate("/signin")}
+            type="button"
+          >
+            Sign In
+          </button>
+        </div>
 
           {/* SIGN UP */}
           <form

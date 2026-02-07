@@ -85,7 +85,7 @@ export default function AuthPage() {
       <div className={`hero-section ${animated ? "animated" : ""}`}>
         <div className="hero-content">
           <h1 className="brand-title">
-            Tether Note<span style={{ opacity: 0.7 }}>*</span>
+            Tether Note*
           </h1>
           <p className="brand-subtitle">Messages to Your Future Self</p>
         </div>

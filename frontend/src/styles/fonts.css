@@ -1,0 +1,28 @@
+/* 
+ * Custom Font Setup for Tether Note
+ * RL Madena Font Configuration
+ */
+
+@font-face {
+  font-family: 'RL Madena';
+  src: url('/assets/fonts/RL-Madena.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'RL Madena';
+  src: url('/assets/fonts/RL-Madena-Oblique.otf') format('opentype');
+  font-weight: normal;
+  font-style: oblique;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'RL Madena';
+  src: url('/assets/fonts/RL Madena Variable.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}

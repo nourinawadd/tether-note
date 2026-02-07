@@ -27,14 +27,44 @@
 /* ===== FOLDER BADGE ===== */
 .folder-badge {
   position: relative;
-  width: 70px;
-  height: 54px;
+  width: 72px;
+  height: 56px;
   flex-shrink: 0;
 }
 
-.folder-icon {
+.folder-shell {
   position: absolute;
   inset: 0;
+  z-index: 2;
+}
+
+.folder-tab {
+  position: absolute;
+  top: 0;
+  left: 8px;
+  width: 34px;
+  height: 16px;
+  background: #d3b89c;
+  border-radius: 6px 6px 0 0;
+  box-shadow: 0 4px 10px rgba(44, 44, 44, 0.12);
+}
+
+.folder-body {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 42px;
+  background: #c7a88f;
+  border-radius: 10px;
+  box-shadow: 0 8px 16px rgba(44, 44, 44, 0.16);
+  border: 1px solid rgba(74, 90, 62, 0.15);
+}
+
+.folder-images {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -45,30 +75,15 @@
   z-index: 2;
 }
 
-.folder-icon svg {
-  width: 36px;
-  height: 36px;
-  fill: var(--deep-green);
-}
-
-.folder-images {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 .folder-image {
   position: absolute;
   width: 36px;
   height: 36px;
-  border-radius: 12px;
+  border-radius: 10px;
   object-fit: cover;
   border: 2px solid white;
   box-shadow: 0 6px 14px rgba(44, 44, 44, 0.18);
-  transform: translateY(8px) scale(0.9);
+  transform: translateY(6px) scale(0.92);
   opacity: 0.85;
   transition: transform 0.35s ease, opacity 0.35s ease;
 }
@@ -78,15 +93,15 @@
 }
 
 .write-note-btn:hover .folder-image:nth-child(1) {
-  transform: translate(-20px, -16px) rotate(-8deg);
+  transform: translate(-18px, -18px) rotate(-8deg);
 }
 
 .write-note-btn:hover .folder-image:nth-child(2) {
-  transform: translate(0, -24px) rotate(0deg);
+  transform: translate(0, -26px) rotate(0deg);
 }
 
 .write-note-btn:hover .folder-image:nth-child(3) {
-  transform: translate(20px, -14px) rotate(8deg);
+  transform: translate(20px, -16px) rotate(8deg);
 }
 
 /* ===== BUTTON TEXT ===== */
@@ -127,18 +142,13 @@
   }
 
   .folder-badge {
-    width: 60px;
-    height: 48px;
-  }
-
-  .folder-icon svg {
-    width: 30px;
-    height: 30px;
+    width: 62px;
+    height: 50px;
   }
 
   .folder-image {
-    width: 30px;
-    height: 30px;
+    width: 32px;
+    height: 32px;
   }
 
   .btn-text {
@@ -153,5 +163,19 @@
 
   .btn-text {
     font-size: 1rem;
+  }
+
+  .images-badge-wrapper {
+    width: 50px;
+    height: 50px;
+  }
+
+  .stacked-page {
+    width: 40px;
+    height: 50px;
+  }
+
+  .page-emoji {
+    font-size: 1.4rem;
   }
 }

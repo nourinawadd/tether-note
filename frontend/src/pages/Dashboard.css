@@ -10,7 +10,7 @@
 .dashboard-container {
   min-height: 100vh;
   background:
-    linear-gradient(rgba(253, 251, 247, 0.55), rgba(253, 251, 247, 0.55)),
+    linear-gradient(rgba(253, 251, 247, 0.35), rgba(253, 251, 247, 0.35)),
     url("/assets/images/nature-background.jpg");
   background-size: cover;
   background-position: center;
@@ -121,7 +121,7 @@
   padding: 1.5rem;
   box-shadow: 0 8px 24px rgba(44, 44, 44, 0.08);
   border: 1px solid rgba(107, 127, 92, 0.12);
-  min-height: 600px;
+  min-height: 500px;
 }
 
 .section-header {

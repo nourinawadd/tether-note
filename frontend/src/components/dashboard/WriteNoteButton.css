@@ -2,12 +2,12 @@
   background: rgba(255, 255, 255, 0.92);
   border: 1px solid rgba(107, 127, 92, 0.2);
   border-radius: 12px;
-  padding: 1.05rem 1.5rem;
+  padding: 1.5rem 2rem;
   cursor: pointer;
   transition: all 0.3s ease;
   width: 100%;
-  max-width: 520px;
-  box-shadow: 0 8px 18px rgba(44, 44, 44, 0.1);
+  max-width: 550px;
+  box-shadow: 0 8px 20px rgba(44, 44, 44, 0.1);
   position: relative;
   overflow: visible;
 }
@@ -158,5 +158,19 @@
 
   .btn-text {
     font-size: 1rem;
+  }
+
+  .images-badge-wrapper {
+    width: 50px;
+    height: 50px;
+  }
+
+  .stacked-page {
+    width: 40px;
+    height: 50px;
+  }
+
+  .page-emoji {
+    font-size: 1.4rem;
   }
 }

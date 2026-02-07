@@ -1,0 +1,66 @@
+.create-note-container {
+  min-height: 100vh;
+  background: var(--warm-white);
+  padding: 2rem;
+}
+
+.create-note-header {
+  max-width: 800px;
+  margin: 0 auto 2rem;
+}
+
+.back-btn {
+  background: white;
+  border: 2px solid var(--cream);
+  border-radius: 10px;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--charcoal);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-bottom: 1rem;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.back-btn:hover {
+  background: var(--earth-green);
+  color: white;
+  border-color: var(--earth-green);
+}
+
+.create-note-header h1 {
+  font-family: 'RL Madena', 'Crimson Text', serif;
+  font-size: 2.5rem;
+  color: var(--charcoal);
+  margin: 0;
+}
+
+.create-note-content {
+  max-width: 800px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 20px;
+  padding: 3rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  text-align: center;
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.placeholder-text {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--charcoal);
+  margin: 0 0 1rem 0;
+}
+
+.placeholder-subtext {
+  font-size: 1rem;
+  color: #666;
+  max-width: 500px;
+  line-height: 1.6;
+}

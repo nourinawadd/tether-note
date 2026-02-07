@@ -1,20 +1,20 @@
 .write-note-btn {
-  background: white;
-  border: 2px solid var(--cream);
-  border-radius: 16px;
-  padding: 2rem 2.5rem;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(107, 127, 92, 0.2);
+  border-radius: 12px;
+  padding: 1.5rem 2rem;
   cursor: pointer;
   transition: all 0.3s ease;
   width: 100%;
   max-width: 550px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 8px 20px rgba(44, 44, 44, 0.1);
   position: relative;
   overflow: visible;
 }
 
 .write-note-btn:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px rgba(44, 44, 44, 0.14);
   border-color: var(--earth-green);
 }
 
@@ -88,7 +88,7 @@
   font-weight: 500;
   color: var(--charcoal);
   text-align: left;
-  font-family: 'DM Sans', sans-serif;
+  font-family: 'RL Madena', 'Crimson Text', serif;
 }
 
 .prompt-text {

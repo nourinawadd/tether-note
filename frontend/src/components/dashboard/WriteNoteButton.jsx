@@ -1,4 +1,5 @@
 import "./WriteNoteButton.css";
+import ImagesBadge from "../ui/ImagesBadge";
 
 export default function WriteNoteButton({ promptText, onClick }) {
   const badgeImages = [

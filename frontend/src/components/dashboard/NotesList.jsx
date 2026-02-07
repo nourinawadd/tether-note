@@ -54,7 +54,7 @@ function NoteCard({ note, type, onClick }) {
     "#D4C5B9",
   ];
 
-  const envelopeColor = colors[Math.floor(Math.random() * colors.length)];
+  const envelopeColor = colors[getColorIndex(note._id, colors.length)];
 
   const formatDate = (date) => {
     const d = new Date(date);
@@ -125,4 +125,18 @@ function NoteCard({ note, type, onClick }) {
       </div>
     </div>
   );
+}
+
+function getColorIndex(id, length) {
+  if (!id) {
+    return 0;
+  }
+
+  let hash = 0;
+  for (let i = 0; i < id.length; i += 1) {
+    hash = (hash << 5) - hash + id.charCodeAt(i);
+    hash |= 0;
+  }
+
+  return Math.abs(hash) % length;
 }

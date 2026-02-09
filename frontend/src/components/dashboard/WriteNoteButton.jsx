@@ -5,7 +5,6 @@ export default function WriteNoteButton({ promptText, onClick }) {
   const badgeImages = [
     "https://assets.aceternity.com/pro/agenforce-1.webp",
     "https://assets.aceternity.com/pro/agenforce-2.webp",
-    "https://assets.aceternity.com/pro/agenforce-3.webp",
   ];
 
   return (

@@ -46,8 +46,8 @@
 }
 
 .folder-icon svg {
-  width: 36px;
-  height: 36px;
+  width: 52px;
+  height: 52px;
   fill: var(--deep-green);
   filter: drop-shadow(0 6px 10px rgba(20, 32, 16, 0.2));
 }
@@ -65,12 +65,12 @@
 .folder-image {
   position: absolute;
   width: 42px;
-  height: 42px;
-  border-radius: 12px;
+  height: 36px;
+  border-radius: 9px;
   object-fit: cover;
   border: 2px solid rgba(255, 255, 255, 0.9);
   box-shadow: 0 6px 14px rgba(44, 44, 44, 0.18);
-  transform: translateY(10px) scale(0.88);
+  transform: translateY(10px) scale(0.4);
   opacity: 0.75;
   transition: transform 0.35s ease, opacity 0.35s ease, box-shadow 0.35s ease;
 }
@@ -91,7 +91,7 @@
 
 /* ===== BUTTON TEXT ===== */
 .btn-text {
-  font-size: 1.35rem;
+  font-size: 1.55rem;
   font-weight: 500;
   color: var(--charcoal);
   text-align: left;
@@ -132,8 +132,8 @@
   }
 
   .folder-icon svg {
-    width: 30px;
-    height: 30px;
+    width: 42px;
+    height: 42px;
   }
 
   .folder-image {

@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "./Dashboard.css";
 import WriteNoteButton from "../components/dashboard/WriteNoteButton";
 import NotesList from "../components/dashboard/NotesList";
+import CreateNote from "./CreateNote";
 
 const promptIdeas = [
   "Birthday Letter",
@@ -19,6 +20,7 @@ export default function Dashboard() {
   const [currentPrompt, setCurrentPrompt] = useState(0);
   const [notes, setNotes] = useState({ locked: [], unlocked: [], opened: [] });
   const [loading, setLoading] = useState(true);
+  const [showCreateNote, setShowCreateNote] = useState(false);
   const navigate = useNavigate();
 
   // Rotate prompts every 3 seconds
@@ -54,7 +56,7 @@ export default function Dashboard() {
   };
 
   const handleCreateNote = () => {
-    navigate("/create-note");
+    setShowCreateNote(true);
   };
 
   const handleNoteClick = (noteId) => {
@@ -130,6 +132,13 @@ export default function Dashboard() {
         </section>
       </main>
       <footer className="dashboard-footer">Tether Note™</footer>
+      {showCreateNote ? (
+        <CreateNote
+          onClose={() => setShowCreateNote(false)}
+          onCreated={fetchNotes}
+        />
+      ) : null}
+
     </div>
   );
 }

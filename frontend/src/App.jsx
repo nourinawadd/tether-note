@@ -1,7 +1,6 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import AuthPage from "./components/auth/AuthPage";
 import Dashboard from "./pages/Dashboard";
-import CreateNote from "./pages/CreateNote";
 import Profile from "./pages/Profile";
 
 export default function App() {
@@ -10,7 +9,7 @@ export default function App() {
       <Route path="/signup" element={<AuthPage defaultMode="signup" />} />
       <Route path="/signin" element={<AuthPage defaultMode="signin" />} />
       <Route path="/dashboard" element={<Dashboard />} />
-      <Route path="/create-note" element={<CreateNote />} />
+      <Route path="/create-note" element={<Navigate to="/dashboard" replace />} />
       <Route path="/profile" element={<Profile />} />
       <Route path="/" element={<Navigate to="/signin" />} />
     </Routes>

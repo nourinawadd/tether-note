@@ -14,7 +14,7 @@ export const signUp = async(req, res, next) => {
         const existingUser = await User.findOne({ email: normalizedEmail });
         if(existingUser) {
             const error = new Error('User already exists with this email.');
-            error.status = 409;
+            error.statusCode = 409;
             throw error;
         };
 
@@ -52,14 +52,14 @@ export const signIn = async(req, res, next) => {
 
         if (!user) {
             const error = new Error('User does not exist, please sign up.');
-            error.status = 401;
+            error.statusCode = 401;
             throw error;
         }
 
         const isMatch = await user.comparePassword(password);
         if(!isMatch) {
             const error = new Error('Invalid credentials, please try again.');
-            error.status = 401;
+            error.statusCode = 401;
             throw error;
         };
 

@@ -1,8 +1,7 @@
 import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Profile.css";
-
-const API_BASE_URL = "http://localhost:5500";
+import { updateProfile } from "../api/auth.api";
 
 const EMPTY_FORM = {
   name: "",
@@ -128,27 +127,14 @@ export default function Profile() {
         confirmNewPassword: formData.confirmNewPassword || undefined,
       };
 
-      const response = await fetch(`${API_BASE_URL}/user`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(payload),
-      });
+      const updatedUser = await updateProfile(token, payload);
 
-      const result = await response.json();
-
-      if (!response.ok || !result.success) {
-        throw new Error(result.message || "Unable to update profile.");
-      }
-
-      localStorage.setItem("tetherUser", JSON.stringify(result.data));
-      setCurrentUser(result.data);
+      localStorage.setItem("tetherUser", JSON.stringify(updatedUser));
+      setCurrentUser(updatedUser);
       setFormData({
         ...EMPTY_FORM,
-        name: result.data.name,
-        email: result.data.email,
+        name: updatedUser.name,
+        email: updatedUser.email,
       });
       setFeedback({ type: "success", message: "Profile updated successfully." });
       setIsEditing(false);

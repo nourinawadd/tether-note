@@ -46,8 +46,8 @@
 }
 
 .folder-icon svg {
-  width: 36px;
-  height: 36px;
+  width: 52px;
+  height: 52px;
   fill: var(--deep-green);
   filter: drop-shadow(0 6px 10px rgba(20, 32, 16, 0.2));
 }
@@ -91,7 +91,7 @@
 
 /* ===== BUTTON TEXT ===== */
 .btn-text {
-  font-size: 1.35rem;
+  font-size: 1.55rem;
   font-weight: 500;
   color: var(--charcoal);
   text-align: left;
@@ -132,8 +132,8 @@
   }
 
   .folder-icon svg {
-    width: 30px;
-    height: 30px;
+    width: 42px;
+    height: 42px;
   }
 
   .folder-image {

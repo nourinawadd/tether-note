@@ -40,7 +40,8 @@ app.get('/', (req, res) => {
                 signOut: 'POST /auth/sign-out'
             },
             users: {
-                getUser: 'GET /user/:id (requires auth)'
+                getUser: 'GET /user (requires auth)',
+                updateUser: 'PUT /user (requires auth)'
             },
             notes: {
                 getAllNotes: 'GET /notes (requires auth)',

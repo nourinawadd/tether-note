@@ -1,66 +1,155 @@
-.create-note-container {
-  min-height: 100vh;
-  background: var(--warm-white);
-  padding: 2rem;
-}
-
-.create-note-header {
-  max-width: 800px;
-  margin: 0 auto 2rem;
-}
-
-.back-btn {
-  background: white;
-  border: 2px solid var(--cream);
-  border-radius: 10px;
-  padding: 0.75rem 1.5rem;
-  font-size: 1rem;
-  font-weight: 500;
-  color: var(--charcoal);
-  cursor: pointer;
-  transition: all 0.3s ease;
-  margin-bottom: 1rem;
-  font-family: 'DM Sans', sans-serif;
-}
-
-.back-btn:hover {
-  background: var(--earth-green);
-  color: white;
-  border-color: var(--earth-green);
-}
-
-.create-note-header h1 {
-  font-family: 'RL Madena', 'Crimson Text', serif;
-  font-size: 2.5rem;
-  color: var(--charcoal);
-  margin: 0;
-}
-
-.create-note-content {
-  max-width: 800px;
-  margin: 0 auto;
-  background: white;
-  border-radius: 20px;
-  padding: 3rem;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  text-align: center;
-  min-height: 400px;
+.create-note-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  background: rgba(29, 36, 24, 0.52);
+  backdrop-filter: blur(2px);
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding: 1.2rem;
 }
 
-.placeholder-text {
-  font-size: 1.5rem;
-  font-weight: 600;
+.letter-form-popup {
+  position: relative;
+  width: min(820px, 96vw);
+}
+
+.close-note-btn {
+  position: absolute;
+  top: -0.55rem;
+  right: -0.55rem;
+  border: none;
+  background: rgba(255, 255, 255, 0.95);
   color: var(--charcoal);
-  margin: 0 0 1rem 0;
+  border-radius: 999px;
+  width: 34px;
+  height: 34px;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 0 8px 16px rgba(35, 43, 28, 0.2);
 }
 
-.placeholder-subtext {
+.letter-form {
+  width: 100%;
+  background: rgba(255, 252, 246, 0.97);
+  border-radius: 26px;
+  border: 1px solid rgba(116, 95, 67, 0.18);
+  box-shadow: 0 24px 48px rgba(60, 44, 27, 0.25);
+  padding: 2rem 2rem 1.7rem;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.letter-form h1 {
+  margin: 0;
+  font-family: "RL Madena", "Crimson Text", serif;
+  font-size: clamp(1.7rem, 3vw, 2.3rem);
+  color: var(--charcoal);
+}
+
+.form-subtitle {
+  margin: 0 0 0.6rem;
+  color: rgba(58, 58, 58, 0.82);
+  font-size: 0.98rem;
+}
+
+.letter-form label {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: rgba(55, 49, 42, 0.9);
+}
+
+.letter-form input,
+.letter-form textarea {
+  width: 100%;
+  border: 1px solid rgba(117, 102, 81, 0.25);
+  background: rgba(255, 255, 255, 0.88);
+  border-radius: 11px;
+  padding: 0.72rem 0.82rem;
+  font-family: "DM Sans", sans-serif;
+  color: var(--charcoal);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.letter-form input:focus,
+.letter-form textarea:focus {
+  outline: none;
+  border-color: var(--earth-green);
+  box-shadow: 0 0 0 3px rgba(107, 127, 92, 0.17);
+}
+
+.letter-form textarea {
+  resize: vertical;
+  min-height: 190px;
+  line-height: 1.45;
+}
+
+.date-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.9rem;
+}
+
+.form-feedback {
+  margin: 0.2rem 0 0;
+  font-size: 0.92rem;
+  padding: 0.6rem 0.7rem;
+  border-radius: 8px;
+}
+
+.form-feedback.error {
+  color: #8a2a2a;
+  background: rgba(255, 222, 222, 0.65);
+  border: 1px solid rgba(186, 88, 88, 0.35);
+}
+
+.form-feedback.success {
+  color: #2d6a37;
+  background: rgba(220, 255, 224, 0.72);
+  border: 1px solid rgba(80, 148, 84, 0.35);
+}
+
+.submit-btn {
+  justify-self: end;
+  margin-top: 0.25rem;
+  background: var(--earth-green);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 0.72rem 1.3rem;
   font-size: 1rem;
-  color: #666;
-  max-width: 500px;
-  line-height: 1.6;
+  font-weight: 600;
+  font-family: "DM Sans", sans-serif;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+  box-shadow: 0 8px 14px rgba(55, 73, 44, 0.28);
+}
+
+.submit-btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.submit-btn:disabled {
+  opacity: 0.7;
+  cursor: progress;
+}
+
+@media (max-width: 768px) {
+  .create-note-overlay {
+    padding: 0.55rem;
+  }
+
+  .close-note-btn {
+    top: -0.35rem;
+    right: -0.25rem;
+  }
+
+  .letter-form {
+    padding: 1.35rem 1.1rem 1.15rem;
+  }
+
+  .date-row {
+    grid-template-columns: 1fr;
+  }
 }

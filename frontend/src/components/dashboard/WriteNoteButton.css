@@ -65,12 +65,12 @@
 .folder-image {
   position: absolute;
   width: 42px;
-  height: 36px;
-  border-radius: 9px;
+  height: 42px;
+  border-radius: 12px;
   object-fit: cover;
   border: 2px solid rgba(255, 255, 255, 0.9);
   box-shadow: 0 6px 14px rgba(44, 44, 44, 0.18);
-  transform: translateY(10px) scale(0.4);
+  transform: translateY(10px) scale(0.88);
   opacity: 0.75;
   transition: transform 0.35s ease, opacity 0.35s ease, box-shadow 0.35s ease;
 }

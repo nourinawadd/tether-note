@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import "./CreateNote.css";
+import { createNote } from "../api/auth.api";
 
 const DEFAULT_FORM = {
   title: "",
@@ -60,20 +61,7 @@ export default function CreateNote({ onClose, onCreated }) {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch("http://localhost:5500/notes", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(payload),
-      });
-
-      const result = await response.json();
-
-      if (!response.ok || !result.success) {
-        throw new Error(result.message || "Unable to create note right now.");
-      }
+      await createNote(token, payload);
 
       setStatusMessage("Your note is sealed and scheduled.");
       setFormData(DEFAULT_FORM);

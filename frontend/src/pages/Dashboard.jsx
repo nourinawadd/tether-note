@@ -1,9 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Dashboard.css";
 import WriteNoteButton from "../components/dashboard/WriteNoteButton";
 import NotesList from "../components/dashboard/NotesList";
 import CreateNote from "./CreateNote";
+import { fetchNotes as fetchNotesApi } from "../api/auth.api";
 
 const promptIdeas = [
   "Birthday Letter",
@@ -31,29 +32,28 @@ export default function Dashboard() {
     return () => clearInterval(interval);
   }, []);
 
-  // Fetch notes on mount
-  useEffect(() => {
-    fetchNotes();
-  }, []);
-
-  const fetchNotes = async () => {
+  const fetchNotes = useCallback(async () => {
     try {
       const token = localStorage.getItem("tetherToken");
-      const res = await fetch("http://localhost:5500/notes", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      const data = await res.json();
-      if (data.success) {
-        setNotes(data.data);
+      if (!token) {
+        navigate("/signin");
+        return;
       }
+
+      const data = await fetchNotesApi(token);
+      setNotes(data);
     } catch (error) {
       console.error("Error fetching notes:", error);
     } finally {
       setLoading(false);
     }
-  };
+  }, [navigate]);
+
+
+  // Fetch notes on mount
+  useEffect(() => {
+    fetchNotes();
+  }, [fetchNotes]);
 
   const handleCreateNote = () => {
     setShowCreateNote(true);

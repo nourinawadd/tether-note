@@ -3,8 +3,8 @@ import "./AuthPage.css";
 import "../../styles/main.css";
 import "../../styles/auth.css";
 import { useNavigate } from "react-router-dom";
+import { signIn, signUp } from "../../api/auth.api";
 
-const API_BASE_URL = "http://localhost:5500";
 
 export default function AuthPage({ defaultMode = "signup" }) {
   
@@ -35,18 +35,7 @@ export default function AuthPage({ defaultMode = "signup" }) {
     const password = e.target.signupPassword.value;
 
     try {
-      const res = await fetch(`${API_BASE_URL}/auth/sign-up`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, password })
-      });
-
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error?.message || "Sign up failed");
-
-      localStorage.setItem("tetherToken", data.data.token);
-      localStorage.setItem("tetherUser", JSON.stringify(data.data.user));
-
+      await signUp(name, email, password);
       window.location.href = "/dashboard";
     } catch (err) {
       setError(err.message);
@@ -64,18 +53,7 @@ export default function AuthPage({ defaultMode = "signup" }) {
     const password = e.target.signinPassword.value;
 
     try {
-      const res = await fetch(`${API_BASE_URL}/auth/sign-in`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password })
-      });
-
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.message || "Sign in failed");
-
-      localStorage.setItem("tetherToken", data.data.token);
-      localStorage.setItem("tetherUser", JSON.stringify(data.data.user));
-
+      await signIn(email, password);
       window.location.href = "/dashboard";
     } catch (err) {
       setError(err.message);

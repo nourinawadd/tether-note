@@ -1,0 +1,53 @@
+@import "./Dashboard.css";
+
+.contact-main {
+  flex: 1;
+  display: grid;
+  place-items: center;
+  padding: 2rem 1rem;
+}
+
+.contact-card {
+  width: min(680px, 100%);
+  background: rgba(255, 255, 255, 0.93);
+  border: 1px solid rgba(106, 122, 86, 0.35);
+  border-radius: 16px;
+  padding: clamp(1.5rem, 4vw, 2.25rem);
+  box-shadow: 0 8px 20px rgba(50, 50, 50, 0.09);
+  color: #2f2f2f;
+}
+
+.contact-card h2 {
+  margin: 0 0 0.8rem;
+  font-family: "RL Madena", "Crimson Text", serif;
+  font-size: clamp(1.6rem, 4vw, 2rem);
+}
+
+.contact-card p {
+  margin: 0 0 1rem;
+  line-height: 1.6;
+}
+
+.contact-email-link {
+  display: inline-block;
+  margin-bottom: 1rem;
+  font-size: 1.05rem;
+  color: var(--deep-green);
+  font-weight: 700;
+}
+
+.contact-email-link:hover {
+  color: var(--earth-green);
+}
+
+.contact-tip {
+  color: #4e4e4e;
+  font-size: 0.95rem;
+}
+
+.contact-footer {
+  text-align: center;
+  padding: 1.2rem;
+  color: rgba(44, 44, 44, 0.74);
+  font-size: 0.85rem;
+}

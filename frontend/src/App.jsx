@@ -2,6 +2,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import AuthPage from "./components/auth/AuthPage";
 import Dashboard from "./pages/Dashboard";
 import Profile from "./pages/Profile";
+import About from "./pages/About";
 
 export default function App() {
   return (
@@ -11,6 +12,7 @@ export default function App() {
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/create-note" element={<Navigate to="/dashboard" replace />} />
       <Route path="/profile" element={<Profile />} />
+      <Route path="/about" element={<About />} />
       <Route path="/" element={<Navigate to="/signin" />} />
     </Routes>
   );

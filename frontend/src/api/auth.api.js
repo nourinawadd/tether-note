@@ -1,7 +1,15 @@
 const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:5500";
 
 async function request(path, options = {}) {
-  const response = await fetch(`${API_BASE_URL}${path}`, options);
+  let response;
+
+  try {
+    response = await fetch(`${API_BASE_URL}${path}`, options);
+  } catch {
+    throw new Error(
+      "Unable to reach the server. Check your backend connection and CORS configuration."
+    );
+  }
 
   let payload = null;
   try {
@@ -10,8 +18,16 @@ async function request(path, options = {}) {
     payload = null;
   }
 
-  if (!response.ok || !payload?.success) {
-    throw new Error(payload?.message || "Request failed.");
+  if (!response.ok) {
+    throw new Error(
+      payload?.message || `Request failed with status ${response.status}.`
+    );
+  }
+
+  if (!payload?.success) {
+    throw new Error(
+      payload?.message || `Request was not successful (status ${response.status}).`
+    );
   }
 
   return payload;

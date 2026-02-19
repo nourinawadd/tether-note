@@ -1,0 +1,168 @@
+.about-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background:
+    linear-gradient(rgba(253, 251, 247, 0.42), rgba(253, 251, 247, 0.42)),
+    url("/assets/images/nature-background.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.about-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.4rem 2.2rem;
+  background: rgba(255, 255, 255, 0.9);
+  border-bottom: 1px solid rgba(93, 105, 79, 0.2);
+}
+
+.about-brand {
+  margin: 0;
+  font-family: "RL Madena", "Crimson Text", serif;
+  font-size: 1.9rem;
+  color: #2c2c2c;
+}
+
+.about-nav-links {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+}
+
+.about-nav-link {
+  border: 1px solid transparent;
+  background: transparent;
+  color: #2f2f2f;
+  font-family: "DM Sans", sans-serif;
+  font-size: 0.98rem;
+  padding: 0.45rem 0.65rem;
+  cursor: pointer;
+}
+
+.about-nav-link.active {
+  border-bottom-color: #6b7f5c;
+  color: #6b7f5c;
+}
+
+.about-profile-btn {
+  border: none;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+}
+
+.about-profile-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #6b7f5c, #4a5a3e);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+}
+
+.about-content {
+  width: min(980px, 100%);
+  margin: 2rem auto;
+  padding: 0 1rem;
+  flex: 1;
+  display: grid;
+}
+
+.about-card {
+  background: rgba(255, 255, 255, 0.93);
+  border: 1px solid rgba(106, 122, 86, 0.38);
+  border-radius: 16px;
+  padding: clamp(1.3rem, 3vw, 2rem);
+  color: #2f2f2f;
+  box-shadow: 0 8px 20px rgba(50, 50, 50, 0.09);
+  min-height: clamp(480px, calc(100vh - 220px), 760px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.about-kicker {
+  margin: 0;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  color: #5f6f51;
+}
+
+.about-card h2 {
+  margin: 0.35rem 0 1rem;
+  font-family: "RL Madena", "Crimson Text", serif;
+  font-size: 2.15rem;
+  font-weight: 600;
+}
+
+.about-card p {
+  line-height: 1.6;
+  margin: 0 0 0.85rem;
+}
+
+.about-links {
+  margin-top: 0.2rem;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.8rem;
+}
+
+.about-link-card {
+  text-decoration: none;
+  color: #2f2f2f;
+  border: 1px solid rgba(106, 122, 86, 0.45);
+  border-radius: 10px;
+  padding: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  background: rgba(255, 255, 255, 0.88);
+  transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+
+.about-link-card:hover {
+  border-color: #5a6d4b;
+  background: rgba(244, 248, 238, 0.95);
+  transform: translateY(-2px);
+}
+
+.about-link-card span {
+  font-weight: 700;
+}
+
+.about-link-card small {
+  color: #525252;
+}
+
+.about-footer {
+  text-align: center;
+  padding: 1.2rem;
+  color: rgba(44, 44, 44, 0.74);
+  font-size: 0.85rem;
+}
+
+@media (max-width: 768px) {
+  .about-nav {
+    padding: 1rem;
+  }
+
+  .about-brand {
+    font-size: 1.5rem;
+  }
+
+  .about-card {
+    min-height: 0;
+  }
+
+  .about-links {
+    grid-template-columns: 1fr;
+  }
+}

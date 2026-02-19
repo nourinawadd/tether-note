@@ -1,13 +1,15 @@
-.about-page {
+.dashboard-container {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   background:
-    linear-gradient(rgba(253, 251, 247, 0.42), rgba(253, 251, 247, 0.42)),
+    linear-gradient(rgba(253, 251, 247, 0.3), rgba(253, 251, 247, 0.3)),
     url("/assets/images/nature-background.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 450;
 }
 
 .about-nav {
@@ -20,16 +22,18 @@
 }
 
 .about-brand {
+  font-family: 'RL Madena', 'Crimson Text', serif;
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--charcoal);
   margin: 0;
-  font-family: "RL Madena", "Crimson Text", serif;
-  font-size: 1.9rem;
-  color: #2c2c2c;
+  letter-spacing: -0.02em;
 }
 
 .about-nav-links {
   display: flex;
   align-items: center;
-  gap: 1.1rem;
+  gap: 2rem;
 }
 
 .about-nav-link {

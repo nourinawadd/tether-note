@@ -25,16 +25,18 @@ export default function About() {
   const user = useMemo(() => JSON.parse(localStorage.getItem("tetherUser") || "{}"), []);
 
   return (
-    <div className="about-page">
-      <nav className="about-nav">
-        <h1 className="about-brand">Tether Note*</h1>
-        <div className="about-nav-links">
-          <button className="about-nav-link" onClick={() => navigate("/dashboard")}>
-            Dashboard
-          </button>
-          <span className="about-nav-link active">About</span>
-          <button className="about-profile-btn" onClick={() => navigate("/profile")}>
-            <div className="about-profile-avatar">{user.name?.[0]?.toUpperCase() || "U"}</div>
+      <div className="dashboard-container">
+      {/* Navigation */}
+      <nav className="dashboard-nav">
+        <h1 className="brand-title">Tether Note*</h1>
+        <div className="nav-links">
+          <a href="/dashboard" className="nav-link">Dashboard</a>
+          <a href="/about" className="nav-link active">About</a>
+          <a href="/contact" className="nav-link">Contact</a>
+          <button className="profile-btn" onClick={() => navigate("/profile")}>
+            <div className="profile-avatar">
+              {user.name?.[0]?.toUpperCase() || "U"}
+            </div>
           </button>
         </div>
       </nav>
@@ -42,7 +44,7 @@ export default function About() {
       <main className="about-content">
         <section className="about-card">
           <div>
-            <p className="about-kicker">Hello, I&apos;m</p>
+            <p>Hello, I&apos;m</p>
             <h2>Nourin Awad</h2>
             <p>
               I&apos;m a computer engineering student, and I built Tether Note as a practice project while

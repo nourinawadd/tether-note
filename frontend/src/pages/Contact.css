@@ -47,7 +47,10 @@
 
 .contact-footer {
   text-align: center;
-  padding: 1.2rem;
-  color: rgba(44, 44, 44, 0.74);
-  font-size: 0.85rem;
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(44, 44, 44, 0.7);
+  padding: 1.5rem 0 2rem;
+  margin-top: auto;
 }

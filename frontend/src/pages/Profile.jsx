@@ -148,91 +148,91 @@ export default function Profile() {
   const avatarInitial = (currentUser.name || "U")[0]?.toUpperCase() || "U";
 
   return (
-    <div className="profile-container">
-      <div className="profile-header">
-        <button className="back-btn" onClick={() => navigate("/dashboard")}>
-          ← Back to Dashboard
-        </button>
-        <h1>Profile</h1>
-      </div>
+    <div className="dashboard-container">
+      <nav className="dashboard-nav">
+        <h1 className="brand-title">Tether Note*</h1>
+        <div className="nav-links">
+          <a href="/dashboard" className="nav-link">Dashboard</a>
+          <a href="/about" className="nav-link">About</a>
+          <a href="/contact" className="nav-link">Contact</a>
+          <button className="profile-btn profile-btn-active" onClick={() => navigate("/profile")}>
+            <div className="profile-avatar">{avatarInitial}</div>
+          </button>
+        </div>
+      </nav>
 
-      <div className="profile-content">
-        <div className="profile-avatar-large">{avatarInitial}</div>
-
-        {!isEditing ? (
-          <div className="profile-view">
-            <h2 className="profile-name">{currentUser.name || "User"}</h2>
-            <p className="profile-email">{currentUser.email || "No email set"}</p>
-            <p className="profile-helper">This email is used to sign in and receive your note reminders.</p>
-
-            {feedback.message ? <p className={`profile-feedback ${feedback.type}`}>{feedback.message}</p> : null}
-
-            <div className="profile-actions">
-              <button className="save-btn" type="button" onClick={beginEditing}>Edit Profile</button>
-              <button className="sign-out-btn" type="button" onClick={handleSignOut}>Sign Out</button>
-            </div>
+      <main className="profile-main">
+        <section className="profile-card">
+          <div className="profile-card-header">
+            <div className="profile-avatar-large">{avatarInitial}</div>
+            <h2>{isEditing ? "Edit profile" : "Your profile"}</h2>
           </div>
-        ) : (
-          <form className="profile-form" onSubmit={handleSubmit}>
-            <label htmlFor="name">Display name</label>
-            <input id="name" name="name" value={formData.name} onChange={handleChange} maxLength={50} required />
-
-            <label htmlFor="email">Email address</label>
-            <input id="email" name="email" type="email" value={formData.email} onChange={handleChange} required />
-
-            <label htmlFor="currentPassword">Current password (required for email/password changes)</label>
-            <input
-              id="currentPassword"
-              name="currentPassword"
-              type="password"
-              value={formData.currentPassword}
-              onChange={handleChange}
-              autoComplete="current-password"
-            />
-
-            <div className="password-row">
-              <div>
-                <label htmlFor="newPassword">New password</label>
-                <input
-                  id="newPassword"
-                  name="newPassword"
-                  type="password"
-                  value={formData.newPassword}
-                  onChange={handleChange}
-                  autoComplete="new-password"
-                />
-              </div>
-
-              <div>
-                <label htmlFor="confirmNewPassword">Confirm new password</label>
-                <input
-                  id="confirmNewPassword"
-                  name="confirmNewPassword"
-                  type="password"
-                  value={formData.confirmNewPassword}
-                  onChange={handleChange}
-                  autoComplete="new-password"
-                />
-              </div>
-            </div>
-
-            <p className="profile-password-hint">
-              Password must be at least 8 characters and include uppercase, lowercase, and a number.
+          {!isEditing ? (
+            <div className="profile-view">
+              <h3 className="profile-name">{currentUser.name || "User"}</h3>
+              <p className="profile-email">{currentUser.email || "No email set"}</p>
+              <p>
+              Keep your account details up to date so reminders and sign-in details always stay in sync.
             </p>
 
-            {feedback.message ? <p className={`profile-feedback ${feedback.type}`}>{feedback.message}</p> : null}
+              {feedback.message ? <p className={`profile-feedback ${feedback.type}`}>{feedback.message}</p> : null}
 
-            <div className="profile-actions">
-              <button className="save-btn" type="submit" disabled={isSubmitting}>
-                {isSubmitting ? "Saving..." : "Save changes"}
-              </button>
-              <button className="cancel-btn" type="button" onClick={cancelEditing}>
-                Cancel
-              </button>
+              <div className="profile-actions">
+                <button className="profile-primary-btn" type="button" onClick={beginEditing}>Edit Profile</button>
+                <button className="profile-secondary-btn" type="button" onClick={() => navigate("/dashboard")}>Back to Dashboard</button>
+                <button className="profile-secondary-btn" type="button" onClick={handleSignOut}>Sign Out</button>
+                </div>
             </div>
-          </form>
-        )}
-      </div>
+            ) : (
+            <form className="profile-form" onSubmit={handleSubmit}>
+              <label htmlFor="name">Display name</label>
+              <input id="name" name="name" value={formData.name} onChange={handleChange} maxLength={50} required />
+
+              <label htmlFor="email">Email address</label>
+              <input id="email" name="email" type="email" value={formData.email} onChange={handleChange} required />
+
+              <label htmlFor="currentPassword">Current password (required for email/password changes)</label>
+              <input
+                id="currentPassword"
+                name="currentPassword"
+                type="password"
+                value={formData.currentPassword}
+                onChange={handleChange}
+                autoComplete="current-password"
+              />
+
+              <div className="password-row">
+                <div>
+                  <label htmlFor="newPassword">New password</label>
+                  <input
+                    id="newPassword"
+                    name="newPassword"
+                    type="password"
+                    value={formData.newPassword}
+                    onChange={handleChange}
+                    autoComplete="new-password"
+                  />
+                </div>
+
+              </div>
+              <p className="profile-password-hint">
+                Password must be at least 8 characters and include uppercase, lowercase, and a number.
+              </p>
+
+              {feedback.message ? <p className={`profile-feedback ${feedback.type}`}>{feedback.message}</p> : null}
+            <div className="profile-actions">
+                <button className="profile-primary-btn" type="submit" disabled={isSubmitting}>
+                  {isSubmitting ? "Saving..." : "Save changes"}
+                </button>
+                <button className="profile-secondary-btn" type="button" onClick={cancelEditing}>
+                  Cancel
+                </button>
+              </div>
+            </form>
+          )}
+        </section>
+      </main>
+      <footer className="profile-footer">Tether Note™</footer>
     </div>
   );
 }

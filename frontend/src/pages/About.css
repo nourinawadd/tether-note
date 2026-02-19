@@ -71,7 +71,7 @@
 }
 
 .about-content {
-  width: min(980px, 100%);
+  width: min(900px, 75%);
   margin: 2rem auto;
   padding: 0 1rem;
   flex: 1;
@@ -92,24 +92,16 @@
   gap: 1rem;
 }
 
-.about-kicker {
-  margin: 0;
-  letter-spacing: 0.09em;
-  text-transform: uppercase;
-  font-size: 0.8rem;
-  color: #5f6f51;
-}
-
 .about-card h2 {
-  margin: 0.35rem 0 1rem;
+  margin: 0.2rem 0 0.2rem;
   font-family: "RL Madena", "Crimson Text", serif;
   font-size: 2.15rem;
   font-weight: 600;
 }
 
 .about-card p {
-  line-height: 1.6;
-  margin: 0 0 0.85rem;
+  line-height: 1.5;
+  margin: 0 0 0.8rem;
 }
 
 .about-links {
@@ -148,9 +140,12 @@
 
 .about-footer {
   text-align: center;
-  padding: 1.2rem;
-  color: rgba(44, 44, 44, 0.74);
-  font-size: 0.85rem;
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(44, 44, 44, 0.7);
+  padding: 1.5rem 0 2rem;
+  margin-top: auto;
 }
 
 @media (max-width: 768px) {

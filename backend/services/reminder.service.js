@@ -5,7 +5,7 @@ import { sendReminderEmail, sendNoteUnlockedEmail } from './email.service.js';
 
 export const startReminderService = () => {
     // check every hour from reminders
-    cron.schedule('* * * * *', async () => {
+    cron.schedule('0 * * * *', async () => {
         console.log('Checking for reminders...');
         const now = new Date();
         const oneHourFromNow = new Date(now.getTime() + 60 * 60 * 1000);
@@ -35,7 +35,7 @@ export const startReminderService = () => {
     });
 
     // check every hour for notes to be unlocked
-    cron.schedule('* * * * *', async () => {
+    cron.schedule('0 * * * *', async () => {
         console.log('Checking for notes to unlock...');
         const now = new Date();
 

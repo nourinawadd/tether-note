@@ -45,6 +45,7 @@ const noteSchema = new mongoose.Schema({
             if (!this.openAt) {
                 return undefined;
             }
+            const reminder = new Date(this.openAt.getTime() - (24 * 60 * 60 * 1000));
             return reminder.getTime() > Date.now() ? reminder : undefined;
         }, // Default to 24 hours before openAt
 

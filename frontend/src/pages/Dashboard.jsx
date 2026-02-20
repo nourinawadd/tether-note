@@ -7,14 +7,26 @@ import CreateNote from "./CreateNote";
 import { fetchNotes as fetchNotesApi } from "../api/auth.api";
 
 const promptIdeas = [
-  "Birthday Letter",
-  "Goals Reminder",
-  "Motivation Letter",
-  "Letter to Future Self",
-  "Anniversary Message",
-  "Time Capsule",
-  "Dream Journal",
-  "Gratitude Note"
+  "Letter To Your Future Self",
+  "Reminder For Tough Days",
+  "Note About Your Current Goals",
+  "Message For Next Year",
+  "Promise To Yourself",
+  "Reflection On Today",
+  "List Of Small Wins",
+  "Gratitude Note",
+  "Motivation Reminder",
+  "Check-In For Later",
+  "Progress Update",
+  "Goal Review",
+  "Accountability Note",
+  "Lesson Learned",
+  "Personal Update",
+  "Reality Check",
+  "Plan For The Next Month",
+  "One Year Reflection",
+  "Milestone Note",
+  "Self Evaluation"
 ];
 
 export default function Dashboard() {

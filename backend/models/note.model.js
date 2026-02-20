@@ -38,15 +38,33 @@ const noteSchema = new mongoose.Schema({
     reminderAt: {
         type: Date,
         required: false,
+        set: function(value) {
+            return value === '' || value === null ? undefined : value;
+        },
         default: function() {
-            const reminder = new Date(this.openAt.getTime() - 24 * 60 * 60 * 1000);
-            return reminder > Date.now() ? reminder : null;
+            if (!this.openAt) {
+                return undefined;
+            }
+            return reminder.getTime() > Date.now() ? reminder : undefined;
         }, // Default to 24 hours before openAt
 
         validate: {
             validator: function(value) {
-                if( !value) return true;
-                return value < this.openAt && value.getTime() > Date.now();
+                if (!value) return true;
+
+                if (!this.openAt) {
+                    return false;
+                }
+
+                if (value >= this.openAt) {
+                    return false;
+                }
+
+                if (this.isNew) {
+                    return value.getTime() > Date.now();
+                }
+
+                return true;
             },
             message: 'Reminder date must be before the open date'
         }

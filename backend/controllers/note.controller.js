@@ -1,7 +1,23 @@
 import Note from '../models/note.model.js';
 
+const cleanupInvalidNotes = async (userId) => {
+    await Note.updateMany(
+        {
+            userId,
+            status: { $ne: 'deleted' },
+            reminderAt: { $type: 'date' },
+            $expr: { $gte: ['$reminderAt', '$openAt'] }
+        },
+        {
+            $set: { status: 'deleted' }
+        }
+    );
+};
+
 export const getNotes = async(req, res, next) => {
     try {
+        await cleanupInvalidNotes(req.user._id);
+
         const notes = await Note
             .find({ userId: req.user._id, status: { $ne: 'deleted' }})
             .sort({ openAt: 1 });
@@ -30,8 +46,14 @@ export const getNotes = async(req, res, next) => {
 
 export const createNote = async(req, res, next) => {
     try {
+        const payload = { ...req.body };
+
+        if (!payload.reminderAt) {
+            delete payload.reminderAt;
+        }
+
         const note = await Note.create({
-            ...req.body,
+            ...payload,
             userId: req.user._id
         });
 
@@ -47,6 +69,7 @@ export const createNote = async(req, res, next) => {
 
 export const getNote = async (req, res, next) => {
     try {
+        await cleanupInvalidNotes(req.user._id);
         const note = await Note.findById(req.params.id);
         if(!note) {
             const error = new Error('Note not found.');
@@ -95,6 +118,7 @@ export const getNote = async (req, res, next) => {
 
 export const deleteNote = async (req, res, next) => {
     try {
+        await cleanupInvalidNotes(req.user._id);
         const note = await Note.findById(req.params.id);
 
         if(!note) {

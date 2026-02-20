@@ -47,6 +47,23 @@
   transform: translateY(-8px);
 }
 
+.note-card.is-shaking {
+  animation: envelopeShake 0.45s ease;
+}
+
+.note-card.is-shaking .envelope.closed {
+  box-shadow: 0 7px 22px rgba(168, 64, 64, 0.28);
+}
+
+@keyframes envelopeShake {
+  0%,
+  100% { transform: translateX(0); }
+  20% { transform: translateX(-6px) rotate(-1.8deg); }
+  40% { transform: translateX(6px) rotate(1.8deg); }
+  60% { transform: translateX(-4px) rotate(-1deg); }
+  80% { transform: translateX(4px) rotate(1deg); }
+}
+
 /* ===== ENVELOPE WRAPPER ===== */
 .envelope-wrapper {
   width: 135px;

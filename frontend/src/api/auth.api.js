@@ -70,6 +70,16 @@ export async function fetchNotes(token) {
   return payload.data;
 }
 
+export async function fetchNoteById(token, noteId) {
+  const payload = await request(`/notes/${noteId}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return payload.data;
+}
+
 export async function createNote(token, noteData) {
   const payload = await request("/notes", {
     method: "POST",

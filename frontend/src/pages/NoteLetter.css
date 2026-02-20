@@ -1,0 +1,90 @@
+.note-letter-page {
+  min-height: 100vh;
+  background:
+    linear-gradient(rgba(253, 251, 247, 0.3), rgba(253, 251, 247, 0.3)),
+    url("/assets/images/nature-background.jpg");
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+}
+
+.note-letter-shell {
+  width: min(800px, 100%);
+  background: rgba(255, 255, 255, 0.78);
+  border: 1px solid rgba(107, 127, 92, 0.25);
+  border-radius: 14px;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.12);
+  padding: 1.5rem;
+}
+
+.note-letter-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  color: #4a5a3e;
+  margin-bottom: 1rem;
+}
+
+.note-letter-paper {
+  background: linear-gradient(to bottom, #fffdf7, #fff8e8);
+  border: 1px solid rgba(166, 144, 114, 0.35);
+  border-radius: 8px;
+  padding: 2rem;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+.note-letter-paper h1 {
+  margin: 0.35rem 0 1.25rem;
+  font-family: "RL Madena", "Crimson Text", serif;
+  font-size: 1.85rem;
+  color: #2c2c2c;
+}
+
+.note-letter-greeting,
+.note-letter-signoff,
+.note-letter-signature,
+.note-letter-body {
+  font-family: "Crimson Text", Georgia, serif;
+  color: #2f2f2f;
+  line-height: 1.65;
+}
+
+.note-letter-body {
+  white-space: pre-wrap;
+  margin-bottom: 1.5rem;
+  font-size: 1.1rem;
+}
+
+.note-letter-signature {
+  font-style: italic;
+}
+
+.note-letter-actions {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.note-letter-actions button,
+.note-letter-back {
+  border: none;
+  background: #6b7f5c;
+  color: #fff;
+  padding: 0.65rem 1rem;
+  border-radius: 999px;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.note-letter-status,
+.note-letter-error {
+  text-align: center;
+}
+
+.note-letter-error {
+  margin-bottom: 1rem;
+}

@@ -59,8 +59,8 @@ export default function Dashboard() {
     setShowCreateNote(true);
   };
 
-  const handleNoteClick = (noteId) => {
-    navigate(`/note/${noteId}`);
+  const handleNoteClick = (note) => {
+    navigate(`/note/${note._id}`);
   };
 
   const user = JSON.parse(localStorage.getItem("tetherUser") || "{}");
@@ -123,7 +123,7 @@ export default function Dashboard() {
               <h2>Unlocked Notes</h2>
             </div>
             <NotesList
-              notes={notes.unlocked}
+              notes={[...(notes.unlocked || []), ...(notes.opened || [])].sort((a, b) => new Date(b.openAt) - new Date(a.openAt))}
               type="unlocked"
               onNoteClick={handleNoteClick}
               loading={loading}

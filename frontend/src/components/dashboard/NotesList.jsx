@@ -1,6 +1,26 @@
+import { useState } from "react";
 import "./NotesList.css";
 
 export default function NotesList({ notes, type, onNoteClick, loading }) {
+  const [shakingNoteId, setShakingNoteId] = useState(null);
+
+  const handleCardClick = (note) => {
+    if (type === "locked") {
+      setShakingNoteId(note._id);
+
+      if (typeof window !== "undefined" && window.navigator?.vibrate) {
+        window.navigator.vibrate([70, 40, 70]);
+      }
+
+      window.setTimeout(() => {
+        setShakingNoteId((currentId) => (currentId === note._id ? null : currentId));
+      }, 500);
+      return;
+    }
+
+    onNoteClick(note);
+  };
+
   if (loading) {
     return (
       <div className="notes-loading">
@@ -35,7 +55,8 @@ export default function NotesList({ notes, type, onNoteClick, loading }) {
             key={note._id}
             note={note}
             type={type}
-            onClick={() => onNoteClick(note._id)}
+            isShaking={shakingNoteId === note._id}
+            onClick={() => handleCardClick(note)}
           />
         ))}
       </div>
@@ -43,7 +64,7 @@ export default function NotesList({ notes, type, onNoteClick, loading }) {
   );
 }
 
-function NoteCard({ note, type, onClick }) {
+function NoteCard({ note, type, onClick, isShaking }) {
   const colors = [
     "#C9ADA7",
     "#9A8C98",
@@ -81,7 +102,7 @@ function NoteCard({ note, type, onClick }) {
   };
 
   return (
-    <div className="note-card" onClick={onClick}>
+    <div className={`note-card ${isShaking ? "is-shaking" : ""}`} onClick={onClick}>
       <div className="envelope-wrapper">
         {type === "locked" ? (
           <div className="envelope closed" style={{ background: envelopeColor }}>

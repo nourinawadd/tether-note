@@ -1,6 +1,25 @@
 import { useState } from "react";
 import "./NotesList.css";
 
+const ENVELOPE_COLORS = ["red", "blue", "purple", "green", "yellow"];
+
+const ENVELOPE_IMAGE_MAP = {
+  locked: {
+    red: "/assets/images/envelopes/closed-red.png",
+    blue: "/assets/images/envelopes/closed-blue.png",
+    purple: "/assets/images/envelopes/closed-purple.png",
+    green: "/assets/images/envelopes/closed-green.png",
+    yellow: "/assets/images/envelopes/closed-yellow.png",
+  },
+  unlocked: {
+    red: "/assets/images/envelopes/open-red.png",
+    blue: "/assets/images/envelopes/open-blue.png",
+    purple: "/assets/images/envelopes/open-purple.png",
+    green: "/assets/images/envelopes/open-green.png",
+    yellow: "/assets/images/envelopes/open-yellow.png",
+  },
+};
+
 export default function NotesList({ notes, type, onNoteClick, loading }) {
   const [shakingNoteId, setShakingNoteId] = useState(null);
 
@@ -34,8 +53,8 @@ export default function NotesList({ notes, type, onNoteClick, loading }) {
     return (
       <div className="notes-empty">
         <p className="empty-message">
-          {type === "locked" 
-            ? "No notes waiting to be unlocked" 
+          {type === "locked"
+            ? "No notes waiting to be unlocked"
             : "No unlocked notes yet"}
         </p>
         <p className="empty-hint">
@@ -65,17 +84,9 @@ export default function NotesList({ notes, type, onNoteClick, loading }) {
 }
 
 function NoteCard({ note, type, onClick, isShaking }) {
-  const colors = [
-    "#C9ADA7",
-    "#9A8C98",
-    "#C08552",
-    "#A4C3B2",
-    "#D4A373",
-    "#B8A99A",
-    "#D4C5B9",
-  ];
-
-  const envelopeColor = colors[getColorIndex(note._id, colors.length)];
+  const colorName = ENVELOPE_COLORS[getColorIndex(note._id, ENVELOPE_COLORS.length)];
+  const iconType = type === "locked" ? "locked" : "unlocked";
+  const envelopeImage = ENVELOPE_IMAGE_MAP[iconType][colorName];
 
   const formatDate = (date) => {
     const d = new Date(date);
@@ -104,28 +115,13 @@ function NoteCard({ note, type, onClick, isShaking }) {
   return (
     <div className={`note-card ${isShaking ? "is-shaking" : ""}`} onClick={onClick}>
       <div className="envelope-wrapper">
-        {type === "locked" ? (
-          <div className="envelope closed" style={{ background: envelopeColor }}>
-            <div className="envelope-flap"></div>
-            <div className="status-icon locked" aria-hidden="true">
-              <svg viewBox="0 0 24 24" role="img" focusable="false">
-                <path d="M17 9V7a5 5 0 0 0-10 0v2H5v11h14V9h-2Zm-8-2a3 3 0 0 1 6 0v2H9V7Zm8 11H7v-7h10v7Zm-5-2a1.5 1.5 0 1 0-1.4-2h2.8A1.5 1.5 0 0 0 12 16Z" />
-              </svg>
-            </div>
-          </div>
-        ) : (
-          <div className="envelope open">
-            <div className="envelope-body" style={{ background: envelopeColor }}></div>
-            <div className="letter-peek">
-              <div className="letter-lines"></div>
-            </div>
-            <div className="status-icon unlocked" aria-hidden="true">
-              <svg viewBox="0 0 24 24" role="img" focusable="false">
-                <path d="M12 3a5 5 0 0 0-5 5v2H5v11h14V10h-8V8a3 3 0 0 1 6 0h2a5 5 0 0 0-5-5Zm5 16H7v-7h10v7Zm-5-2a1.5 1.5 0 1 0-1.4-2h2.8A1.5 1.5 0 0 0 12 17Z" />
-              </svg>
-            </div>
-          </div>
-        )}
+        <img
+          className={`envelope-image ${type === "locked" ? "closed" : "open"}`}
+          src={envelopeImage}
+          alt=""
+          aria-hidden="true"
+          loading="lazy"
+        />
       </div>
       <div className="note-info">
         <h3 className="note-title">{note.title || "Untitled Note"}</h3>

@@ -2,25 +2,32 @@
   position: fixed;
   inset: 0;
   z-index: 50;
-  background: rgba(29, 36, 24, 0.52);
-  backdrop-filter: blur(2px);
+  background: rgba(17, 22, 15, 0.2);
+  backdrop-filter: blur(1.6px);
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
-  padding: 1.2rem;
+  padding: 1rem 1.2rem 0;
+  animation: overlayFadeIn 0.35s ease forwards;
 }
 
 .letter-form-popup {
   position: relative;
-  width: min(820px, 96vw);
+  width: min(900px, 98vw);
+  height: min(96vh, 900px);
+  background: url("/assets/images/letter-bg.png") center bottom / 100% 100% no-repeat;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  animation: letterSlideUp 0.34s cubic-bezier(0.22, 0.61, 0.36, 1) both;
 }
 
 .close-note-btn {
   position: absolute;
-  top: -0.55rem;
-  right: -0.55rem;
+  top: 0.5rem;
+  right: 0.7rem;
   border: none;
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(255, 255, 255, 0.86);
   color: var(--charcoal);
   border-radius: 999px;
   width: 34px;
@@ -28,45 +35,51 @@
   font-size: 1rem;
   cursor: pointer;
   box-shadow: 0 8px 16px rgba(35, 43, 28, 0.2);
+  z-index: 2;
 }
 
 .letter-form {
-  width: 100%;
-  background: rgba(255, 252, 246, 0.97);
-  border-radius: 26px;
-  border: 1px solid rgba(116, 95, 67, 0.18);
-  box-shadow: 0 24px 48px rgba(60, 44, 27, 0.25);
-  padding: 2rem 2rem 1.7rem;
+  width: min(620px, 86%);
+  margin-top: clamp(1.8rem, 4vw, 2.7rem);
+  margin-bottom: clamp(5.5rem, 13vh, 7.3rem);
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 0;
   display: grid;
   gap: 0.75rem;
+  align-content: start;
+  gap: 0.7rem;
+  max-height: calc(100% - clamp(7.2rem, 17vh, 10rem));
+  overflow-y: auto;
 }
 
 .letter-form h1 {
   margin: 0;
   font-family: "RL Madena", "Crimson Text", serif;
-  font-size: clamp(1.7rem, 3vw, 2.3rem);
-  color: var(--charcoal);
+  font-size: clamp(1.55rem, 3vw, 2.1rem);
+  color: rgba(42, 32, 18, 0.95);
 }
 
 .form-subtitle {
   margin: 0 0 0.6rem;
-  color: rgba(58, 58, 58, 0.82);
-  font-size: 0.98rem;
+  color: rgba(53, 43, 29, 0.8);
+  font-size: 0.95rem;
 }
 
 .letter-form label {
-  font-size: 0.92rem;
+  font-size: 0.9rem;
   font-weight: 600;
-  color: rgba(55, 49, 42, 0.9);
+  color: rgba(49, 39, 26, 0.92);
 }
 
 .letter-form input,
 .letter-form textarea {
   width: 100%;
   border: 1px solid rgba(117, 102, 81, 0.25);
-  background: rgba(255, 255, 255, 0.88);
+  background: rgba(255,252,245,0.8);
   border-radius: 11px;
-  padding: 0.72rem 0.82rem;
+  padding: 0.68rem 0.78rem;
   font-family: "DM Sans", sans-serif;
   color: var(--charcoal);
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
@@ -81,7 +94,7 @@
 
 .letter-form textarea {
   resize: vertical;
-  min-height: 190px;
+  min-height: 150px;
   line-height: 1.45;
 }
 
@@ -93,7 +106,7 @@
 
 .form-feedback {
   margin: 0.2rem 0 0;
-  font-size: 0.92rem;
+  font-size: 0.9rem;
   padding: 0.6rem 0.7rem;
   border-radius: 8px;
 }
@@ -117,8 +130,8 @@
   color: #fff;
   border: none;
   border-radius: 10px;
-  padding: 0.72rem 1.3rem;
-  font-size: 1rem;
+  padding: 0.7rem 1.25rem;
+  font-size: 0.98rem;
   font-weight: 600;
   font-family: "DM Sans", sans-serif;
   cursor: pointer;
@@ -135,18 +148,48 @@
   cursor: progress;
 }
 
+@keyframes letterSlideUp {
+  from {
+    transform: translateY(100%);
+  }
+
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes overlayFadeIn {
+  from {
+    background: rgba(17, 22, 15, 0);
+  }
+
+  to {
+    background: rgba(17, 22, 15, 0.58);
+  }
+}
+
 @media (max-width: 768px) {
   .create-note-overlay {
-    padding: 0.55rem;
+    padding: 0.45rem 0.55rem 0;
+  }
+
+  .letter-form-popup {
+    width: min(640px, 100%);
+    height: min(95vh, 760px);
+    background-size: 100% 100%;
   }
 
   .close-note-btn {
-    top: -0.35rem;
-    right: -0.25rem;
+    top: 0.35rem;
+    right: 0.3rem;
   }
 
   .letter-form {
-    padding: 1.35rem 1.1rem 1.15rem;
+    width: min(460px, 84%);
+    margin-top: 1.2rem;
+    margin-bottom: clamp(4.9rem, 11vh, 6.2rem);
+    max-height: calc(100% - 6.4rem);
+    gap: 0.62rem;
   }
 
   .date-row {

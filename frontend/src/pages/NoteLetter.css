@@ -38,7 +38,7 @@
 
 .note-letter-paper h1 {
   margin: 0.35rem 0 1.25rem;
-  font-family: "RL Madena", "Crimson Text", serif;
+  font-family: 'Not A Typeface', 'Montserrat', sans-serif;
   font-size: 1.85rem;
   color: #2c2c2c;
 }
@@ -47,7 +47,7 @@
 .note-letter-signoff,
 .note-letter-signature,
 .note-letter-body {
-  font-family: 'Not A Typeface', 'DM Sans', sans-serif;
+  font-family: 'Not A Typeface', 'Montserrat', sans-serif;
   color: #2f2f2f;
   line-height: 1.65;
 }

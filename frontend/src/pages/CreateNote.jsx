@@ -7,7 +7,48 @@ const DEFAULT_FORM = {
   content: "",
   openAt: "",
   reminderAt: "",
+  envelopeColor: "red",
 };
+
+
+const ENVELOPE_STYLE_OPTIONS = [
+  {
+    value: "red",
+    label: "Red",
+    swatch: "#be3a3f",
+    envelopeImage: "/assets/images/envelopes/closed-red.png",
+    letterBackground: "/assets/images/write-note/letter-bg.png",
+  },
+  {
+    value: "blue",
+    label: "Blue",
+    swatch: "#4f75c5",
+    envelopeImage: "/assets/images/envelopes/closed-blue.png",
+    letterBackground: "/assets/images/write-note/letter-bg-blue.png",
+  },
+  {
+    value: "purple",
+    label: "Purple",
+    swatch: "#8e6ab3",
+    envelopeImage: "/assets/images/envelopes/closed-purple.png",
+    letterBackground: "/assets/images/write-note/letter-bg-purple.png",
+  },
+  {
+    value: "green",
+    label: "Green",
+    swatch: "#6b8d5f",
+    envelopeImage: "/assets/images/envelopes/closed-green.png",
+    letterBackground: "/assets/images/write-note/letter-bg-green.png",
+  },
+  {
+    value: "yellow",
+    label: "Yellow",
+    swatch: "#cfb35b",
+    envelopeImage: "/assets/images/envelopes/closed-yellow.png",
+    letterBackground: "/assets/images/write-note/letter-bg-yellow.png",
+  },
+];
+
 
 export default function CreateNote({ onClose, onCreated }) {
   const [formData, setFormData] = useState(DEFAULT_FORM);
@@ -19,6 +60,10 @@ export default function CreateNote({ onClose, onCreated }) {
     const nextMinute = new Date(Date.now() + 60 * 1000);
     return nextMinute.toISOString().slice(0, 16);
   }, []);
+
+  const selectedEnvelope =
+    ENVELOPE_STYLE_OPTIONS.find((option) => option.value === formData.envelopeColor) ||
+    ENVELOPE_STYLE_OPTIONS[0];
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -55,6 +100,7 @@ export default function CreateNote({ onClose, onCreated }) {
       title: formData.title.trim() || undefined,
       content: formData.content.trim(),
       openAt: new Date(formData.openAt).toISOString(),
+      envelopeColor: formData.envelopeColor,
       reminderAt: formData.reminderAt ? new Date(formData.reminderAt).toISOString() : undefined,
     };
 
@@ -79,33 +125,36 @@ export default function CreateNote({ onClose, onCreated }) {
 
   return (
     <div className="create-note-overlay" role="dialog" aria-modal="true" aria-label="Create note form">
-      <div className="letter-form-popup">
+      <div
+        className="letter-form-popup"
+        style={{ backgroundImage: `url(${selectedEnvelope.letterBackground})` }}
+      >
         <button className="close-note-btn" onClick={onClose} aria-label="Close create note form">
-          ✕
+          x
         </button>
 
         <form className="letter-form" onSubmit={handleSubmit}>
           <h1>Seal a Note for Later</h1>
           <p className="form-subtitle">
-            Write your note, choose when it unlocks, and optionally add a reminder.
+            Write a little note to future you, choose when it arrives, and seal it with care.
           </p>
 
-          <label htmlFor="title">Title (optional)</label>
+          <label htmlFor="title">Title</label>
           <input
             id="title"
             name="title"
             type="text"
-            placeholder="Untitled Note"
+            placeholder="A note for tomorrow"
             value={formData.title}
             onChange={handleChange}
             maxLength={120}
           />
 
-          <label htmlFor="content">Note content *</label>
+          <label htmlFor="content">Your letter*</label>
           <textarea
             id="content"
             name="content"
-            placeholder="Write what you want your future self to read..."
+            placeholder="Dear future me, I hope this note finds you smiling today..."
             value={formData.content}
             onChange={handleChange}
             rows={8}
@@ -127,7 +176,7 @@ export default function CreateNote({ onClose, onCreated }) {
             </div>
 
             <div>
-              <label htmlFor="reminderAt">Reminder date (optional)</label>
+              <label htmlFor="reminderAt">Reminder date</label>
               <input
                 id="reminderAt"
                 name="reminderAt"
@@ -137,6 +186,29 @@ export default function CreateNote({ onClose, onCreated }) {
                 min={minimumDate}
                 max={formData.openAt || undefined}
               />
+            </div>
+          </div>
+          <div className="envelope-style-row" aria-label="Envelope style preview">
+            <img src={selectedEnvelope.envelopeImage} alt="Envelope preview" className="envelope-preview" />
+            <div className="color-swatch-group" role="radiogroup" aria-label="Envelope colour options">
+              {ENVELOPE_STYLE_OPTIONS.map((option) => (
+                <button
+                  key={option.value}
+                  type="button"
+                  className={`color-swatch-btn ${formData.envelopeColor === option.value ? "active" : ""}`}
+                  onClick={() =>
+                    setFormData((prev) => ({
+                      ...prev,
+                      envelopeColor: option.value,
+                    }))
+                  }
+                  aria-pressed={formData.envelopeColor === option.value}
+                  aria-label={`Set envelope colour to ${option.label}`}
+                  title={option.label}
+                >
+                  <span className="color-swatch-dot" style={{ backgroundColor: option.swatch }} />
+                </button>
+              ))}
             </div>
           </div>
 

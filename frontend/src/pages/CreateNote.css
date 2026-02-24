@@ -15,7 +15,9 @@
   position: relative;
   width: min(900px, 98vw);
   height: min(96vh, 900px);
-  background: url("/assets/images/letter-bg.png") center bottom / 100% 100% no-repeat;
+  background-position: center bottom;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
   display: flex;
   align-items: stretch;
   justify-content: center;
@@ -24,24 +26,23 @@
 
 .close-note-btn {
   position: absolute;
-  top: 0.5rem;
-  right: 0.7rem;
+  top: 0.8rem;
+  right: 3rem;
   border: none;
-  background: rgba(255, 255, 255, 0.86);
-  color: var(--charcoal);
-  border-radius: 999px;
-  width: 34px;
-  height: 34px;
-  font-size: 1rem;
+  background: transparent;
+  color: #000;
+  width: 28px;
+  height: 28px;
+  font-size: 1.2rem;
   cursor: pointer;
-  box-shadow: 0 8px 16px rgba(35, 43, 28, 0.2);
+  box-shadow: none;
   z-index: 2;
 }
 
 .letter-form {
-  width: min(620px, 86%);
-  margin-top: clamp(1.8rem, 4vw, 2.7rem);
-  margin-bottom: clamp(5.5rem, 13vh, 7.3rem);
+  width: min(610px, 79%);
+  margin-top: clamp(2.8rem, 6vw, 4rem);
+  margin-bottom: clamp(6.3rem, 15vh, 8.4rem);
   background: transparent;
   border: none;
   box-shadow: none;
@@ -50,7 +51,7 @@
   gap: 0.75rem;
   align-content: start;
   gap: 0.7rem;
-  max-height: calc(100% - clamp(7.2rem, 17vh, 10rem));
+  max-height: calc(100% - clamp(9rem, 20vh, 12rem));
   overflow-y: auto;
 }
 
@@ -67,6 +68,54 @@
   font-size: 0.95rem;
 }
 
+.envelope-style-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.9rem;
+  margin-bottom: 0.2rem;
+  padding: 0.5rem 0.7rem;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.26);
+  border: 1px solid rgba(70, 53, 34, 0.12);
+  margin-top: 0.35rem;
+}
+
+.envelope-preview {
+  width: clamp(78px, 18vw, 112px);
+  height: auto;
+  filter: drop-shadow(0 6px 8px rgba(0, 0, 0, 0.14));
+}
+
+.color-swatch-group {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.color-swatch-btn {
+  border: 1px solid transparent;
+  background: transparent;
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  padding: 2px;
+  cursor: pointer;
+}
+
+.color-swatch-btn.active {
+  border-color: rgba(0, 0, 0, 0.55);
+}
+
+.color-swatch-dot {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+
 .letter-form label {
   font-size: 0.9rem;
   font-weight: 600;
@@ -77,8 +126,8 @@
 .letter-form textarea {
   width: 100%;
   border: 1px solid rgba(117, 102, 81, 0.25);
-  background: rgba(255,252,245,0.8);
-  border-radius: 11px;
+  background: rgba(255, 252, 245, 0.42);
+  border-radius: 8px;
   padding: 0.68rem 0.78rem;
   font-family: "DM Sans", sans-serif;
   color: var(--charcoal);
@@ -94,7 +143,7 @@
 
 .letter-form textarea {
   resize: vertical;
-  min-height: 150px;
+  min-height: 180px;
   line-height: 1.45;
 }
 
@@ -124,19 +173,19 @@
 }
 
 .submit-btn {
-  justify-self: end;
+  justify-self: center;
   margin-top: 0.25rem;
-  background: var(--earth-green);
+  background: rgba(31, 31, 31, 0.88);
   color: #fff;
   border: none;
-  border-radius: 10px;
+  border-radius: 7px;
   padding: 0.7rem 1.25rem;
   font-size: 0.98rem;
   font-weight: 600;
   font-family: "DM Sans", sans-serif;
   cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
-  box-shadow: 0 8px 14px rgba(55, 73, 44, 0.28);
+  box-shadow: none;
 }
 
 .submit-btn:hover:not(:disabled) {
@@ -185,10 +234,10 @@
   }
 
   .letter-form {
-    width: min(460px, 84%);
-    margin-top: 1.2rem;
-    margin-bottom: clamp(4.9rem, 11vh, 6.2rem);
-    max-height: calc(100% - 6.4rem);
+    width: min(460px, 82%);
+    margin-top: 1.8rem;
+    margin-bottom: clamp(5.2rem, 12vh, 6.7rem);
+    max-height: calc(100% - 7.3rem);
     gap: 0.62rem;
   }
 

@@ -84,7 +84,10 @@ export default function NotesList({ notes, type, onNoteClick, loading }) {
 }
 
 function NoteCard({ note, type, onClick, isShaking }) {
-  const colorName = ENVELOPE_COLORS[getColorIndex(note._id, ENVELOPE_COLORS.length)];
+  const hasSelectedColor = note.envelopeColor && ENVELOPE_COLORS.includes(note.envelopeColor);
+  const colorName = hasSelectedColor
+    ? note.envelopeColor
+    : ENVELOPE_COLORS[getColorIndex(note._id, ENVELOPE_COLORS.length)];
   const iconType = type === "locked" ? "locked" : "unlocked";
   const envelopeImage = ENVELOPE_IMAGE_MAP[iconType][colorName];
 

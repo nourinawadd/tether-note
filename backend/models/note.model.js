@@ -71,6 +71,12 @@ const noteSchema = new mongoose.Schema({
         }
     },
 
+    envelopeColor: {
+        type: String,
+        enum: ['red', 'blue', 'purple', 'green', 'yellow'],
+        default: 'red'
+    },
+
     userId: {
 
         type: mongoose.Schema.Types.ObjectId,

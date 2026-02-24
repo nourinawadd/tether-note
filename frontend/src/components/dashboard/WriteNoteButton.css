@@ -6,7 +6,7 @@
   cursor: pointer;
   transition: all 0.3s ease;
   width: 100%;
-  max-width: 520px;
+  max-width: 640px;
   box-shadow: 0 8px 18px rgba(44, 44, 44, 0.1);
   position: relative;
   overflow: visible;
@@ -109,6 +109,7 @@
   font-weight: 500;
   color: var(--charcoal);
   text-align: left;
+  white-space:nowrap;
   font-family: 'RL Madena', 'Crimson Text', serif;
 }
 
@@ -152,6 +153,7 @@
 
   .btn-text {
     font-size: 1.1rem;
+    white-space:nowrap;
   }
 }
 
@@ -161,6 +163,7 @@
   }
 
   .btn-text {
-    font-size: 1rem;
+    font-size: 0.95rem;
+    white-space:nowrap;
   }
 }

@@ -129,7 +129,7 @@
   background: rgba(255, 252, 245, 0.42);
   border-radius: 8px;
   padding: 0.68rem 0.78rem;
-  font-family: "DM Sans", sans-serif;
+  font-family: 'Not A Typeface', 'DM Sans', sans-serif;
   color: var(--charcoal);
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
@@ -182,7 +182,7 @@
   padding: 0.7rem 1.25rem;
   font-size: 0.98rem;
   font-weight: 600;
-  font-family: "DM Sans", sans-serif;
+  font-family: 'Not A Typeface', 'DM Sans', sans-serif;
   cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
   box-shadow: none;

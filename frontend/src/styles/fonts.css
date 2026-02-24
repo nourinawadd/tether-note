@@ -1,6 +1,6 @@
 /* 
  * Custom Font Setup for Tether Note
- * RL Madena Font Configuration
+ * RL Madena + Secondary Handwriting Font Configuration
  */
 
 @font-face {
@@ -22,6 +22,14 @@
 @font-face {
   font-family: 'RL Madena';
   src: url('/assets/fonts/RL Madena Variable.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Not A Typeface';
+  src: url('/assets/fonts/this-font-is-not-a-typeface.ttf') format('truetype');
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;

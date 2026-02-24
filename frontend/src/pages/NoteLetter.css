@@ -47,7 +47,7 @@
 .note-letter-signoff,
 .note-letter-signature,
 .note-letter-body {
-  font-family: "Crimson Text", Georgia, serif;
+  font-family: 'Not A Typeface', 'DM Sans', sans-serif;
   color: #2f2f2f;
   line-height: 1.65;
 }

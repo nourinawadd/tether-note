@@ -44,15 +44,14 @@ export default function About() {
       <main className="about-content">
         <section className="about-card">
           <div>
-            <p>Hello, I&apos;m</p>
-            <h2>Nourin Awad</h2>
+            <h2>What's Tether Note?</h2>
             <p>
               I&apos;m a computer engineering student, and I built Tether Note as a practice project while
               learning and improving my full-stack skills.
             </p>
             <p>
-              I really love the idea of time capsules and "communicating" with your future self. So I made
-              this little corner of the internet where you can write letters now and open them later.
+              I really love the idea of time capsules and "communicating" with your future self, so I made
+              this little corner of the internet where you can write letters now and open them later — whether that's 3 days from now, or 3 years.
             </p>
             <p>If you&apos;re interested in my work, feel free to check out my links below ♡</p>
           </div>

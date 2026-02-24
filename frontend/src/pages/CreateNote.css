@@ -172,6 +172,29 @@
   border: 1px solid rgba(80, 148, 84, 0.35);
 }
 
+.sent-popup {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 4;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.8rem 1.1rem;
+  border-radius: 12px;
+  border: 1px solid rgba(63, 105, 67, 0.35);
+  background: rgba(244, 255, 247, 0.96);
+  color: #2d6a37;
+  font-size: 0.95rem;
+  font-weight: 600;
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.2);
+}
+
+.sent-popup-plane {
+  font-size: 1.05rem;
+}
+
 .submit-btn {
   justify-self: center;
   margin-top: 0.25rem;

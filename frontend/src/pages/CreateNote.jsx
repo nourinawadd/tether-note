@@ -52,9 +52,9 @@ const ENVELOPE_STYLE_OPTIONS = [
 
 export default function CreateNote({ onClose, onCreated }) {
   const [formData, setFormData] = useState(DEFAULT_FORM);
-  const [statusMessage, setStatusMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSentPopupVisible, setIsSentPopupVisible] = useState(false);
 
   const minimumDate = useMemo(() => {
     const nextMinute = new Date(Date.now() + 60 * 1000);
@@ -73,7 +73,6 @@ export default function CreateNote({ onClose, onCreated }) {
   const handleSubmit = async (event) => {
     event.preventDefault();
     setErrorMessage("");
-    setStatusMessage("");
 
     if (!formData.content.trim()) {
       setErrorMessage("Please add the note content before saving.");
@@ -108,14 +107,12 @@ export default function CreateNote({ onClose, onCreated }) {
 
     try {
       await createNote(token, payload);
-
-      setStatusMessage("Your note is sealed and scheduled.");
-      setFormData(DEFAULT_FORM);
+      setIsSentPopupVisible(true);
 
       setTimeout(() => {
         onCreated?.();
         onClose?.();
-      }, 800);
+      }, 1400);
     } catch (error) {
       setErrorMessage(error.message || "Unable to create note right now.");
     } finally {
@@ -125,10 +122,7 @@ export default function CreateNote({ onClose, onCreated }) {
 
   return (
     <div className="create-note-overlay" role="dialog" aria-modal="true" aria-label="Create note form">
-      <div
-        className="letter-form-popup"
-        style={{ backgroundImage: `url(${selectedEnvelope.letterBackground})` }}
-      >
+      <div className="letter-form-popup" style={{ backgroundImage: `url(${selectedEnvelope.letterBackground})` }}>
         <button className="close-note-btn" onClick={onClose} aria-label="Close create note form">
           x
         </button>
@@ -213,12 +207,21 @@ export default function CreateNote({ onClose, onCreated }) {
           </div>
 
           {errorMessage ? <p className="form-feedback error">{errorMessage}</p> : null}
-          {statusMessage ? <p className="form-feedback success">{statusMessage}</p> : null}
 
-          <button type="submit" className="submit-btn" disabled={isSubmitting}>
+          <button type="submit" className="submit-btn" disabled={isSubmitting || isSentPopupVisible}>
             {isSubmitting ? "Sealing..." : "Seal Note"}
           </button>
         </form>
+
+        {isSentPopupVisible ? (
+          <div className="sent-popup" role="status" aria-live="polite">
+            <span className="sent-popup-plane" aria-hidden="true">
+              ✈
+            </span>
+            <span>Your note was sent to the future</span>
+          </div>
+        ) : null}
+        
       </div>
     </div>
   );

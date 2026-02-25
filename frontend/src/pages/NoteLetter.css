@@ -1,23 +1,21 @@
-.note-letter-page {
-  min-height: 100vh;
-  background:
-    linear-gradient(rgba(253, 251, 247, 0.3), rgba(253, 251, 247, 0.3)),
-    url("/assets/images/nature-background.jpg");
-  background-size: cover;
-  background-position: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 2rem 1rem;
+.note-letter-overlay {
+  z-index: 80;
 }
 
-.note-letter-shell {
-  width: min(800px, 100%);
-  background: rgba(255, 255, 255, 0.78);
-  border: 1px solid rgba(107, 127, 92, 0.25);
-  border-radius: 14px;
-  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.12);
-  padding: 1.5rem;
+.note-letter-popup {
+  width: min(900px, 98vw);
+  height: min(96vh, 900px);
+}
+
+.note-letter-content {
+  width: min(610px, 79%);
+  margin-top: clamp(2.8rem, 6vw, 4rem);
+  margin-bottom: clamp(6.3rem, 15vh, 8.4rem);
+  max-height: calc(100% - clamp(9rem, 20vh, 12rem));
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
 }
 
 .note-letter-header {
@@ -25,21 +23,20 @@
   justify-content: space-between;
   font-size: 0.85rem;
   color: #4a5a3e;
-  margin-bottom: 1rem;
 }
 
 .note-letter-paper {
-  background: linear-gradient(to bottom, #fffdf7, #fff8e8);
-  border: 1px solid rgba(166, 144, 114, 0.35);
-  border-radius: 8px;
-  padding: 2rem;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  background: rgba(255, 251, 241, 0.45);
+  border: 1px solid rgba(166, 144, 114, 0.3);
+  border-radius: 10px;
+  padding: 1.35rem;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5);
 }
 
 .note-letter-paper h1 {
   margin: 0.35rem 0 1.25rem;
   font-family: 'Not A Typeface', 'Montserrat', sans-serif;
-  font-size: 1.85rem;
+  font-size: clamp(1.3rem, 2.3vw, 1.8rem);
   color: #2c2c2c;
 }
 
@@ -49,13 +46,13 @@
 .note-letter-body {
   font-family: 'Not A Typeface', 'Montserrat', sans-serif;
   color: #2f2f2f;
-  line-height: 1.65;
+  line-height: 1.62;
 }
 
 .note-letter-body {
   white-space: pre-wrap;
-  margin-bottom: 1.5rem;
-  font-size: 1.1rem;
+  margin-bottom: 1.4rem;
+  font-size: 1.02rem;
 }
 
 .note-letter-signature {
@@ -63,21 +60,9 @@
 }
 
 .note-letter-actions {
-  margin-top: 1rem;
+  margin-top: 0.2rem;
   display: flex;
   justify-content: flex-end;
-}
-
-.note-letter-actions button,
-.note-letter-back {
-  border: none;
-  background: #6b7f5c;
-  color: #fff;
-  padding: 0.65rem 1rem;
-  border-radius: 999px;
-  cursor: pointer;
-  text-decoration: none;
-  font-size: 0.9rem;
 }
 
 .note-letter-status,
@@ -87,4 +72,26 @@
 
 .note-letter-error {
   margin-bottom: 1rem;
+}
+
+.note-letter-back-btn {
+  justify-self: flex-end;
+}
+
+@media (max-width: 768px) {
+  .note-letter-content {
+    width: min(460px, 82%);
+    margin-top: 1.8rem;
+    margin-bottom: clamp(5.2rem, 12vh, 6.7rem);
+    max-height: calc(100% - 7.3rem);
+  }
+
+  .note-letter-paper {
+    padding: 1rem;
+  }
+
+  .note-letter-header {
+    flex-direction: column;
+    gap: 0.3rem;
+  }
 }

@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import "./CreateNote.css";
 import { createNote } from "../api/auth.api";
+import { DEFAULT_ENVELOPE_STYLE, ENVELOPE_STYLE_OPTIONS } from "../constants/envelopeStyles";
 
 const DEFAULT_FORM = {
   title: "",
@@ -9,45 +10,6 @@ const DEFAULT_FORM = {
   reminderAt: "",
   envelopeColor: "red",
 };
-
-
-const ENVELOPE_STYLE_OPTIONS = [
-  {
-    value: "red",
-    label: "Red",
-    swatch: "#be3a3f",
-    envelopeImage: "/assets/images/envelopes/closed-red.png",
-    letterBackground: "/assets/images/write-note/letter-bg.png",
-  },
-  {
-    value: "blue",
-    label: "Blue",
-    swatch: "#4f75c5",
-    envelopeImage: "/assets/images/envelopes/closed-blue.png",
-    letterBackground: "/assets/images/write-note/letter-bg-blue.png",
-  },
-  {
-    value: "purple",
-    label: "Purple",
-    swatch: "#8e6ab3",
-    envelopeImage: "/assets/images/envelopes/closed-purple.png",
-    letterBackground: "/assets/images/write-note/letter-bg-purple.png",
-  },
-  {
-    value: "green",
-    label: "Green",
-    swatch: "#6b8d5f",
-    envelopeImage: "/assets/images/envelopes/closed-green.png",
-    letterBackground: "/assets/images/write-note/letter-bg-green.png",
-  },
-  {
-    value: "yellow",
-    label: "Yellow",
-    swatch: "#cfb35b",
-    envelopeImage: "/assets/images/envelopes/closed-yellow.png",
-    letterBackground: "/assets/images/write-note/letter-bg-yellow.png",
-  },
-];
 
 
 export default function CreateNote({ onClose, onCreated }) {
@@ -63,7 +25,7 @@ export default function CreateNote({ onClose, onCreated }) {
 
   const selectedEnvelope =
     ENVELOPE_STYLE_OPTIONS.find((option) => option.value === formData.envelopeColor) ||
-    ENVELOPE_STYLE_OPTIONS[0];
+    DEFAULT_ENVELOPE_STYLE;
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -221,7 +183,7 @@ export default function CreateNote({ onClose, onCreated }) {
             <span>Your note was sent to the future</span>
           </div>
         ) : null}
-        
+
       </div>
     </div>
   );

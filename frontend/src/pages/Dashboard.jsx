@@ -5,6 +5,7 @@ import WriteNoteButton from "../components/dashboard/WriteNoteButton";
 import NotesList from "../components/dashboard/NotesList";
 import CreateNote from "./CreateNote";
 import { fetchNotes as fetchNotesApi } from "../api/auth.api";
+import NoteLetter from "./NoteLetter";
 
 const promptIdeas = [
   "Letter To Your Future Self",
@@ -34,6 +35,7 @@ export default function Dashboard() {
   const [notes, setNotes] = useState({ locked: [], unlocked: [], opened: [] });
   const [loading, setLoading] = useState(true);
   const [showCreateNote, setShowCreateNote] = useState(false);
+  const [openedNote, setOpenedNote] = useState(null);
   const navigate = useNavigate();
 
   // Rotate prompts every 3 seconds
@@ -72,7 +74,7 @@ export default function Dashboard() {
   };
 
   const handleNoteClick = (note) => {
-    navigate(`/note/${note._id}`);
+    setOpenedNote(note);
   };
 
   const user = JSON.parse(localStorage.getItem("tetherUser") || "{}");
@@ -142,7 +144,12 @@ export default function Dashboard() {
           onCreated={fetchNotes}
         />
       ) : null}
-
+      {openedNote ? (
+        <NoteLetter
+          note={openedNote}
+          onClose={() => setOpenedNote(null)}
+        />
+      ) : null}
     </div>
   );
 }

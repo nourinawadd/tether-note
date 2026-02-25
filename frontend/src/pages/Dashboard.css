@@ -43,6 +43,15 @@
   color: var(--charcoal);
   margin: 0;
   letter-spacing: -0.02em;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.42rem;
+}
+
+.brand-logo {
+  height: 1em;
+  width: auto;
+  display: block;
 }
 
 .nav-links {

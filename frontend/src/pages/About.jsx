@@ -44,7 +44,7 @@ export default function About() {
       <main className="about-content">
         <section className="about-card">
           <div>
-            <h2>What's Tether Note?</h2>
+            <h2>What is Tether Note?</h2>
             <p>
               I&apos;m a computer engineering student, and I built Tether Note as a practice project while
               learning and improving my full-stack skills.

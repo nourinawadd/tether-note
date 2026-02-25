@@ -93,6 +93,15 @@ export async function createNote(token, noteData) {
   return payload.data;
 }
 
+export async function deleteNote(token, noteId) {
+  await request(`/notes/${noteId}`, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+}
+
 export async function updateProfile(token, profileData) {
   const payload = await request("/user", {
     method: "PUT",

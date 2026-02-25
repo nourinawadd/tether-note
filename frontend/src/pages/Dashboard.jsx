@@ -83,7 +83,10 @@ export default function Dashboard() {
     <div className="dashboard-container">
       {/* Navigation */}
       <nav className="dashboard-nav">
-        <h1 className="brand-title">Tether Note*</h1>
+          <h1 className="brand-title">
+          <img src="/assets/images/tether-note-logo.svg" alt="Tether Note logo" className="brand-logo" />
+          <span>Tether Note*</span>
+        </h1>
         <div className="nav-links">
           <a href="/dashboard" className="nav-link active">Dashboard</a>
           <a href="/about" className="nav-link">About</a>
@@ -148,6 +151,10 @@ export default function Dashboard() {
         <NoteLetter
           note={openedNote}
           onClose={() => setOpenedNote(null)}
+          onDeleted={() => {
+            setOpenedNote(null);
+            fetchNotes();
+          }}
         />
       ) : null}
     </div>

@@ -12,11 +12,16 @@
 }
 
 .letter-form-popup {
+  --letter-close-right: clamp(0.6rem, 2.8vw, 2.75rem);
+  --letter-close-top: clamp(0.55rem, 1.8vw, 0.95rem);
   position: relative;
   width: min(940px, 97vw);
   height: min(94vh, 860px);
+  min-height: 80vh;
+  max-height: 94vh;
+  aspect-ratio: 47 / 43;
   background-position: center bottom;
-  background-size: 100% 100%;
+  background-size: cover;
   background-repeat: no-repeat;
   display: flex;
   align-items: stretch;
@@ -26,18 +31,18 @@
 
 .close-note-btn {
   position: absolute;
-  top: 0.9rem;
-  right: 2.8rem;
+  top: var(--letter-close-top);
+  right: var(--letter-close-right);
   border: none;
-  color: rgba(52, 41, 27, 0.82);
-  color: #000;
+  background: transparent;
+  color: rgba(52, 41, 27, 0.92);
   width: 28px;
   height: 28px;
   font-size: 1.25rem;
   cursor: pointer;
   box-shadow: none;
-  z-index: 2;
-  font-family: "RL Madena", "Crimson Text", serif;
+  z-index: 3;
+  font-family: "DM Sans", "Montserrat", sans-serif;
 }
 
 .letter-form {
@@ -153,6 +158,29 @@
   line-height: 1.5;
 }
 
+.letter-form {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(108, 76, 38, 0.75) rgba(232, 216, 186, 0.55);
+}
+
+.letter-form::-webkit-scrollbar {
+  width: 7px;
+}
+
+.letter-form::-webkit-scrollbar-track {
+  background: rgba(232, 216, 186, 0.55);
+  border-radius: 10px;
+}
+
+.letter-form::-webkit-scrollbar-thumb {
+  background: rgba(108, 76, 38, 0.75);
+  border-radius: 10px;
+}
+
+.letter-form::-webkit-scrollbar-thumb:hover {
+  background: rgba(89, 62, 30, 0.88);
+}
+
 .date-row {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -254,14 +282,18 @@
   }
 
   .letter-form-popup {
-    width: min(580px, 100%);
+    width: auto;
     height: min(93vh, 720px);
-    background-size: 100% 100%;
+    min-height: 80vh;
+    max-height: 93vh;
+    max-width: 100%;
+    aspect-ratio: 47 / 43;
+    background-size: cover;
   }
 
-  .close-note-btn {
-    top: 0.35rem;
-    right: 0.3rem;
+  .letter-form-popup {
+    --letter-close-right: 0.6rem;
+    --letter-close-top: 0.55rem;
   }
 
   .letter-form {

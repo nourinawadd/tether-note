@@ -13,9 +13,12 @@
   margin-bottom: clamp(7.1rem, 16vh, 9rem);
   max-height: calc(100% - clamp(11rem, 24vh, 13.7rem));
   overflow-y: auto;
+  overflow-x: hidden;
   display: flex;
   flex-direction: column;
   gap: 0.9rem;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(108, 76, 38, 0.75) rgba(232, 216, 186, 0.55);
 }
 
 .note-letter-header {
@@ -25,12 +28,30 @@
   color: rgba(62, 72, 53, 0.9);
 }
 
+.note-letter-content::-webkit-scrollbar {
+  width: 7px;
+}
+
+.note-letter-content::-webkit-scrollbar-track {
+  background: rgba(232, 216, 186, 0.55);
+  border-radius: 10px;
+}
+
+.note-letter-content::-webkit-scrollbar-thumb {
+  background: rgba(108, 76, 38, 0.75);
+  border-radius: 10px;
+}
+
+.note-letter-content::-webkit-scrollbar-thumb:hover {
+  background: rgba(89, 62, 30, 0.88);
+}
 .note-letter-paper {
   background: transparent;
   border: none;
   border-radius: 0;
   padding: 0;
   box-shadow: none;
+  overflow-x: hidden;
 }
 
 .note-letter-paper h1 {
@@ -39,6 +60,8 @@
   font-size: clamp(1.75rem, 3.3vw, 2.3rem);
   color: #2c2c2c;
   letter-spacing: 0.01em;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .note-letter-greeting,
@@ -54,6 +77,8 @@
 .note-letter-body {
   white-space: pre-wrap;
   margin-bottom: 1.55rem;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .note-letter-signature {

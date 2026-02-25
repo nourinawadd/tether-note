@@ -86,7 +86,7 @@ export default function CreateNote({ onClose, onCreated }) {
     <div className="create-note-overlay" role="dialog" aria-modal="true" aria-label="Create note form">
       <div className="letter-form-popup" style={{ backgroundImage: `url(${selectedEnvelope.letterBackground})` }}>
         <button className="close-note-btn" onClick={onClose} aria-label="Close create note form">
-          x
+          ×
         </button>
 
         <form className="letter-form" onSubmit={handleSubmit}>

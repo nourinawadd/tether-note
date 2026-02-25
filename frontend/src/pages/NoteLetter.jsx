@@ -71,7 +71,7 @@ export default function NoteLetter({ note: providedNote = null, onClose }) {
     <div className="create-note-overlay note-letter-overlay" role="dialog" aria-modal="true" aria-label="Opened note">
       <div className="letter-form-popup note-letter-popup" style={{ backgroundImage: `url(${selectedEnvelope.letterBackground})` }}>
         <button className="close-note-btn" onClick={handleClose} aria-label="Close note view">
-          x
+          ×
         </button>
 
         <div className="note-letter-content">

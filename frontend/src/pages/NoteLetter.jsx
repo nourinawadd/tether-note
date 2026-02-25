@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import "./CreateNote.css";
 import "./NoteLetter.css";
@@ -15,6 +15,7 @@ export default function NoteLetter({ note: providedNote = null, onClose, onDelet
   const [showDeletePopup, setShowDeletePopup] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [isSharing, setIsSharing] = useState(false);
+  const letterPopupRef = useRef(null);
   const noteIdToLoad = providedNote?._id || noteId;
 
   useEffect(() => {
@@ -94,16 +95,25 @@ export default function NoteLetter({ note: providedNote = null, onClose, onDelet
   };
 
   const handleShareLetter = async () => {
-    if (!note) return;
+    if (!note|| !letterPopupRef.current) return;
 
     setIsSharing(true);
 
     try {
+      const popup = letterPopupRef.current;
+      const popupBounds = popup.getBoundingClientRect();
+      const width = Math.max(1, Math.round(popupBounds.width));
+      const height = Math.max(1, Math.round(popupBounds.height));
+      const scale = window.devicePixelRatio || 1;
       const exportCanvas = document.createElement("canvas");
-      exportCanvas.width = 1200;
-      exportCanvas.height = 900;
+      exportCanvas.width = Math.max(1, Math.round(width * scale));
+      exportCanvas.height = Math.max(1, Math.round(height * scale));
       const ctx = exportCanvas.getContext("2d");
-
+      if (!ctx) {
+        throw new Error("Canvas context unavailable");
+      }
+      ctx.scale(scale, scale);
+      ctx.textBaseline = "alphabetic";
       const background = new Image();
       background.crossOrigin = "anonymous";
       background.src = selectedEnvelope.letterBackground;
@@ -112,43 +122,54 @@ export default function NoteLetter({ note: providedNote = null, onClose, onDelet
         background.onload = resolve;
         background.onerror = reject;
       });
-
-      ctx.drawImage(background, 0, 0, exportCanvas.width, exportCanvas.height);
-      ctx.fillStyle = "rgba(255, 255, 255, 0.65)";
-      ctx.fillRect(110, 90, 980, 720);
-      ctx.fillStyle = "#2f2f2f";
-      ctx.font = "42px serif";
-      ctx.fillText(note.title || "A letter from your past self", 150, 180, 900);
-      ctx.font = "30px serif";
-      ctx.fillText(`Opened: ${formattedDate}`, 150, 230);
-      ctx.font = "34px serif";
-      ctx.fillText("Dear Future Me,", 150, 300);
-      ctx.font = "30px sans-serif";
-
-      const letterText = note.content || "";
-      const words = letterText.split(" ");
-      let line = "";
-      let y = 360;
-
-      words.forEach((word) => {
-        const testLine = `${line}${word} `;
-        const metrics = ctx.measureText(testLine);
-        if (metrics.width > 860) {
-          ctx.fillText(line.trim(), 150, y);
-          line = `${word} `;
-          y += 46;
-          return;
-        }
-        line = testLine;
-      });
-
-      if (line.trim()) {
-        ctx.fillText(line.trim(), 150, y);
+      ctx.drawImage(background, 0, 0, width, height);
+      const paperElement = popup.querySelector(".note-letter-content");
+      if (!paperElement) {
+        throw new Error("Letter content missing");
       }
-
-      ctx.font = "34px serif";
-      ctx.fillText("With care,", 150, 760);
-      ctx.fillText("Past You", 150, 810);
+     const popupRect = popup.getBoundingClientRect();
+      const drawWrappedText = (element) => {
+        const style = window.getComputedStyle(element);
+        const rect = element.getBoundingClientRect();
+        const x = rect.left - popupRect.left;
+        const yStart = rect.top - popupRect.top;
+        const maxWidth = rect.width;
+        const fontSize = Number.parseFloat(style.fontSize) || 16;
+        const lineHeightValue = Number.parseFloat(style.lineHeight);
+        const lineHeight = Number.isFinite(lineHeightValue) ? lineHeightValue : fontSize * 1.4;
+        ctx.fillStyle = style.color || "#2f2f2f";
+        ctx.font = `${style.fontStyle} ${style.fontWeight} ${style.fontSize} ${style.fontFamily}`;
+        const paragraphs = (element.innerText || "").split("\n");
+        let currentY = yStart + fontSize;
+        paragraphs.forEach((paragraph, paragraphIndex) => {
+          const words = paragraph.split(/\s+/).filter(Boolean);
+          if (!words.length) {
+            currentY += lineHeight;
+            return;
+          }
+          let line = "";
+          words.forEach((word) => {
+            const testLine = line ? `${line} ${word}` : word;
+            if (ctx.measureText(testLine).width > maxWidth && line) {
+              ctx.fillText(line, x, currentY);
+              line = word;
+              currentY += lineHeight;
+            } else {
+              line = testLine;
+            }
+          });
+          if (line) {
+            ctx.fillText(line, x, currentY);
+            currentY += lineHeight;
+          }
+          if (paragraphIndex < paragraphs.length - 1) {
+            currentY += lineHeight * 0.1;
+          }
+        });
+      };
+      popup
+        .querySelectorAll(".note-letter-header span, .note-letter-paper p, .note-letter-paper h1")
+        .forEach((element) => drawWrappedText(element));
 
       const link = document.createElement("a");
       link.download = `${(note.title || "tether-note-letter").replace(/\s+/g, "-").toLowerCase()}.png`;
@@ -163,7 +184,11 @@ export default function NoteLetter({ note: providedNote = null, onClose, onDelet
 
   return (
     <div className="create-note-overlay note-letter-overlay" role="dialog" aria-modal="true" aria-label="Opened note">
-      <div className="letter-form-popup note-letter-popup" style={{ backgroundImage: `url(${selectedEnvelope.letterBackground})` }}>
+      <div
+        ref={letterPopupRef}
+        className="letter-form-popup note-letter-popup"
+        style={{ backgroundImage: `url(${selectedEnvelope.letterBackground})` }}
+      >
         <button className="close-note-btn" onClick={handleClose} aria-label="Close note view">
           ×
         </button>

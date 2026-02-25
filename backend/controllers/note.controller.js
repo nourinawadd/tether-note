@@ -144,7 +144,7 @@ export const deleteNote = async (req, res, next) => {
         note.status = 'deleted';
         await note.save();
 
-        res.status(204).json({
+        res.status(200).json({
             success: true,
             message: 'Note deleted successfully.'
         });

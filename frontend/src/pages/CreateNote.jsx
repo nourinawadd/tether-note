@@ -83,14 +83,14 @@ export default function CreateNote({ onClose, onCreated }) {
   };
 
   return (
-    <div className="create-note-overlay" role="dialog" aria-modal="true" aria-label="Create note form">
+     <div className="create-note-overlay" role="dialog" aria-modal="true" aria-label="Create letter form">
       <div className="letter-form-popup" style={{ backgroundImage: `url(${selectedEnvelope.letterBackground})` }}>
-        <button className="close-note-btn" onClick={onClose} aria-label="Close create note form">
+        <button className="close-note-btn" onClick={onClose} aria-label="Close create letter form">
           ×
         </button>
 
         <form className="letter-form" onSubmit={handleSubmit}>
-          <h1>Seal a Note for Later</h1>
+          <h1>Seal a Letter for Later</h1>
           <p className="form-subtitle">
             Write a little note to future you, choose when it arrives, and seal it with care.
           </p>
@@ -171,7 +171,7 @@ export default function CreateNote({ onClose, onCreated }) {
           {errorMessage ? <p className="form-feedback error">{errorMessage}</p> : null}
 
           <button type="submit" className="submit-btn" disabled={isSubmitting || isSentPopupVisible}>
-            {isSubmitting ? "Sealing..." : "Seal Note"}
+            {isSubmitting ? "Sealing..." : "Seal Letter"}
           </button>
         </form>
 

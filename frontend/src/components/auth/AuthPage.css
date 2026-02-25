@@ -206,17 +206,17 @@ body {
   background: rgba(255, 255, 255, 0.16);
 }
 
-.submit-btn {
+.auth-form .submit-btn {
   margin-top: 0.5rem;
   padding: 0.85rem 1.8rem;
   border-radius: 12px;
-  background: white;
-  color: var(--deep-green);
+  background: rgba(255, 255, 255, 0.14);
+  color: white;
+  border: 1px solid white;
   font-family: 'Not A Typeface', 'Montserrat', sans-serif;
   font-size: 0.9rem;
   font-weight: 600;
   letter-spacing: 0.04em;
-  border: none;
   cursor: pointer;
   transition:
     transform 0.15s ease,
@@ -224,17 +224,19 @@ body {
     opacity 0.2s ease;
 }
 
-.submit-btn:hover {
+.auth-form .submit-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  background: rgba(255, 255, 255, 0.22);
+  border-color: white;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 }
 
-.submit-btn:active {
+.auth-form .submit-btn:active {
   transform: translateY(0);
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
 }
 
-.submit-btn:disabled {
+.auth-form .submit-btn:disabled {
   opacity: 0.6;
   cursor: not-allowed;
   box-shadow: none;
@@ -324,7 +326,7 @@ body {
   opacity: 0.6;
 }
 
-.loading .submit-btn::after {
+.auth-form .loading .submit-btn::after {
   content: '';
   display: inline-block;
   width: 14px;

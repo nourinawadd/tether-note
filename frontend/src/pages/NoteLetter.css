@@ -21,11 +21,56 @@
   scrollbar-color: rgba(108, 76, 38, 0.75) rgba(232, 216, 186, 0.55);
 }
 
+.note-letter-popup.long-letter {
+  height: min(96vh, 960px);
+}
+
+.note-letter-popup.very-long-letter {
+  height: min(98vh, 1080px);
+}
+
+.note-letter-popup.long-letter .note-letter-content,
+.note-letter-popup.very-long-letter .note-letter-content {
+  max-height: calc(100% - clamp(9rem, 20vh, 12rem));
+}
+
+.note-letter-popup.long-letter .note-letter-paper h1 {
+  font-size: clamp(1.55rem, 3vw, 2rem);
+}
+
+.note-letter-popup.long-letter .note-letter-body,
+.note-letter-popup.long-letter .note-letter-greeting,
+.note-letter-popup.long-letter .note-letter-signoff,
+.note-letter-popup.long-letter .note-letter-signature {
+  font-size: 1.02rem;
+}
+
+.note-letter-popup.very-long-letter .note-letter-paper h1 {
+  font-size: clamp(1.4rem, 2.6vw, 1.8rem);
+}
+
+.note-letter-popup.very-long-letter .note-letter-body,
+.note-letter-popup.very-long-letter .note-letter-greeting,
+.note-letter-popup.very-long-letter .note-letter-signoff,
+.note-letter-popup.very-long-letter .note-letter-signature {
+  font-size: 0.94rem;
+  line-height: 1.6;
+}
+
 .note-letter-header {
   display: flex;
   justify-content: space-between;
+  align-items: flex-start;
   font-size: 1rem;
   color: rgba(62, 72, 53, 0.9);
+}
+
+.note-letter-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.1rem;
+  font-size: 0.94rem;
 }
 
 .note-letter-content::-webkit-scrollbar {
@@ -45,6 +90,7 @@
 .note-letter-content::-webkit-scrollbar-thumb:hover {
   background: rgba(89, 62, 30, 0.88);
 }
+
 .note-letter-paper {
   background: transparent;
   border: none;
@@ -70,23 +116,6 @@
 .note-letter-body {
   font-family: 'Not A Typeface', 'Montserrat', sans-serif;
   color: #2f2f2f;
-  line-height: 1.7;
-  font-size: 1.12rem;
-}
-
-.note-letter-body {
-  white-space: pre-wrap;
-  margin-bottom: 1.55rem;
-  overflow-wrap: anywhere;
-  word-break: break-word;
-}
-
-.note-letter-signature {
-  font-style: italic;
-}
-
-.note-letter-actions {
-  margin-top: auto;
   padding-top: 0.6rem;
   display: flex;
   justify-content: center;
@@ -112,6 +141,7 @@
 .note-letter-error {
   margin-bottom: 1rem;
 }
+
 .note-letter-inline-error {
   margin: 0;
   color: #8a2a2a;
@@ -156,6 +186,10 @@
   .note-letter-header {
     flex-direction: column;
     gap: 0.3rem;
+  }
+
+  .note-letter-meta {
+    align-items: flex-start;
   }
 
   .note-letter-actions {

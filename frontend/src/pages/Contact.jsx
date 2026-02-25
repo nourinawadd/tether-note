@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Contact.css";
 
-const SUPPORT_EMAIL = "nourinawad@gmail.com";
+const SUPPORT_EMAIL = "tethernote.app@gmail.com";
 
 export default function Contact() {
   const navigate = useNavigate();
@@ -11,7 +11,10 @@ export default function Contact() {
   return (
     <div className="dashboard-container">
       <nav className="dashboard-nav">
-        <h1 className="brand-title">Tether Note*</h1>
+        <h1 className="brand-title">
+          <img src="/assets/images/tether-note-logo.svg" alt="Tether Note logo" className="brand-logo" />
+          <span>Tether Note*</span>
+        </h1>
         <div className="nav-links">
           <a href="/dashboard" className="nav-link">Dashboard</a>
           <a href="/about" className="nav-link">About</a>

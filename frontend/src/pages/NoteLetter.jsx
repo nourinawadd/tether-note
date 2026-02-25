@@ -50,7 +50,7 @@ export default function NoteLetter({ note: providedNote = null, onClose, onDelet
     }
   }, [navigate, noteIdToLoad, providedNote]);
 
-  const formattedDate = useMemo(() => {
+  const openedDate = useMemo(() => {
     if (!note?.openAt) return "sometime soon";
     return new Date(note.openAt).toLocaleDateString("en-US", {
       month: "long",
@@ -58,7 +58,21 @@ export default function NoteLetter({ note: providedNote = null, onClose, onDelet
       year: "numeric",
     });
   }, [note?.openAt]);
+  const createdDate = useMemo(() => {
+    if (!note?.createdAt) return "unknown";
+    return new Date(note.createdAt).toLocaleDateString("en-US", {
+      month: "long",
+      day: "numeric",
+      year: "numeric",
+    });
+  }, [note?.createdAt]);
 
+  const letterLengthClass = useMemo(() => {
+    const length = (note?.content || "").trim().length;
+    if (length > 2400) return "very-long-letter";
+    if (length > 1200) return "long-letter";
+    return "";
+  }, [note?.content]);
   const selectedEnvelope =
     ENVELOPE_STYLE_OPTIONS.find((option) => option.value === note?.envelopeColor) ||
     DEFAULT_ENVELOPE_STYLE;
@@ -186,7 +200,7 @@ export default function NoteLetter({ note: providedNote = null, onClose, onDelet
     <div className="create-note-overlay note-letter-overlay" role="dialog" aria-modal="true" aria-label="Opened note">
       <div
         ref={letterPopupRef}
-        className="letter-form-popup note-letter-popup"
+        className={`letter-form-popup note-letter-popup ${letterLengthClass}`}
         style={{ backgroundImage: `url(${selectedEnvelope.letterBackground})` }}
       >
         <button className="close-note-btn" onClick={handleClose} aria-label="Close note view">
@@ -207,7 +221,10 @@ export default function NoteLetter({ note: providedNote = null, onClose, onDelet
             <>
               <header className="note-letter-header">
                 <span>To: Future Me</span>
-                <span>Opened: {formattedDate}</span>
+                <div className="note-letter-meta">
+                  <span>Created: {createdDate}</span>
+                  <span>Opened: {openedDate}</span>
+                </div>
               </header>
               <article className="note-letter-paper">
                 <p className="note-letter-greeting">Dear Future Me,</p>

@@ -3,65 +3,65 @@
 }
 
 .note-letter-popup {
-  width: min(860px, 95vw);
-  height: min(93vh, 820px);
+  --letter-close-right: clamp(0.65rem, 2.2vw, 1.65rem);
+  --letter-close-top: clamp(0.55rem, 1.6vw, 0.9rem);
+  width: min(900px, 96vw);
+  height: min(calc(100vh - 72px), 860px);
+  max-height: calc(100vh - 72px);
+  min-height: min(76vh, 700px);
 }
 
 .note-letter-content {
-  width: min(500px, 68%);
-  margin-top: clamp(3.2rem, 6.4vw, 4.4rem);
-  margin-bottom: clamp(7.1rem, 16vh, 9rem);
-  max-height: calc(100% - clamp(11rem, 24vh, 13.7rem));
+  width: min(580px, 76%);
+  margin-top: clamp(2.6rem, 5.2vw, 3.5rem);
+  margin-bottom: clamp(4.5rem, 10.5vh, 5.8rem);
+  max-height: calc(100% - clamp(7.8rem, 16vh, 9.3rem));
   overflow-y: auto;
   overflow-x: hidden;
   display: flex;
   flex-direction: column;
-  gap: 0.9rem;
+  gap: 0.85rem;
   scrollbar-width: thin;
   scrollbar-color: rgba(108, 76, 38, 0.75) rgba(232, 216, 186, 0.55);
 }
 
-.note-letter-popup.long-letter {
-  height: min(96vh, 960px);
-}
-
-.note-letter-popup.very-long-letter {
-  height: min(98vh, 1080px);
-}
-
-.note-letter-popup.long-letter .note-letter-content,
-.note-letter-popup.very-long-letter .note-letter-content {
-  max-height: calc(100% - clamp(9rem, 20vh, 12rem));
-}
-
 .note-letter-popup.long-letter .note-letter-paper h1 {
-  font-size: clamp(1.55rem, 3vw, 2rem);
+  font-size: clamp(1.4rem, 2.8vw, 1.85rem);
 }
 
 .note-letter-popup.long-letter .note-letter-body,
 .note-letter-popup.long-letter .note-letter-greeting,
 .note-letter-popup.long-letter .note-letter-signoff,
 .note-letter-popup.long-letter .note-letter-signature {
-  font-size: 1.02rem;
+  font-size: 0.94rem;
 }
 
 .note-letter-popup.very-long-letter .note-letter-paper h1 {
-  font-size: clamp(1.4rem, 2.6vw, 1.8rem);
+  font-size: clamp(1.2rem, 2.25vw, 1.58rem);
 }
 
 .note-letter-popup.very-long-letter .note-letter-body,
 .note-letter-popup.very-long-letter .note-letter-greeting,
 .note-letter-popup.very-long-letter .note-letter-signoff,
 .note-letter-popup.very-long-letter .note-letter-signature {
-  font-size: 0.94rem;
-  line-height: 1.6;
+  font-size: 0.84rem;
+  line-height: 1.5;
+}
+
+.note-letter-popup.long-letter .note-letter-content,
+.note-letter-popup.very-long-letter .note-letter-content {
+  margin-bottom: clamp(4.8rem, 11vh, 6.2rem);
+  max-height: calc(100% - clamp(8.8rem, 18vh, 10.8rem));
+  overflow-y: auto;
 }
 
 .note-letter-header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  font-size: 1rem;
+  flex-wrap: wrap;
+  gap: 0.25rem 0.9rem;
+  font-size: 0.88rem;
   color: rgba(62, 72, 53, 0.9);
 }
 
@@ -69,8 +69,9 @@
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  gap: 0.1rem;
-  font-size: 0.94rem;
+  gap: 0.15rem;
+  font-size: 0.82rem;
+  min-width: max-content;
 }
 
 .note-letter-content::-webkit-scrollbar {
@@ -101,9 +102,9 @@
 }
 
 .note-letter-paper h1 {
-  margin: 0.45rem 0 1.3rem;
+  margin: 0.2rem 0 0.9rem;
   font-family: 'Not A Typeface', 'Montserrat', sans-serif;
-  font-size: clamp(1.75rem, 3.3vw, 2.3rem);
+  font-size: clamp(1.5rem, 2.9vw, 1.95rem);
   color: #2c2c2c;
   letter-spacing: 0.01em;
   overflow-wrap: anywhere;
@@ -116,11 +117,33 @@
 .note-letter-body {
   font-family: 'Not A Typeface', 'Montserrat', sans-serif;
   color: #2f2f2f;
-  padding-top: 0.6rem;
+  font-size: 0.96rem;
+  line-height: 1.58;
+  margin: 0;
+  text-align: left;
+}
+
+.note-letter-greeting,
+.note-letter-signoff,
+.note-letter-signature {
+  padding-top: 0.25rem;
+}
+
+.note-letter-body {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.note-letter-actions {
+  position: sticky;
+  bottom: 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 0.7rem;
+  gap: 0.6rem;
+  margin-top: 0.55rem;
+  padding: 0.55rem 0 0.2rem;
+  background: transparent;
 }
 
 .note-letter-delete-btn {
@@ -152,7 +175,6 @@
   font-size: 0.82rem;
 }
 
-
 .note-letter-back-btn {
   justify-self: flex-end;
 }
@@ -176,11 +198,24 @@
 }
 
 @media (max-width: 768px) {
+  .note-letter-popup {
+    height: min(calc(100vh - 56px), 760px);
+    max-height: calc(100vh - 56px);
+    min-height: min(72vh, 640px);
+  }
+
   .note-letter-content {
-    width: min(390px, 72%);
-    margin-top: 2rem;
-    margin-bottom: clamp(5.8rem, 13vh, 7.2rem);
-    max-height: calc(100% - 8.2rem);
+    width: min(450px, 79%);
+    margin-top: 1.65rem;
+    margin-bottom: clamp(4.1rem, 9.5vh, 5.3rem);
+    max-height: calc(100% - 6.3rem);
+  }
+
+
+  .note-letter-popup.long-letter .note-letter-content,
+  .note-letter-popup.very-long-letter .note-letter-content {
+    margin-bottom: clamp(4.4rem, 10vh, 5.8rem);
+    max-height: calc(100% - 7.1rem);
   }
 
   .note-letter-header {

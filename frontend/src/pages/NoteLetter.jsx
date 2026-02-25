@@ -117,11 +117,107 @@ export default function NoteLetter({ note: providedNote = null, onClose, onDelet
       const popup = letterPopupRef.current;
       const popupBounds = popup.getBoundingClientRect();
       const width = Math.max(1, Math.round(popupBounds.width));
-      const height = Math.max(1, Math.round(popupBounds.height));
+      const baseHeight = Math.max(1, Math.round(popupBounds.height));
       const scale = window.devicePixelRatio || 1;
+      const paperElement = popup.querySelector(".note-letter-content");
+      if (!paperElement) {
+        throw new Error("Letter content missing");
+      }
+      const popupRect = popup.getBoundingClientRect();
+
+      const drawInstructions = [];
+      let maxTextY = 0;
+      const measurementCanvas = document.createElement("canvas");
+      const measurementCtx = measurementCanvas.getContext("2d");
+      if (!measurementCtx) {
+        throw new Error("Canvas measurement context unavailable");
+      }
+      const drawWrappedText = (element) => {
+        const style = window.getComputedStyle(element);
+        const rect = element.getBoundingClientRect();
+        const x = rect.left - popupRect.left;
+        const yStart = rect.top - popupRect.top;
+        const maxWidth = Math.max(1, rect.width);
+        const fontSize = Number.parseFloat(style.fontSize) || 16;
+        const lineHeightValue = Number.parseFloat(style.lineHeight);
+        const lineHeight = Number.isFinite(lineHeightValue) ? lineHeightValue : fontSize * 1.4;
+        const font = `${style.fontStyle} ${style.fontWeight} ${style.fontSize} ${style.fontFamily}`;
+        const paragraphs = (element.innerText || "").split("\n");
+        let currentY = yStart + fontSize;
+        const lines = [];
+        measurementCtx.font = font;
+
+        const pushSegmentedWord = (word, seed = "") => {
+          let fragment = "";
+          const prefix = seed ? `${seed} ` : "";
+          for (const char of word) {
+            const candidate = `${prefix}${fragment}${char}`;
+            if (measurementCtx.measureText(candidate).width > maxWidth && fragment) {
+              lines.push({ text: `${prefix}${fragment}`, x, y: currentY });
+              currentY += lineHeight;
+              fragment = char;
+            } else if (measurementCtx.measureText(candidate).width > maxWidth) {
+              lines.push({ text: `${prefix}${char}`, x, y: currentY });
+              currentY += lineHeight;
+              fragment = "";
+            } else {
+              fragment += char;
+            }
+          }
+          return fragment;
+        };
+
+        paragraphs.forEach((paragraph, paragraphIndex) => {
+          const words = paragraph.split(/\s+/).filter(Boolean);
+          if (!words.length) {
+            currentY += lineHeight;
+            return;
+          }
+          let line = "";
+          words.forEach((word) => {
+            const testLine = line ? `${line} ${word}` : word;
+            if (measurementCtx.measureText(testLine).width <= maxWidth) {
+              line = testLine;
+              return;
+            }
+
+            if (line) {
+              lines.push({ text: line, x, y: currentY });
+              currentY += lineHeight;
+              line = "";
+            }
+
+            if (measurementCtx.measureText(word).width > maxWidth) {
+              line = pushSegmentedWord(word);
+            } else {
+              line = word;
+            }
+          });
+          if (line) {
+            lines.push({ text: line, x, y: currentY });
+            currentY += lineHeight;
+          }
+          if (paragraphIndex < paragraphs.length - 1) {
+            currentY += lineHeight * 0.1;
+          }
+        });
+
+        maxTextY = Math.max(maxTextY, currentY);
+        drawInstructions.push({ lines, color: style.color || "#2f2f2f", font });
+      };
+      popup
+        .querySelectorAll(".note-letter-header span, .note-letter-paper p, .note-letter-paper h1")
+        .forEach((element) => drawWrappedText(element));
+
+     const contentBottom =
+        (paperElement.getBoundingClientRect().top - popupRect.top) +
+        paperElement.scrollHeight +
+        28;
+      const exportHeight = Math.max(baseHeight, Math.ceil(maxTextY + 40), Math.ceil(contentBottom));
+
       const exportCanvas = document.createElement("canvas");
       exportCanvas.width = Math.max(1, Math.round(width * scale));
-      exportCanvas.height = Math.max(1, Math.round(height * scale));
+      exportCanvas.height = Math.max(1, Math.round(exportHeight * scale));
       const ctx = exportCanvas.getContext("2d");
       if (!ctx) {
         throw new Error("Canvas context unavailable");
@@ -136,62 +232,45 @@ export default function NoteLetter({ note: providedNote = null, onClose, onDelet
         background.onload = resolve;
         background.onerror = reject;
       });
-      ctx.drawImage(background, 0, 0, width, height);
-      const paperElement = popup.querySelector(".note-letter-content");
-      if (!paperElement) {
-        throw new Error("Letter content missing");
-      }
-     const popupRect = popup.getBoundingClientRect();
-      const drawWrappedText = (element) => {
-        const style = window.getComputedStyle(element);
-        const rect = element.getBoundingClientRect();
-        const x = rect.left - popupRect.left;
-        const yStart = rect.top - popupRect.top;
-        const maxWidth = rect.width;
-        const fontSize = Number.parseFloat(style.fontSize) || 16;
-        const lineHeightValue = Number.parseFloat(style.lineHeight);
-        const lineHeight = Number.isFinite(lineHeightValue) ? lineHeightValue : fontSize * 1.4;
-        ctx.fillStyle = style.color || "#2f2f2f";
-        ctx.font = `${style.fontStyle} ${style.fontWeight} ${style.fontSize} ${style.fontFamily}`;
-        const paragraphs = (element.innerText || "").split("\n");
-        let currentY = yStart + fontSize;
-        paragraphs.forEach((paragraph, paragraphIndex) => {
-          const words = paragraph.split(/\s+/).filter(Boolean);
-          if (!words.length) {
-            currentY += lineHeight;
-            return;
-          }
-          let line = "";
-          words.forEach((word) => {
-            const testLine = line ? `${line} ${word}` : word;
-            if (ctx.measureText(testLine).width > maxWidth && line) {
-              ctx.fillText(line, x, currentY);
-              line = word;
-              currentY += lineHeight;
-            } else {
-              line = testLine;
-            }
-          });
-          if (line) {
-            ctx.fillText(line, x, currentY);
-            currentY += lineHeight;
-          }
-          if (paragraphIndex < paragraphs.length - 1) {
-            currentY += lineHeight * 0.1;
-          }
-        });
-      };
-      popup
-        .querySelectorAll(".note-letter-header span, .note-letter-paper p, .note-letter-paper h1")
-        .forEach((element) => drawWrappedText(element));
+      ctx.drawImage(background, 0, 0, width, exportHeight);
 
-      const link = document.createElement("a");
-      link.download = `${(note.title || "tether-note-letter").replace(/\s+/g, "-").toLowerCase()}.png`;
-      link.href = exportCanvas.toDataURL("image/png");
-      link.click();
+      drawInstructions.forEach(({ lines, color, font }) => {
+        ctx.fillStyle = color;
+        ctx.font = font;
+        lines.forEach(({ text, x, y }) => {
+          ctx.fillText(text, x, y);
+        });
+      });
+
+      const downloadName = `${(note.title || "tether-note-letter").replace(/\s+/g, "-").toLowerCase()}.png`;
+      const imageBlob = await new Promise((resolve, reject) => {
+        exportCanvas.toBlob((blob) => {
+          if (blob) {
+            resolve(blob);
+          } else {
+            reject(new Error("Unable to create image"));
+          }
+        }, "image/png");
+      });
+
+      const file = new File([imageBlob], downloadName, { type: "image/png" });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({
+          files: [file],
+          title: note.title || "Tether Note",
+          text: "A letter from my past self.",
+        });
+      } else {
+        const link = document.createElement("a");
+        link.download = downloadName;
+        link.href = URL.createObjectURL(imageBlob);
+        link.click();
+        URL.revokeObjectURL(link.href);
+      }
     } catch {
       setDeleteError("Unable to export your letter image right now.");
     } finally {
+      letterPopupRef.current?.classList.remove("share-export");
       setIsSharing(false);
     }
   };

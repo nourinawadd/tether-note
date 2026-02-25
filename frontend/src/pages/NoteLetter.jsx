@@ -209,12 +209,12 @@ export default function NoteLetter({ note: providedNote = null, onClose, onDelet
         .querySelectorAll(".note-letter-header span, .note-letter-paper p, .note-letter-paper h1")
         .forEach((element) => drawWrappedText(element));
 
-     const contentBottom =
+      const exportBottomPadding = 110;
+      const contentBottom =
         (paperElement.getBoundingClientRect().top - popupRect.top) +
         paperElement.scrollHeight +
-        28;
-      const exportHeight = Math.max(baseHeight, Math.ceil(maxTextY + 40), Math.ceil(contentBottom));
-
+        exportBottomPadding;
+      const exportHeight = Math.max(baseHeight, Math.ceil(maxTextY + 48), Math.ceil(contentBottom));
       const exportCanvas = document.createElement("canvas");
       exportCanvas.width = Math.max(1, Math.round(width * scale));
       exportCanvas.height = Math.max(1, Math.round(exportHeight * scale));
@@ -282,10 +282,6 @@ export default function NoteLetter({ note: providedNote = null, onClose, onDelet
         className={`letter-form-popup note-letter-popup ${letterLengthClass}`}
         style={{ backgroundImage: `url(${selectedEnvelope.letterBackground})` }}
       >
-        <button className="close-note-btn" onClick={handleClose} aria-label="Close note view">
-          ×
-        </button>
-
         <div className="note-letter-content">
           {loading ? (
             <p className="note-letter-status">Unsealing your letter...</p>
@@ -314,6 +310,9 @@ export default function NoteLetter({ note: providedNote = null, onClose, onDelet
               </article>
 
               <div className="note-letter-actions">
+                <button type="button" className="submit-btn note-letter-back-btn" onClick={handleClose}>
+                  Back to Dashboard
+                </button>
                 <button
                   type="button"
                   className="submit-btn note-letter-delete-btn"

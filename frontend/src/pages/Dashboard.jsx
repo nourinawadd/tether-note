@@ -85,7 +85,7 @@ export default function Dashboard() {
       <nav className="dashboard-nav">
           <h1 className="brand-title">
           <img src="/assets/images/tether-note-logo.svg" alt="Tether Note logo" className="brand-logo" />
-          <span>Tether Note*</span>
+          <span>Tether Note</span>
         </h1>
         <div className="nav-links">
           <a href="/dashboard" className="nav-link active">Dashboard</a>

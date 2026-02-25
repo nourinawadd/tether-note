@@ -14,8 +14,8 @@
 .note-letter-content {
   width: min(580px, 76%);
   margin-top: clamp(2.6rem, 5.2vw, 3.5rem);
-  margin-bottom: clamp(4.5rem, 10.5vh, 5.8rem);
-  max-height: calc(100% - clamp(7.8rem, 16vh, 9.3rem));
+  margin-bottom: clamp(5.8rem, 13vh, 7.1rem);
+  max-height: calc(100% - clamp(9.1rem, 19vh, 10.8rem));
   overflow-y: auto;
   overflow-x: hidden;
   display: flex;
@@ -50,8 +50,8 @@
 
 .note-letter-popup.long-letter .note-letter-content,
 .note-letter-popup.very-long-letter .note-letter-content {
-  margin-bottom: clamp(4.8rem, 11vh, 6.2rem);
-  max-height: calc(100% - clamp(8.8rem, 18vh, 10.8rem));
+  margin-bottom: clamp(6.2rem, 13.8vh, 7.6rem);
+  max-height: calc(100% - clamp(9.8rem, 20vh, 12rem));
   overflow-y: auto;
 }
 
@@ -142,7 +142,7 @@
   align-items: center;
   gap: 0.6rem;
   margin-top: 0.55rem;
-  padding: 0.55rem 0 0.2rem;
+  padding: 0.75rem 0 0.5rem;
   background: transparent;
 }
 
@@ -207,15 +207,15 @@
   .note-letter-content {
     width: min(450px, 79%);
     margin-top: 1.65rem;
-    margin-bottom: clamp(4.1rem, 9.5vh, 5.3rem);
-    max-height: calc(100% - 6.3rem);
+    margin-bottom: clamp(5.1rem, 11.6vh, 6.4rem);
+    max-height: calc(100% - 7.4rem);
   }
 
 
   .note-letter-popup.long-letter .note-letter-content,
   .note-letter-popup.very-long-letter .note-letter-content {
-    margin-bottom: clamp(4.4rem, 10vh, 5.8rem);
-    max-height: calc(100% - 7.1rem);
+    margin-bottom: clamp(5.6rem, 12.3vh, 6.9rem);
+    max-height: calc(100% - 8.2rem);
   }
 
   .note-letter-header {

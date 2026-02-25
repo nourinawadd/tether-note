@@ -13,8 +13,8 @@
 
 .letter-form-popup {
   position: relative;
-  width: min(900px, 98vw);
-  height: min(96vh, 900px);
+  width: min(860px, 95vw);
+  height: min(93vh, 820px);
   background-position: center bottom;
   background-size: 100% 100%;
   background-repeat: no-repeat;
@@ -26,46 +26,48 @@
 
 .close-note-btn {
   position: absolute;
-  top: 0.8rem;
-  right: 3rem;
+  top: 0.9rem;
+  right: 2.8rem;
   border: none;
-  background: transparent;
+  color: rgba(52, 41, 27, 0.82);
   color: #000;
   width: 28px;
   height: 28px;
-  font-size: 1.2rem;
+  font-size: 1.25rem;
   cursor: pointer;
   box-shadow: none;
   z-index: 2;
+  font-family: "RL Madena", "Crimson Text", serif;
 }
 
 .letter-form {
-  width: min(610px, 79%);
-  margin-top: clamp(2.8rem, 6vw, 4rem);
-  margin-bottom: clamp(6.3rem, 15vh, 8.4rem);
+  width: min(500px, 68%);
+  margin-top: clamp(3.2rem, 6.4vw, 4.4rem);
+  margin-bottom: clamp(7.1rem, 16vh, 9rem);
   background: transparent;
   border: none;
   box-shadow: none;
   padding: 0;
   display: grid;
-  gap: 0.75rem;
   align-content: start;
-  gap: 0.7rem;
-  max-height: calc(100% - clamp(9rem, 20vh, 12rem));
+  gap: 0.9rem;
+  max-height: calc(100% - clamp(11rem, 24vh, 13.7rem));
   overflow-y: auto;
 }
 
 .letter-form h1 {
   margin: 0;
   font-family: "RL Madena", "Crimson Text", serif;
-  font-size: clamp(1.55rem, 3vw, 2.1rem);
+  font-size: clamp(1.9rem, 3.8vw, 2.65rem);
   color: rgba(42, 32, 18, 0.95);
+  letter-spacing: 0.02em;
 }
 
 .form-subtitle {
   margin: 0 0 0.6rem;
   color: rgba(53, 43, 29, 0.8);
-  font-size: 0.95rem;
+  font-size: 1.08rem;
+  line-height: 1.5;
 }
 
 .envelope-style-row {
@@ -74,10 +76,10 @@
   justify-content: space-between;
   gap: 0.9rem;
   margin-bottom: 0.2rem;
-  padding: 0.5rem 0.7rem;
+  padding: 0.35rem 0;
   border-radius: 10px;
-  background: rgba(255, 255, 255, 0.26);
-  border: 1px solid rgba(70, 53, 34, 0.12);
+  background: transparent;
+  border: none;
   margin-top: 0.35rem;
 }
 
@@ -117,34 +119,38 @@
 
 
 .letter-form label {
-  font-size: 0.9rem;
-  font-weight: 600;
+  font-size: 1.02rem;
+  font-weight: 500;
   color: rgba(49, 39, 26, 0.92);
 }
 
 .letter-form input,
 .letter-form textarea {
   width: 100%;
-  border: 1px solid rgba(117, 102, 81, 0.25);
-  background: rgba(255, 252, 245, 0.42);
-  border-radius: 8px;
-  padding: 0.68rem 0.78rem;
+  border: 1px solid rgba(88, 72, 47, 0.28);
+  background: transparent;
+  border-radius: 0;
+  padding: 0.82rem 0;
   font-family: 'Not A Typeface', 'DM Sans', sans-serif;
+  font-size: 1.08rem;
   color: var(--charcoal);
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  border-left: none;
+  border-right: none;
+  border-top: none;
 }
 
 .letter-form input:focus,
 .letter-form textarea:focus {
   outline: none;
-  border-color: var(--earth-green);
-  box-shadow: 0 0 0 3px rgba(107, 127, 92, 0.17);
+  border-color: rgba(74, 90, 62, 0.8);
+  box-shadow: 0 6px 0 -5px rgba(74, 90, 62, 0.5);
 }
 
 .letter-form textarea {
   resize: vertical;
-  min-height: 180px;
-  line-height: 1.45;
+  min-height: 220px;
+  line-height: 1.7;
 }
 
 .date-row {
@@ -197,22 +203,24 @@
 
 .submit-btn {
   justify-self: center;
-  margin-top: 0.25rem;
-  background: rgba(31, 31, 31, 0.88);
-  color: #fff;
-  border: none;
-  border-radius: 7px;
-  padding: 0.7rem 1.25rem;
-  font-size: 0.98rem;
-  font-weight: 600;
+  margin-top: 0.1rem;
+  background: transparent;
+  color: rgba(52, 41, 27, 0.96);
+  border: 1px solid rgba(88, 72, 47, 0.36);
+  border-radius: 0;
+  padding: 0.52rem 0.95rem;
+  font-size: 1rem;
+  font-weight: 500;
   font-family: 'Not A Typeface', 'Montserrat', sans-serif;
   cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+  letter-spacing: 0.02em;
+  transition: transform 0.2s ease, border-color 0.2s ease, opacity 0.2s ease;
   box-shadow: none;
 }
 
 .submit-btn:hover:not(:disabled) {
   transform: translateY(-1px);
+  border-color: rgba(52, 41, 27, 0.65);
 }
 
 .submit-btn:disabled {
@@ -246,8 +254,8 @@
   }
 
   .letter-form-popup {
-    width: min(640px, 100%);
-    height: min(95vh, 760px);
+    width: min(580px, 100%);
+    height: min(92vh, 700px);
     background-size: 100% 100%;
   }
 
@@ -257,10 +265,10 @@
   }
 
   .letter-form {
-    width: min(460px, 82%);
-    margin-top: 1.8rem;
-    margin-bottom: clamp(5.2rem, 12vh, 6.7rem);
-    max-height: calc(100% - 7.3rem);
+    width: min(390px, 72%);
+    margin-top: 2rem;
+    margin-bottom: clamp(5.8rem, 13vh, 7.2rem);
+    max-height: calc(100% - 8.2rem);
     gap: 0.62rem;
   }
 

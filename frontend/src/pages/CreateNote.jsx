@@ -12,7 +12,7 @@ const DEFAULT_FORM = {
 };
 
 
-export default function CreateNote({ onClose, onCreated }) {
+export default function CreateNote({ onClose, onCreated, isClosing = false }) {
   const [formData, setFormData] = useState(DEFAULT_FORM);
   const [errorMessage, setErrorMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -83,11 +83,8 @@ export default function CreateNote({ onClose, onCreated }) {
   };
 
   return (
-     <div className="create-note-overlay" role="dialog" aria-modal="true" aria-label="Create letter form">
-      <div className="letter-form-popup" style={{ backgroundImage: `url(${selectedEnvelope.letterBackground})` }}>
-        <button className="close-note-btn" onClick={onClose} aria-label="Close create letter form">
-          ×
-        </button>
+      <div className={`create-note-overlay ${isClosing ? "is-closing" : ""}`} role="dialog" aria-modal="true" aria-label="Create letter form">
+      <div className={`letter-form-popup ${isClosing ? "is-closing" : ""}`} style={{ backgroundImage: `url(${selectedEnvelope.letterBackground})` }}>
 
         <form className="letter-form" onSubmit={handleSubmit}>
           <h1>Seal a Letter for Later</h1>
@@ -166,6 +163,12 @@ export default function CreateNote({ onClose, onCreated }) {
                 </button>
               ))}
             </div>
+          </div>
+
+          <div className="create-note-actions">
+            <button type="button" className="submit-btn create-note-back-btn" onClick={onClose}>
+              Back to Dashboard
+            </button>
           </div>
 
           {errorMessage ? <p className="form-feedback error">{errorMessage}</p> : null}

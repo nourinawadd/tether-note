@@ -1,6 +1,7 @@
 import { useMemo } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Contact.css";
+import MusicToggleButton from "../components/ui/MusicToggleButton";
 
 const SUPPORT_EMAIL = "tethernote.app@gmail.com";
 
@@ -16,9 +17,10 @@ export default function Contact() {
           <span>Tether Note</span>
         </h1>
         <div className="nav-links">
-          <a href="/dashboard" className="nav-link">Dashboard</a>
-          <a href="/about" className="nav-link">About</a>
-          <a href="/contact" className="nav-link active">Contact</a>
+          <MusicToggleButton />
+          <Link to="/dashboard" className="nav-link">Dashboard</Link>
+          <Link to="/about" className="nav-link">About</Link>
+          <Link to="/contact" className="nav-link active">Contact</Link>
           <button className="profile-btn" onClick={() => navigate("/profile")}>
             <div className="profile-avatar">{user.name?.[0]?.toUpperCase() || "U"}</div>
           </button>

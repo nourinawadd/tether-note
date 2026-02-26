@@ -5,7 +5,7 @@ import "./NoteLetter.css";
 import { deleteNote, fetchNoteById } from "../api/auth.api";
 import { DEFAULT_ENVELOPE_STYLE, ENVELOPE_STYLE_OPTIONS } from "../constants/envelopeStyles";
 
-export default function NoteLetter({ note: providedNote = null, onClose, onDeleted }) {
+export default function NoteLetter({ note: providedNote = null, onClose, onDeleted, isClosing = false }) {
   const { noteId } = useParams();
   const navigate = useNavigate();
   const [note, setNote] = useState(providedNote);
@@ -98,8 +98,11 @@ export default function NoteLetter({ note: providedNote = null, onClose, onDelet
 
     try {
       await deleteNote(token, noteIdToLoad);
-      onDeleted?.();
-      handleClose();
+      if (onDeleted) {
+        onDeleted();
+      } else {
+        handleClose();
+      }
     } catch (deleteNoteError) {
       setDeleteError(deleteNoteError.message || "Unable to delete this note right now.");
     } finally {
@@ -276,10 +279,10 @@ export default function NoteLetter({ note: providedNote = null, onClose, onDelet
   };
 
   return (
-    <div className="create-note-overlay note-letter-overlay" role="dialog" aria-modal="true" aria-label="Opened note">
+    <div className={`create-note-overlay note-letter-overlay note-letter-animated ${isClosing ? "is-closing" : ""}`} role="dialog" aria-modal="true" aria-label="Opened note">
       <div
         ref={letterPopupRef}
-        className={`letter-form-popup note-letter-popup ${letterLengthClass}`}
+        className={`letter-form-popup note-letter-popup note-letter-animated ${letterLengthClass} ${isClosing ? "is-closing" : ""}`}
         style={{ backgroundImage: `url(${selectedEnvelope.letterBackground})` }}
       >
         <div className="note-letter-content">

@@ -1,11 +1,12 @@
 import { useState, useEffect, useCallback } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Dashboard.css";
 import WriteNoteButton from "../components/dashboard/WriteNoteButton";
 import NotesList from "../components/dashboard/NotesList";
 import CreateNote from "./CreateNote";
 import { fetchNotes as fetchNotesApi } from "../api/auth.api";
 import NoteLetter from "./NoteLetter";
+import MusicToggleButton from "../components/ui/MusicToggleButton";
 
 const promptIdeas = [
   "Letter To Your Future Self",
@@ -35,8 +36,25 @@ export default function Dashboard() {
   const [notes, setNotes] = useState({ locked: [], unlocked: [], opened: [] });
   const [loading, setLoading] = useState(true);
   const [showCreateNote, setShowCreateNote] = useState(false);
+  const [isCreateNoteClosing, setIsCreateNoteClosing] = useState(false);
   const [openedNote, setOpenedNote] = useState(null);
+  const [isOpenedNoteClosing, setIsOpenedNoteClosing] = useState(false);
   const navigate = useNavigate();
+
+  const playEnvelopeSound = useCallback((soundPath) => {
+    const sound = new Audio(soundPath);
+    sound.play().catch(() => {
+      // Ignore playback errors caused by browser autoplay restrictions.
+    });
+  }, []);
+
+  const playPaperIn = useCallback(() => {
+    playEnvelopeSound("/assets/audio/paperIn.wav");
+  }, [playEnvelopeSound]);
+
+  const playPaperOut = useCallback(() => {
+    playEnvelopeSound("/assets/audio/paperOut.wav");
+  }, [playEnvelopeSound]);
 
   // Rotate prompts every 3 seconds
   useEffect(() => {
@@ -70,11 +88,34 @@ export default function Dashboard() {
   }, [fetchNotes]);
 
   const handleCreateNote = () => {
+    playPaperIn();
+    setIsCreateNoteClosing(false);
     setShowCreateNote(true);
   };
 
   const handleNoteClick = (note) => {
+    playPaperIn();
+    setIsOpenedNoteClosing(false);
     setOpenedNote(note);
+  };
+  const handleCreateNoteClose = () => {
+    if (!showCreateNote || isCreateNoteClosing) return;
+    playPaperOut();
+    setIsCreateNoteClosing(true);
+    setTimeout(() => {
+      setShowCreateNote(false);
+      setIsCreateNoteClosing(false);
+    }, 340);
+  };
+
+  const handleOpenedNoteClose = () => {
+    if (!openedNote || isOpenedNoteClosing) return;
+    playPaperOut();
+    setIsOpenedNoteClosing(true);
+    setTimeout(() => {
+      setOpenedNote(null);
+      setIsOpenedNoteClosing(false);
+    }, 340);
   };
 
   const user = JSON.parse(localStorage.getItem("tetherUser") || "{}");
@@ -88,9 +129,10 @@ export default function Dashboard() {
           <span>Tether Note</span>
         </h1>
         <div className="nav-links">
-          <a href="/dashboard" className="nav-link active">Dashboard</a>
-          <a href="/about" className="nav-link">About</a>
-          <a href="/contact" className="nav-link">Contact</a>
+          <MusicToggleButton />
+          <Link to="/dashboard" className="nav-link active">Dashboard</Link>
+          <Link to="/about" className="nav-link">About</Link>
+          <Link to="/contact" className="nav-link">Contact</Link>
           <button className="profile-btn" onClick={() => navigate("/profile")}>
             <div className="profile-avatar">
               {user.name?.[0]?.toUpperCase() || "U"}
@@ -143,16 +185,18 @@ export default function Dashboard() {
       <footer className="dashboard-footer">Tether Note™</footer>
       {showCreateNote ? (
         <CreateNote
-          onClose={() => setShowCreateNote(false)}
+          onClose={handleCreateNoteClose}
           onCreated={fetchNotes}
+          isClosing={isCreateNoteClosing}
         />
       ) : null}
       {openedNote ? (
         <NoteLetter
           note={openedNote}
-          onClose={() => setOpenedNote(null)}
+          onClose={handleOpenedNoteClose}
+          isClosing={isOpenedNoteClosing}
           onDeleted={() => {
-            setOpenedNote(null);
+            handleOpenedNoteClose();
             fetchNotes();
           }}
         />

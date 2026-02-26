@@ -1,7 +1,8 @@
 import { useMemo, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Profile.css";
 import { updateProfile } from "../api/auth.api";
+import MusicToggleButton from "../components/ui/MusicToggleButton";
 
 const EMPTY_FORM = {
   name: "",
@@ -155,9 +156,10 @@ export default function Profile() {
           <span>Tether Note</span>
         </h1>
         <div className="nav-links">
-          <a href="/dashboard" className="nav-link">Dashboard</a>
-          <a href="/about" className="nav-link">About</a>
-          <a href="/contact" className="nav-link">Contact</a>
+          <MusicToggleButton />
+          <Link to="/dashboard" className="nav-link">Dashboard</Link>
+          <Link to="/about" className="nav-link">About</Link>
+          <Link to="/contact" className="nav-link">Contact</Link>
           <button className="profile-btn profile-btn-active" onClick={() => navigate("/profile")}>
             <div className="profile-avatar">{avatarInitial}</div>
           </button>

@@ -29,20 +29,12 @@
   animation: letterSlideUp 0.34s cubic-bezier(0.22, 0.61, 0.36, 1) both;
 }
 
-.close-note-btn {
-  position: absolute;
-  top: var(--letter-close-top);
-  right: var(--letter-close-right);
-  border: none;
-  background: transparent;
-  color: rgba(52, 41, 27, 0.92);
-  width: 28px;
-  height: 28px;
-  font-size: 1.25rem;
-  cursor: pointer;
-  box-shadow: none;
-  z-index: 3;
-  font-family: "DM Sans", "Montserrat", sans-serif;
+.create-note-overlay.is-closing {
+  animation: overlayFadeOut 0.34s ease forwards;
+}
+
+.letter-form-popup.is-closing {
+  animation: letterSlideDown 0.34s cubic-bezier(0.22, 0.61, 0.36, 1) both;
 }
 
 .letter-form {
@@ -206,6 +198,16 @@
   border: 1px solid rgba(80, 148, 84, 0.35);
 }
 
+.create-note-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 0.2rem;
+}
+
+.create-note-back-btn {
+  margin-top: 0;
+}
+
 .sent-popup {
   position: absolute;
   top: 50%;
@@ -266,6 +268,16 @@
   }
 }
 
+@keyframes letterSlideDown {
+  from {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(100%);
+  }
+}
+
 @keyframes overlayFadeIn {
   from {
     background: rgba(17, 22, 15, 0);
@@ -273,6 +285,16 @@
 
   to {
     background: rgba(17, 22, 15, 0.58);
+  }
+}
+
+@keyframes overlayFadeOut {
+  from {
+    background: rgba(17, 22, 15, 0.58);
+  }
+
+  to {
+    background: rgba(17, 22, 15, 0);
   }
 }
 

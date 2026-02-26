@@ -1,6 +1,21 @@
 .note-letter-overlay {
   z-index: 80;
 }
+.note-letter-overlay.note-letter-animated {
+  animation: noteOverlayFadeIn 0.35s ease forwards;
+}
+
+.note-letter-popup.note-letter-animated {
+  animation: noteLetterSlideUp 0.34s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+
+.note-letter-overlay.note-letter-animated.is-closing {
+  animation: noteOverlayFadeOut 0.34s ease forwards;
+}
+
+.note-letter-popup.note-letter-animated.is-closing {
+  animation: noteLetterSlideDown 0.34s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
 
 .note-letter-popup {
   --letter-close-right: clamp(0.65rem, 2.2vw, 1.65rem);
@@ -195,6 +210,47 @@
 
 .delete-popup-btn {
   margin-top: 0;
+}
+
+
+@keyframes noteLetterSlideUp {
+  from {
+    transform: translateY(100%);
+  }
+
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes noteLetterSlideDown {
+  from {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(100%);
+  }
+}
+
+@keyframes noteOverlayFadeIn {
+  from {
+    background: rgba(17, 22, 15, 0);
+  }
+
+  to {
+    background: rgba(17, 22, 15, 0.58);
+  }
+}
+
+@keyframes noteOverlayFadeOut {
+  from {
+    background: rgba(17, 22, 15, 0.58);
+  }
+
+  to {
+    background: rgba(17, 22, 15, 0);
+  }
 }
 
 @media (max-width: 768px) {

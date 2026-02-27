@@ -1,5 +1,5 @@
 import { createContext, createElement, useCallback, useContext, useEffect, useMemo, useState } from "react";
-import useSound from "use-sound";
+import useSound from "../../vendor/use-sound/index.js";
 
 const STORAGE_KEY = "tetherBackgroundAudioMuted";
 const INTERACTION_KEY = "tetherBackgroundAudioInteracted";

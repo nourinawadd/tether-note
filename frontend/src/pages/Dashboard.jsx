@@ -7,6 +7,8 @@ import CreateNote from "./CreateNote";
 import { fetchNotes as fetchNotesApi } from "../api/auth.api";
 import NoteLetter from "./NoteLetter";
 import MusicToggleButton from "../components/ui/MusicToggleButton";
+import { getUserInitials } from "../utils/userInitials";
+import { BRAND_LOGO_PATH } from "../constants/branding";
 
 const promptIdeas = [
   "Letter To Your Future Self",
@@ -125,7 +127,7 @@ export default function Dashboard() {
       {/* Navigation */}
       <nav className="dashboard-nav">
           <h1 className="brand-title">
-          <img src="/assets/images/tether-note-logo.svg" alt="Tether Note logo" className="brand-logo" />
+          <img src={BRAND_LOGO_PATH} alt="Tether Note logo" className="brand-logo" />
           <span>Tether Note</span>
         </h1>
         <div className="nav-links">
@@ -135,7 +137,7 @@ export default function Dashboard() {
           <Link to="/contact" className="nav-link">Contact</Link>
           <button className="profile-btn" onClick={() => navigate("/profile")}>
             <div className="profile-avatar">
-              {user.name?.[0]?.toUpperCase() || "U"}
+              {getUserInitials(user.name)}
             </div>
           </button>
         </div>

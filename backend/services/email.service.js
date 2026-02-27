@@ -20,71 +20,76 @@ html: `
 <head>
 <meta charset="UTF-8">
 </head>
-<body style="margin:0;padding:0;background:#eef1ed;font-family:'Merriweather', Georgia, serif;">
+<body style="margin:0;padding:0;background:#ffffff;font-family:'Merriweather', Georgia, serif;">
 
-  <table width="100%" cellpadding="0" cellspacing="0" style="padding:40px 0;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="padding:32px 0;">
     <tr>
       <td align="center">
 
-        <!-- Card -->
-        <table width="600" cellpadding="0" cellspacing="0" 
-          style="background:#ffffff;border-radius:16px;overflow:hidden;
-          box-shadow:0 10px 30px rgba(0,0,0,0.06);">
+        <table width="540" cellpadding="0" cellspacing="0"
+          style="background:#ffffff;">
 
-          <!-- Header Strip -->
+          <!-- Logo -->
           <tr>
-            <td style="background:linear-gradient(90deg,#4b5d3a,#61734d);padding:24px;text-align:center;">
-              <img src="https://yourdomain.com/logo.png" 
-                   alt="Tether Note Logo" 
-                   width="120" 
-                   style="display:block;margin:0 auto;">
+            <td style="padding:12px 32px 0 32px;text-align:left;">
+              <img src="https://res.cloudinary.com/dhptvgccp/image/upload/fl_preserve_transparency/v1772211425/email-logo.jpg?_s=public-apps"
+                   alt="Tether Note Logo"
+                   width="200"
+                   style="display:block;">
+            </td>
+          </tr>
+
+          <!-- Accent Line -->
+          <tr>
+            <td style="padding:14px 32px 0 32px;">
+              <div style="height:2px;background:#4b5d3a;width:48px;"></div>
             </td>
           </tr>
 
           <!-- Content -->
           <tr>
-            <td style="padding:40px;">
+            <td style="padding:20px 32px 28px 32px;">
 
-              <h2 style="margin:0 0 20px 0;font-size:26px;color:#111827;font-family:'Playfair Display', Georgia, serif;">
-                Reminder
+              <h2 style="margin:0 0 18px 0;
+                         font-size:22px;
+                         color:#111827;
+                         font-family:'Playfair Display', Georgia, serif;
+                         font-weight:600;">
+                Reminder: Upcoming Note
               </h2>
 
-              <p style="font-size:16px;color:#4b5563;line-height:1.7;margin-bottom:16px;">
+              <p style="font-size:15px;color:#374151;line-height:1.6;margin-bottom:14px;">
                 Hi ${userName},
               </p>
 
-              <p style="font-size:16px;color:#4b5563;line-height:1.7;margin-bottom:16px;">
-                Just a quick reminder about your note 
-                <strong>"${note.title}"</strong>.
+              <p style="font-size:15px;color:#374151;line-height:1.6;margin-bottom:14px;">
+                Your note titled <strong>"${note.title}"</strong> is scheduled
+                to unlock on <strong>${note.openAt.toLocaleString()}</strong>.
               </p>
 
-              <p style="font-size:16px;color:#4b5563;line-height:1.7;margin-bottom:16px;">
-                It’s scheduled to unlock on:
+              <p style="font-size:14px;color:#6b7280;line-height:1.6;margin-bottom:24px;">
+                Preview:
+                <br><br>
+                "${note.content.substring(0, 140)}..."
               </p>
 
-              <p style="font-size:16px;color:#111827;font-weight:600;margin:12px 0 24px 0;">
-                ${note.openAt.toLocaleString()}
-              </p>
+              <a href="${process.env.FRONTEND_URL}/notes/${note._id}"
+                 style="background:#4b5d3a;
+                 color:#ffffff;
+                 padding:9px 18px;
+                 border-radius:5px;
+                 text-decoration:none;
+                 font-size:14px;
+                 font-weight:500;
+                 display:inline-block;">
+                 View Note
+              </a>
 
-              <p style="font-size:15px;color:#6b7280;line-height:1.7;">
-                Preview: ${note.content.substring(0, 120)}...
-              </p>
-
-              <div style="text-align:center;margin:30px 0;">
-                <a href="${process.env.FRONTEND_URL}/notes/${note._id}"
-                   style="background:linear-gradient(135deg,#4b5d3a,#61734d);
-                   color:#ffffff;padding:16px 32px;border-radius:12px;
-                   text-decoration:none;font-size:16px;font-weight:600;
-                   display:inline-block;transition:all 0.3s ease;">
-                   View Note
-                </a>
+              <div style="margin-top:32px;border-top:1px solid #e5e7eb;padding-top:14px;">
+                <p style="font-size:12px;color:#9ca3af;margin:0;">
+                  © Tether Note
+                </p>
               </div>
-
-              <hr style="border:none;border-top:1px solid #e5e7eb;margin:30px 0;">
-
-              <p style="font-size:13px;color:#9ca3af;text-align:center;">
-                Tether Note
-              </p>
 
             </td>
           </tr>
@@ -120,59 +125,70 @@ html: `
 <head>
 <meta charset="UTF-8">
 </head>
-<body style="margin:0;padding:0;background:#eef1ed;font-family:'Merriweather', Georgia, serif;">
+<body style="margin:0;padding:0;background:#ffffff;font-family:'Merriweather', Georgia, serif;">
 
-  <table width="100%" cellpadding="0" cellspacing="0" style="padding:40px 0;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="padding:32px 0;">
     <tr>
       <td align="center">
 
-        <!-- Card -->
-        <table width="600" cellpadding="0" cellspacing="0" 
-          style="background:#ffffff;border-radius:16px;overflow:hidden;
-          box-shadow:0 10px 30px rgba(0,0,0,0.06);">
+        <table width="540" cellpadding="0" cellspacing="0"
+          style="background:#ffffff;">
 
-          <!-- Header Strip -->
+          <!-- Logo -->
           <tr>
-            <td style="background:linear-gradient(90deg,#4b5d3a,#61734d);padding:24px;text-align:center;">
-              <img src="https://yourdomain.com/logo.png" 
-                   alt="Tether Note Logo" 
-                   width="120" 
-                   style="display:block;margin:0 auto;">
+            <td style="padding:12px 32px 0 32px;text-align:left;">
+              <img src="https://res.cloudinary.com/dhptvgccp/image/upload/fl_preserve_transparency/v1772211425/email-logo.jpg?_s=public-apps"
+                   alt="Tether Note Logo"
+                   width="200"
+                   style="display:block;">
+            </td>
+          </tr>
+
+          <!-- Accent Line -->
+          <tr>
+            <td style="padding:14px 32px 0 32px;">
+              <div style="height:2px;background:#4b5d3a;width:48px;"></div>
             </td>
           </tr>
 
           <!-- Content -->
           <tr>
-            <td style="padding:40px;">
+            <td style="padding:20px 32px 28px 32px;">
 
-              <h2 style="margin:0 0 20px 0;font-size:26px;color:#111827;font-family:'Playfair Display', Georgia, serif;">
-                Your Note Is Unlocked
+              <h2 style="margin:0 0 18px 0;
+                         font-size:22px;
+                         color:#111827;
+                         font-family:'Playfair Display', Georgia, serif;
+                         font-weight:600;">
+                Your Note Is Now Available
               </h2>
 
-              <p style="font-size:16px;color:#4b5563;line-height:1.7;margin-bottom:16px;">
+              <p style="font-size:15px;color:#374151;line-height:1.6;margin-bottom:14px;">
                 Hi ${userName},
               </p>
 
-              <p style="font-size:16px;color:#4b5563;line-height:1.7;margin-bottom:32px;">
-                The note you scheduled, 
-                <strong>"${note.title}"</strong>, is now available.
+              <p style="font-size:15px;color:#374151;line-height:1.6;margin-bottom:18px;">
+                Your scheduled note <strong>"${note.title}"</strong> is now available.
+                You can access it directly from your dashboard.
               </p>
 
-              <div style="text-align:center;margin:30px 0;">
-                <a href="${process.env.FRONTEND_URL}/notes/${note._id}"
-                   style="background:linear-gradient(135deg,#4b5d3a,#61734d);
-                   color:#ffffff;padding:16px 32px;border-radius:12px;
-                   text-decoration:none;font-size:16px;font-weight:600;
-                   display:inline-block;transition:all 0.3s ease;">
-                   Open Note
-                </a>
+              <a href="${process.env.FRONTEND_URL}/notes/${note._id}"
+                 style="background:#4b5d3a;
+                 color:#ffffff;
+                 padding:9px 18px;
+                 border-radius:5px;
+                 text-decoration:none;
+                 font-size:14px;
+                 font-weight:500;
+                 display:inline-block;">
+                 Open Note
+              </a>
+
+              <div style="margin-top:32px;border-top:1px solid #e5e7eb;padding-top:14px;">
+                <p style="font-size:12px;color:#9ca3af;margin:0;">
+                  © Tether Note
+                </p>
               </div>
-
-              <hr style="border:none;border-top:1px solid #e5e7eb;margin:30px 0;">
-
-              <p style="font-size:13px;color:#9ca3af;text-align:center;">
-                Tether Note
-              </p>
 
             </td>
           </tr>

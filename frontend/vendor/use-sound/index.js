@@ -66,5 +66,5 @@ export default function useSound(src, options = {}) {
     audioRef.current.pause();
   }, []);
 
-  return useMemo(() => [play, { stop, pause, sound: audioRef.current }], [pause, play, stop]);
+  return useMemo(() => [play, { stop, pause }], [pause, play, stop]);
 }

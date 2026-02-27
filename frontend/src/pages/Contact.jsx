@@ -2,6 +2,7 @@ import { useMemo } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./Contact.css";
 import MusicToggleButton from "../components/ui/MusicToggleButton";
+import { BRAND_LOGO_PATH } from "../constants/branding";
 
 const SUPPORT_EMAIL = "tethernote.app@gmail.com";
 
@@ -13,7 +14,7 @@ export default function Contact() {
     <div className="dashboard-container">
       <nav className="dashboard-nav">
         <h1 className="brand-title">
-          <img src="/assets/images/tether-note-logo.svg" alt="Tether Note logo" className="brand-logo" />
+          <img src={BRAND_LOGO_PATH} alt="Tether Note logo" className="brand-logo" />
           <span>Tether Note</span>
         </h1>
         <div className="nav-links">

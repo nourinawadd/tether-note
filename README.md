@@ -83,12 +83,33 @@ cd frontend
 npm run dev
 ```
 
-## ✦ Deployment Notes (Render)
-- Deploy backend as a **Web Service**.
-- Set backend environment variables in Render dashboard.
-- Deploy frontend as a **Static Site**.
-- Point frontend API base URL to your deployed backend URL.
-- Set `FRONTEND_URL` (or `FRONTEND_URLS`) on backend to the deployed frontend origin for CORS.
+## ✦ Deployment (Frontend on Vercel + Backend on Railway)
+
+### Backend (Railway)
+1. Create a **Web Service** from this repo and set **Root Directory** to `backend`.
+2. Railway will run `npm install` and `npm start` (already in `backend/package.json`).
+3. In Railway Variables, set:
+   - `NODE_ENV=production`
+   - `DB_URI=...`
+   - `JWT_SECRET=...`
+   - `JWT_EXPIRES_IN=7d`
+   - `EMAIL_USER=...`
+   - `EMAIL_PASSWORD=...`
+   - `FRONTEND_URL=https://<your-vercel-domain>`
+   - `FRONTEND_URLS=https://<your-vercel-domain>`
+   - `PORT` is injected automatically by Railway.
+4. Copy your backend public URL, e.g. `https://your-backend.up.railway.app`.
+
+### Frontend (Vercel)
+1. Import this repo in Vercel and set **Root Directory** to `frontend`.
+2. Build settings can stay default for Vite (`npm run build`, output `dist`).
+3. In Vercel Project Environment Variables, set:
+   - `VITE_API_URL=https://<your-backend>.up.railway.app`
+4. Redeploy after env changes.
+
+### CORS reminder
+- Backend CORS allows origins listed in `FRONTEND_URLS` (comma-separated) or `FRONTEND_URL`.
+- If you use a custom Vercel domain, add that domain to `FRONTEND_URLS` too.
 
 ## ✦ API Highlights
 - `POST /auth/sign-up`

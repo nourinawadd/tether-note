@@ -18,6 +18,7 @@ Tether Note lets users create time-locked notes, receive reminders before unlock
 - MongoDB + Mongoose
 - JWT-based authentication
 - Nodemailer + cron-based reminder service
+- Docker (containerised for deployment)
 
 ## ✦ Core Features
 - Secure sign up/sign in flow
@@ -36,14 +37,28 @@ Tether Note lets users create time-locked notes, receive reminders before unlock
 │   ├── middleware
 │   ├── models
 │   ├── routes
-│   └── services
+│   ├── services
+│   ├── app.js
+│   └── Dockerfile
 └── frontend
-    ├── src
-    │   ├── components
-    │   ├── pages
-    │   ├── hooks
-    │   └── api
-    └── public
+    ├── public
+    │   └── assets
+    │       ├── images
+    │       │   └── envelopes
+    │       ├── fonts
+    │       └── audio
+    └── src
+        ├── api
+        ├── components
+        │   ├── auth
+        │   ├── dashboard
+        │   └── ui
+        ├── constants
+        ├── hooks
+        ├── pages
+        ├── styles
+        ├── utils
+        └── App.jsx
 ```
 
 ## ✦ Local Development
@@ -62,12 +77,11 @@ Create `backend/.env` with:
 PORT=5000
 MONGO_URI=your_mongodb_connection_string
 JWT_SECRET=your_jwt_secret
+JWT_EXPIRES_IN=7d
 FRONTEND_URL=http://localhost:5173
-SMTP_HOST=your_smtp_host
-SMTP_PORT=587
-SMTP_USER=your_email_user
-SMTP_PASS=your_email_password
-FROM_EMAIL=your_from_email
+FRONTEND_URLS=http://localhost:5173
+EMAIL_USER=your_gmail_address
+EMAIL_PASSWORD=your_gmail_app_password
 ```
 
 ### 3) Run the app
@@ -83,45 +97,98 @@ cd frontend
 npm run dev
 ```
 
-## ✦ Deployment (Frontend on Vercel + Backend on Railway)
+## ✦ Deployment (Frontend on Vercel + Backend on Render via Docker)
 
-### Backend (Railway)
-1. Create a **Web Service** from this repo and set **Root Directory** to `backend`.
-2. Railway will run `npm install` and `npm start` (already in `backend/package.json`).
-3. In Railway Variables, set:
+### Backend — Docker + Render (free, no credit card required)
+
+#### Step 1: Build and test the Docker image locally
+Make sure Docker Desktop is running, then from inside the `backend/` folder:
+
+```bash
+docker build -t tether-note-backend:latest .
+```
+
+Test it locally:
+```bash
+docker run --name tether-backend -d -p 5000:5000 \
+  -e PORT=5000 \
+  -e MONGO_URI=your_mongo_uri \
+  -e JWT_SECRET=your_secret \
+  -e JWT_EXPIRES_IN=7d \
+  -e EMAIL_USER=your_email \
+  -e EMAIL_PASSWORD=your_password \
+  -e FRONTEND_URL=http://localhost:5173 \
+  tether-note-backend
+```
+
+Visit `http://localhost:5000/health` to confirm it's running.
+
+#### Step 2: Push to Docker Hub
+```bash
+# Log in
+docker login -u your_dockerhub_username
+
+# Tag the image
+docker tag tether-note-backend:latest your_dockerhub_username/tether-note-backend:latest
+
+# Push
+docker push your_dockerhub_username/tether-note-backend:latest
+```
+
+#### Step 3: Deploy on Render
+1. Go to [render.com](https://render.com) and log in (no credit card needed for free tier).
+2. Click **New → Web Service**.
+3. Choose **"Deploy an existing image from a registry"**.
+4. Enter your image URL: `docker.io/your_dockerhub_username/tether-note-backend:latest`
+5. Give it a name, pick a region, select the **Free** instance type.
+6. Under **Environment Variables**, add:
    - `NODE_ENV=production`
-   - `DB_URI=...`
+   - `PORT=5000`
+   - `MONGO_URI=...`
    - `JWT_SECRET=...`
    - `JWT_EXPIRES_IN=7d`
    - `EMAIL_USER=...`
    - `EMAIL_PASSWORD=...`
    - `FRONTEND_URL=https://<your-vercel-domain>`
    - `FRONTEND_URLS=https://<your-vercel-domain>`
-   - `PORT` is injected automatically by Railway.
-4. Copy your backend public URL, e.g. `https://your-backend.up.railway.app`.
+7. Click **Deploy**. Render will give you a public URL like `https://tether-note-backend.onrender.com`.
 
-### Frontend (Vercel)
+#### Updating the backend
+Rebuild and push a new image — Render will automatically redeploy:
+```bash
+docker build -t tether-note-backend:latest .
+docker tag tether-note-backend:latest your_dockerhub_username/tether-note-backend:latest
+docker push your_dockerhub_username/tether-note-backend:latest
+```
+
+> **Note:** Render's free tier spins down after 15 minutes of inactivity. The first request after idle may be slow while the instance wakes up.
+
+---
+
+### Frontend — Vercel
 1. Import this repo in Vercel and set **Root Directory** to `frontend`.
 2. Build settings can stay default for Vite (`npm run build`, output `dist`).
 3. In Vercel Project Environment Variables, set:
-   - `VITE_API_URL=https://<your-backend>.up.railway.app`
+   - `VITE_API_URL=https://<your-render-backend-url>`
 4. Redeploy after env changes.
 
 ### CORS reminder
-- Backend CORS allows origins listed in `FRONTEND_URLS` (comma-separated) or `FRONTEND_URL`.
-- If you use a custom Vercel domain, add that domain to `FRONTEND_URLS` too.
+Backend CORS allows origins listed in `FRONTEND_URLS` (comma-separated) or `FRONTEND_URL`. If you use a custom Vercel domain, add it to `FRONTEND_URLS`.
 
 ## ✦ API Highlights
 - `POST /auth/sign-up`
 - `POST /auth/sign-in`
 - `GET /user` (auth required)
+- `PUT /user` (auth required)
 - `GET /notes` (auth required)
 - `POST /notes` (auth required)
+- `GET /notes/:id` (auth required)
+- `DELETE /notes/:id` (auth required)
 - `GET /health`
 
 ## ✦ Credits
 - Product & development: **Nourin Awad**
-- Built with: React, Vite, Node.js, Express, MongoDB, Mongoose
+- Built with: React, Vite, Node.js, Express, MongoDB, Mongoose, Docker
 - Audio helper package: [`use-sound`](https://www.npmjs.com/package/use-sound)
 
 ## ✦ License

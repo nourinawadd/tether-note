@@ -75,7 +75,7 @@ Create `backend/.env` with:
 
 ```env
 PORT=5000
-MONGO_URI=your_mongodb_connection_string
+DB_URI=your_mongodb_connection_string
 JWT_SECRET=your_jwt_secret
 JWT_EXPIRES_IN=7d
 FRONTEND_URL=http://localhost:5173
@@ -99,7 +99,7 @@ npm run dev
 
 ## ✦ Deployment (Frontend on Vercel + Backend on Render via Docker)
 
-### Backend — Docker + Render (free, no credit card required)
+### Backend — Docker + Render
 
 #### Step 1: Build and test the Docker image locally
 Make sure Docker Desktop is running, then from inside the `backend/` folder:

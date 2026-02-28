@@ -25,7 +25,7 @@ const frontendOrigins = allowedOrigins.length > 0 ? allowedOrigins : defaultFron
 const corsMiddleware = (req, res, next) => {
     const requestOrigin = req.headers.origin;
 
-    if (requestOrigin && frontendOrigins.includes(requestOrigin)) {
+    if (requestOrigin && (frontendOrigins.includes(requestOrigin) || requestOrigin.endsWith('.vercel.app'))) {
         res.header('Access-Control-Allow-Origin', requestOrigin);
         res.header('Vary', 'Origin');
     }

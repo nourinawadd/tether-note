@@ -1,6 +1,7 @@
 import 'dotenv/config.js'
 import nodemailer from 'nodemailer';
 
+const frontendBaseUrl = (process.env.FRONTEND_URL || 'http://localhost:5173').replace(/\/$/, '');
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
@@ -73,7 +74,7 @@ html: `
                 "${note.content.substring(0, 140)}..."
               </p>
 
-              <a href="${process.env.FRONTEND_URL}/notes/${note._id}"
+              <a href="${frontendBaseUrl}/note/${note._id}"
                  style="background:#4b5d3a;
                  color:#ffffff;
                  padding:9px 18px;
@@ -172,7 +173,7 @@ html: `
                 You can access it directly from your dashboard.
               </p>
 
-              <a href="${process.env.FRONTEND_URL}/notes/${note._id}"
+              <a href="${frontendBaseUrl}/note/${note._id}"
                  style="background:#4b5d3a;
                  color:#ffffff;
                  padding:9px 18px;

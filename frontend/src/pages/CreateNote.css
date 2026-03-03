@@ -311,9 +311,7 @@
     max-width: 100%;
     aspect-ratio: 47 / 43;
     background-size: cover;
-  }
 
-  .letter-form-popup {
     --letter-close-right: 0.6rem;
     --letter-close-top: 0.55rem;
   }
@@ -328,5 +326,40 @@
 
   .date-row {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .create-note-overlay {
+    padding: 0.3rem 0.3rem 0;
+  }
+
+  .letter-form-popup {
+    height: min(95vh, 680px);
+    min-height: 74vh;
+  }
+
+  .letter-form {
+    width: min(390px, 82%);
+    margin-top: 1.05rem;
+    margin-bottom: 3.9rem;
+    max-height: calc(100% - 5rem);
+    gap: 0.5rem;
+  }
+
+  .letter-form h1 {
+    font-size: 1.2rem;
+  }
+
+  .form-subtitle,
+  .letter-form label,
+  .letter-form input,
+  .letter-form textarea {
+    font-size: 0.85rem;
+  }
+
+  .envelope-style-row {
+    align-items: flex-start;
+    flex-direction: column;
   }
 }

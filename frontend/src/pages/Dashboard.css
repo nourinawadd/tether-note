@@ -8,7 +8,7 @@
 }
 
 .dashboard-container {
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   background:
@@ -19,7 +19,8 @@
   background-repeat: no-repeat;
   font-family: 'Montserrat', sans-serif;
   font-weight: 450;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 /* ===== NAVIGATION ===== */
@@ -125,7 +126,8 @@
   display: flex;
   flex-direction: column;
   min-height: 0;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 .create-section {
@@ -152,7 +154,8 @@
   display: flex;
   flex-direction: column;
   height: 100%;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 .section-header {
@@ -206,38 +209,84 @@
 
 @media (max-width: 768px) {
   .dashboard-nav {
-    padding: 1rem 1.5rem;
+    padding: 1rem;
+    flex-wrap: wrap;
+    gap: 0.8rem;
   }
 
   .brand-title {
     font-size: 1.5rem;
+    width: 100%;
+    justify-content: center;
   }
 
   .nav-links {
-    gap: 1rem;
+    width: 100%;
+    gap: 0.65rem;
+    justify-content: center;
+    flex-wrap: wrap;
   }
 
   .nav-link {
     font-size: 0.9rem;
+    padding: 0.2rem 0.35rem;
   }
 
   .dashboard-main {
-    padding: 2rem 1rem;
+    padding: 1.25rem 0.9rem 1.75rem;
+    overflow: visible;
+  }
+
+  .create-section {
+    margin-bottom: 1.4rem;
+  }
+
+  .notes-grid {
+    gap: 1rem;
   }
 
   .notes-section {
-    padding: 1.5rem;
-    min-height: 20rem;
+    padding: 1rem;
+    min-height: 17rem;
+  }
+
+  .section-header {
+    margin-bottom: 1rem;
+    padding-bottom: 0.7rem;
   }
 
   .section-header h2 {
-    font-size: 1.4rem;
+    font-size: 1.25rem;
   }
 }
 
 @media (max-width: 480px) {
-  .nav-link:not(.active) {
-    display: none;
+  .brand-title {
+    font-size: 1.3rem;
+  }
+
+  .dashboard-nav {
+    position: sticky;
+    top: 0;
+  }
+
+  .nav-links {
+    justify-content: space-between;
+  }
+
+  .nav-link {
+    font-size: 0.82rem;
+  }
+
+  .profile-avatar {
+    width: 40px;
+    height: 40px;
+    font-size: 0.9rem;
+  }
+
+  .dashboard-footer {
+    font-size: 0.72rem;
+    padding-bottom: 1.2rem;
   }
 }
 

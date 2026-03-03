@@ -39,7 +39,7 @@ export default function App() {
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/note/:noteId" element={<NoteLetter />} />
-        <Route path="/" element={<Navigate to="/signin" />} />
+        <Route path="/" element={<Navigate to="/signup" />} />
       </Routes>
     </BackgroundAudioProvider>
   );

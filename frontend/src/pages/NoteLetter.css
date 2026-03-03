@@ -287,3 +287,39 @@
     flex-direction: column;
   }
 }
+
+@media (max-width: 480px) {
+  .note-letter-popup {
+    width: 98vw;
+    height: min(calc(100vh - 30px), 680px);
+    max-height: calc(100vh - 30px);
+    min-height: min(68vh, 560px);
+  }
+
+  .note-letter-content {
+    width: min(330px, 82%);
+    margin-top: 1.2rem;
+    margin-bottom: 4.9rem;
+    max-height: calc(100% - 6.3rem);
+  }
+
+  .note-letter-paper h1 {
+    font-size: 1.25rem;
+  }
+
+  .note-letter-greeting,
+  .note-letter-signoff,
+  .note-letter-signature,
+  .note-letter-body {
+    font-size: 0.85rem;
+  }
+
+  .delete-popup-actions,
+  .note-letter-actions {
+    width: 100%;
+  }
+
+  .delete-popup-actions {
+    flex-direction: column;
+  }
+}

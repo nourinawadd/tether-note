@@ -17,7 +17,7 @@ const LINKS = [
   },
   {
     label: "CV",
-    href: "https://drive.google.com/file/d/1PZ_laUv_JXOZz9jb_UccHs9V7gyTC_u-/view?usp=sharing",
+    href: "https://drive.google.com/file/d/1mgfm7rk0PY5Ykl14V9EWjbvRvDQB4QPe/view?usp=sharing",
     note: "Read my resume",
   },
 ];

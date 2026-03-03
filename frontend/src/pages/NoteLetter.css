@@ -22,7 +22,9 @@
   --letter-close-top: clamp(0.55rem, 1.6vw, 0.9rem);
   width: min(900px, 96vw);
   height: min(calc(100vh - 72px), 860px);
+  height: min(calc(100dvh - 72px), 860px);
   max-height: calc(100vh - 72px);
+  max-height: calc(100dvh - 72px);
   min-height: min(76vh, 700px);
 }
 
@@ -256,7 +258,9 @@
 @media (max-width: 768px) {
   .note-letter-popup {
     height: min(calc(100vh - 56px), 760px);
+    height: min(calc(100dvh - 56px), 760px);
     max-height: calc(100vh - 56px);
+    max-height: calc(100dvh - 56px);
     min-height: min(72vh, 640px);
   }
 
@@ -292,7 +296,9 @@
   .note-letter-popup {
     width: 98vw;
     height: min(calc(100vh - 30px), 680px);
+    height: min(calc(100dvh - 30px), 680px);
     max-height: calc(100vh - 30px);
+    max-height: calc(100dvh - 30px);
     min-height: min(68vh, 560px);
   }
 

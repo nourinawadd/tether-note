@@ -4,19 +4,17 @@ import User from '../models/user.model.js';
 import { sendReminderEmail, sendNoteUnlockedEmail } from './email.service.js';
 
 export const startReminderService = () => {
-    // check every hour from reminders
+    // check every minute from reminders
     cron.schedule('* * * * *', async () => {
         console.log('Checking for reminders...');
         const now = new Date();
-        const oneHourFromNow = new Date(now.getTime() + 60 * 60 * 1000);
-
         try {
-            // find notes w/ reminders due in the next hour
+            // find notes w/ reminders that are already due
             const notesToRemind = await Note.find({ 
                 status: 'pending', 
                 reminderAt: { 
-                    $gte: now, 
-                    $lte: oneHourFromNow 
+                    $type: 'date',
+                    $lte: now
                 }})
                 .populate('userId');
 
@@ -30,11 +28,11 @@ export const startReminderService = () => {
                 }
         }
         catch(e) {
-            console.error('Error in reminder service!');
+            console.error('Error in reminder service!', e);
         }
     });
 
-    // check every hour for notes to be unlocked
+    // check every minute for notes to be unlocked
     cron.schedule('* * * * *', async () => {
         console.log('Checking for notes to unlock...');
         const now = new Date();

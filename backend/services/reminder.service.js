@@ -38,7 +38,6 @@ export const processUnlockEmails = async (now = new Date()) => {
         openAt: { $lte: now },
         unlockEmailSent: false
     });
-
     let sentCount = 0;
 
     for (const note of notesToUnlock) {

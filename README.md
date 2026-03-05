@@ -114,7 +114,7 @@ Test it locally:
 ```bash
 docker run --name tether-backend -d -p 5000:5000 \
   -e PORT=5000 \
-  -e MONGO_URI=your_mongo_uri \
+  -e DB_URI=your_mongo_uri \
   -e JWT_SECRET=your_secret \
   -e JWT_EXPIRES_IN=7d \
   -e EMAIL_USER=your_email \
@@ -146,7 +146,7 @@ docker push your_dockerhub_username/tether-note-backend:latest
 6. Under **Environment Variables**, add:
    - `NODE_ENV=production`
    - `PORT=5000`
-   - `MONGO_URI=...`
+   - `DB_URI=...`
    - `JWT_SECRET=...`
    - `JWT_EXPIRES_IN=7d`
    - `EMAIL_USER=...`

@@ -6,7 +6,7 @@ import noteRouter from './routes/note.routes.js';
 import connectToDatabase from './database/mongodb.js';
 import authorize from './middleware/auth.middleware.js';
 import errorMiddleware from './middleware/error.middleware.js';
-import { startReminderService } from './services/reminder.service.js';
+import { processEmailJobs, startReminderService } from './services/reminder.service.js';
 
 const app = express();
 
@@ -48,6 +48,51 @@ app.use('/auth', authRouter);
 app.use('/user', authorize, userRouter);
 app.use('/notes', authorize, noteRouter);
 
+const isAuthorizedJobTrigger = (req, expectedToken) => {
+    const headerToken = req.headers['x-job-secret'];
+    const queryToken = req.query?.secret;
+    const authHeader = req.headers.authorization;
+    const bearerToken = authHeader?.startsWith('Bearer ') ? authHeader.slice(7).trim() : undefined;
+
+    return headerToken === expectedToken || queryToken === expectedToken || bearerToken === expectedToken;
+};
+
+const handleProcessEmails = async (req, res) => {
+    const expectedToken = process.env.JOB_SECRET || process.env.CRON_SECRET;
+
+    if (!expectedToken) {
+        return res.status(503).json({
+            success: false,
+            message: 'Background jobs are not configured. Set JOB_SECRET or CRON_SECRET.'
+        });
+    }
+
+    if (!isAuthorizedJobTrigger(req, expectedToken)) {
+        return res.status(401).json({
+            success: false,
+            message: 'Unauthorized job trigger'
+        });
+    }
+
+    try {
+        const result = await processEmailJobs();
+        return res.status(200).json({
+            success: true,
+            ...result
+        });
+    }
+    catch (e) {
+        return res.status(500).json({
+            success: false,
+            message: 'Failed to process email jobs',
+            error: e.message
+        });
+    }
+};
+
+app.post('/jobs/process-emails', handleProcessEmails);
+app.get('/jobs/process-emails', handleProcessEmails);
+
 // health check
 app.get('/health', (req, res) => {
     res.status(200).json({
@@ -81,7 +126,8 @@ app.get('/', (req, res) => {
                 deleteNote: 'DELETE /notes/:id (requires auth)'
             },
             system: {
-                health: 'GET /health'
+                health: 'GET /health',
+                processEmails: 'POST|GET /jobs/process-emails (JOB_SECRET / CRON_SECRET required)'
             }
         }
     })
@@ -99,6 +145,8 @@ if (process.env.NODE_ENV !== 'production') {
   });
 } else {
   connectToDatabase();
-  startReminderService();
+  if (!process.env.VERCEL) {
+    startReminderService();
+  }
 }
 export default app;

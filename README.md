@@ -82,6 +82,8 @@ FRONTEND_URL=http://localhost:5173
 FRONTEND_URLS=http://localhost:5173
 EMAIL_USER=your_gmail_address
 EMAIL_PASSWORD=your_gmail_app_password
+JOB_SECRET=a_long_random_secret_for_manual_triggers
+CRON_SECRET=a_long_random_secret_for_vercel_cron
 ```
 
 ### 3) Run the app
@@ -171,6 +173,20 @@ docker push your_dockerhub_username/tether-note-backend:latest
 3. In Vercel Project Environment Variables, set:
    - `VITE_API_URL=https://<your-render-backend-url>`
 4. Redeploy after env changes.
+
+### Scheduler reminder for production
+If your backend can sleep (free tier) or runs on serverless, in-process `node-cron` may not run continuously.
+
+For Vercel deployments, this repo now includes a Vercel Cron schedule in `backend/vercel.json` that calls:
+- `GET /jobs/process-emails` every 5 minutes
+
+Set `CRON_SECRET` in Vercel project environment variables. Vercel Cron sends this as a bearer token automatically.
+
+For manual/external triggers (cron-job.org, Render Cron, GitHub Actions, etc.), call:
+- `POST /jobs/process-emails`
+- Header: `x-job-secret: <JOB_SECRET>` (or `Authorization: Bearer <JOB_SECRET>`)
+
+This guarantees reminder/unlock emails are processed even when the app is not always-on.
 
 ### CORS reminder
 Backend CORS allows origins listed in `FRONTEND_URLS` (comma-separated) or `FRONTEND_URL`. If you use a custom Vercel domain, add it to `FRONTEND_URLS`.

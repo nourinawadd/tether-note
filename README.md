@@ -178,7 +178,7 @@ docker push your_dockerhub_username/tether-note-backend:latest
 If your backend can sleep (free tier) or runs on serverless, in-process `node-cron` may not run continuously.
 
 For Vercel deployments, this repo now includes a Vercel Cron schedule in `backend/vercel.json` that calls:
-- `GET /jobs/process-emails` every 5 minutes
+- `GET /jobs/process-emails` once per day
 
 Set `CRON_SECRET` in Vercel project environment variables. Vercel Cron sends this as a bearer token automatically.
 

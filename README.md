@@ -1,4 +1,4 @@
-# Tether Note
+# [Tether Note](https://tethernote.vercel.app/)
 
 A full-stack web app for writing notes to your future self and unlocking them at a chosen date.
 
